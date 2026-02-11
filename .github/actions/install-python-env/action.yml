@@ -1,0 +1,20 @@
+name: Install uv
+description: "Install uv and project dependencies"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@v6
+      with:
+        python-version-file: pyproject.toml
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+      with:
+        version-file: pyproject.toml
+        enable-cache: true
+
+    - name: Install dependencies
+      shell: bash
+      run: uv sync --locked

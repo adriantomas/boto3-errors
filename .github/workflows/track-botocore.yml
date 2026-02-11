@@ -1,0 +1,115 @@
+name: Track botocore releases
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: track-botocore
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Python environment
+        uses: ./.github/actions/install-python-env
+
+      - name: Get latest botocore version from PyPI
+        id: latest
+        run: |
+          LATEST=$(curl -sSf https://pypi.org/pypi/botocore/json | jq -r '.info.version')
+          echo "version=$LATEST" >> "$GITHUB_OUTPUT"
+
+      - name: Get current version from pyproject.toml
+        id: current
+        run: |
+          CURRENT=$(grep '^version' pyproject.toml | head -1 | sed 's/.*"\(.*\)"/\1/')
+          echo "version=$CURRENT" >> "$GITHUB_OUTPUT"
+
+      - name: Check if update is needed
+        id: check
+        run: |
+          LATEST="${{ steps.latest.outputs.version }}"
+          CURRENT="${{ steps.current.outputs.version }}"
+          LAST_CHECKED=$(cat .last-botocore-check 2>/dev/null || echo "")
+          if [ "$LATEST" = "$CURRENT" ] || [ "$LATEST" = "$LAST_CHECKED" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          elif git ls-remote --heads origin "auto/botocore-${LATEST}" | grep -q .; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update botocore in lockfile
+        if: steps.check.outputs.skip == 'false'
+        run: |
+          uv lock --upgrade-package botocore
+          uv sync
+
+      - name: Regenerate modules
+        if: steps.check.outputs.skip == 'false'
+        run: uv run python scripts/generate.py
+
+      - name: Check for generated file changes
+        if: steps.check.outputs.skip == 'false'
+        id: diff
+        run: |
+          if git diff --quiet src/boto3_errors/; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Record checked version (no exception changes)
+        if: steps.check.outputs.skip == 'false' && steps.diff.outputs.has_changes == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "${{ steps.latest.outputs.version }}" > .last-botocore-check
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .last-botocore-check
+          git commit -m "chore: checked botocore ${{ steps.latest.outputs.version }} (no exception changes)"
+          git push
+
+      - name: Update pyproject.toml version and dependency floor
+        if: steps.check.outputs.skip == 'false' && steps.diff.outputs.has_changes == 'true'
+        run: |
+          sed -i 's/^version = ".*"/version = "${{ steps.latest.outputs.version }}"/' pyproject.toml
+          sed -i 's/"botocore>=.*"/"botocore>=${{ steps.latest.outputs.version }}"/' pyproject.toml
+          uv lock
+          uv sync
+
+      - name: Run tests
+        if: steps.check.outputs.skip == 'false' && steps.diff.outputs.has_changes == 'true'
+        run: uv run pytest tests/ -q
+
+      - name: Create branch and open PR
+        if: steps.check.outputs.skip == 'false' && steps.diff.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.latest.outputs.version }}"
+          BRANCH="auto/botocore-${VERSION}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "chore: update to botocore ${VERSION}"
+          git push -u origin "$BRANCH"
+
+          gh pr create \
+            --title "chore: update to botocore ${VERSION}" \
+            --body "Automated update to botocore \`${VERSION}\`." \
+            --base main

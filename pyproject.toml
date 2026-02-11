@@ -1,0 +1,99 @@
+[project]
+name = "boto3-errors"
+version = "0.1.0"
+description = "Typed, statically-importable exception classes for every AWS service"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["aws", "boto3", "botocore", "errors", "exceptions", "types"]
+authors = [
+    { name = "Adrián Tomás", email = "22175056+adriantomas@users.noreply.github.com" }
+]
+requires-python = ">=3.10,<3.15"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+]
+dependencies = [
+    "botocore>=1.42.44",
+]
+
+[project.urls]
+Homepage = "https://github.com/adriantomas/boto3-errors"
+Repository = "https://github.com/adriantomas/boto3-errors"
+Issues = "https://github.com/adriantomas/boto3-errors/issues"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.0",
+    "mypy>=1.19",
+    "prek>=0.3.2",
+    "ruff>=0.15.0",
+    "commitizen>=4.13.6",
+    "mdformat>=1.0.0",
+    "mdformat-ruff>=0.1.3",
+    "botocore-stubs>=1.42.41",
+    "boto3>=1.38.0",
+    "testcontainers[generic]>=4.0.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.10.0,<0.11.0"]
+build-backend = "uv_build"
+
+[tool.uv]
+required-version = ">=0.10.0"
+
+[tool.mypy]
+strict = true
+
+[tool.pytest.ini_options]
+markers = ["integration: requires Docker"]
+
+[tool.ruff]
+fix = true
+# Exclude auto-generated service modules — they are produced by scripts/generate.py
+# and should not be hand-edited or linted.
+exclude = ["src/boto3_errors/[!_]*.py"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "TC002", # typing-only-third-party-import
+    "TC003", # typing-only-standard-library-import
+    "D203", # incorrect-blank-line-before-class (D203)
+    "D213", # multi-line-summary-second-line (D213)
+    "COM812", # missing-trailing-comma
+    "N818", # error-suffix-on-exception-name
+]
+
+[tool.ruff.lint.per-file-ignores]
+"src/boto3_errors/_patch.py" = [
+    "SLF001", # private-member-access — we must monkey-patch client internals
+]
+"tests/**/*.py" = [
+    "D100",    # undocumented-public-module
+    "D101",    # undocumented-public-class
+    "D102",    # undocumented-public-method
+    "D104",    # undocumented-public-package
+    "S101",    # use of assert detected
+    "SLF001",  # private-member-access — tests must inspect internals
+    "INP001",  # implicit-namespace-package — tests don't need __init__.py
+]

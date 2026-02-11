@@ -1,0 +1,26 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags: ["[0-9]*"]
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Install Python environment
+        uses: ./.github/actions/install-python-env
+      - name: Build package
+        run: uv build
+      - name: Publish to PyPI
+        run: uv publish

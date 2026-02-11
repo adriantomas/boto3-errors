@@ -1,0 +1,67 @@
+#:schema: https://www.schemastore.org/prek.json
+default_install_hook_types = ["pre-commit", "pre-push", "commit-msg"]
+
+[[repos]]
+repo = "builtin"
+hooks = [
+    { id = "trailing-whitespace" },
+    { id = "end-of-file-fixer" },
+    { id = "check-added-large-files" },
+    { id = "check-toml" },
+    { id = "check-merge-conflict" },
+]
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "commitizen"
+name = "commitizen"
+language = "system"
+entry = "uv run cz check"
+args = ["--allow-abort", "--commit-msg-file"]
+stages = ["commit-msg"]
+
+[[repos.hooks]]
+id = "uv-lock"
+name = "uv lock"
+language = "system"
+entry = "uv lock"
+pass_filenames = false
+
+[[repos.hooks]]
+id = "ruff-check"
+name = "ruff check"
+language = "system"
+entry = "uv run ruff check --fix --force-exclude"
+types = ["python"]
+
+[[repos.hooks]]
+id = "ruff-format"
+name = "ruff format"
+language = "system"
+entry = "uv run ruff format --force-exclude"
+types = ["python"]
+
+[[repos.hooks]]
+id = "mypy"
+name = "mypy"
+language = "system"
+entry = "uv run mypy src/boto3_errors/_base.py src/boto3_errors/_patch.py src/boto3_errors/__init__.py"
+pass_filenames = false
+
+[[repos.hooks]]
+id = "mdformat"
+name = "mdformat"
+language = "system"
+entry = "uv run mdformat README.md"
+types = ["markdown"]
+pass_filenames = false
+
+[[repos.hooks]]
+id = "pytest"
+name = "pytest"
+language = "system"
+entry = "uv run pytest tests/ -q"
+pass_filenames = false
+stages = ["pre-push"]
