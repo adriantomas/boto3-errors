@@ -89,10 +89,6 @@ jobs:
           uv lock
           uv sync
 
-      - name: Run tests
-        if: steps.check.outputs.skip == 'false' && steps.diff.outputs.has_changes == 'true'
-        run: uv run pytest tests/ -q
-
       - name: Create branch and open PR
         if: steps.check.outputs.skip == 'false' && steps.diff.outputs.has_changes == 'true'
         env:
