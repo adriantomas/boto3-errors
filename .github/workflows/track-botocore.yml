@@ -30,19 +30,12 @@ jobs:
           LATEST=$(curl -sSf https://pypi.org/pypi/botocore/json | jq -r '.info.version')
           echo "version=$LATEST" >> "$GITHUB_OUTPUT"
 
-      - name: Get current version from pyproject.toml
-        id: current
-        run: |
-          CURRENT=$(grep '^version' pyproject.toml | head -1 | sed 's/.*"\(.*\)"/\1/')
-          echo "version=$CURRENT" >> "$GITHUB_OUTPUT"
-
       - name: Check if update is needed
         id: check
         run: |
           LATEST="${{ steps.latest.outputs.version }}"
-          CURRENT="${{ steps.current.outputs.version }}"
           LAST_CHECKED=$(cat .last-botocore-check 2>/dev/null || echo "")
-          if [ "$LATEST" = "$CURRENT" ] || [ "$LATEST" = "$LAST_CHECKED" ]; then
+          if [ "$LATEST" = "$LAST_CHECKED" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
           elif git ls-remote --heads origin "auto/botocore-${LATEST}" | grep -q .; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
@@ -82,10 +75,13 @@ jobs:
           git commit -m "chore: checked botocore ${{ steps.latest.outputs.version }} (no exception changes)"
           git push
 
-      - name: Update pyproject.toml version and dependency floor
+      - name: Bump minor version and update dependency floor
         if: steps.check.outputs.skip == 'false' && steps.diff.outputs.has_changes == 'true'
         run: |
-          sed -i 's/^version = ".*"/version = "${{ steps.latest.outputs.version }}"/' pyproject.toml
+          CURRENT=$(grep '^version' pyproject.toml | head -1 | sed 's/.*"\(.*\)"/\1/')
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          NEW_VERSION="${MAJOR}.$((MINOR + 1)).0"
+          sed -i "s/^version = \".*\"/version = \"${NEW_VERSION}\"/" pyproject.toml
           sed -i 's/"botocore>=.*"/"botocore>=${{ steps.latest.outputs.version }}"/' pyproject.toml
           uv lock
           uv sync
