@@ -1,6 +1,6 @@
 [project]
 name = "boto3-errors"
-version = "0.1.0"
+version = "0.0.1"
 description = "Typed, statically-importable exception classes for every AWS service"
 readme = "README.md"
 license = "MIT"
