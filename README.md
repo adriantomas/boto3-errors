@@ -40,9 +40,7 @@ Every boto3 error comes back as a `ClientError`. The only way to distinguish the
 
 ## What you get
 
-### Coverage
-
-All AWS services with exception classes auto-generated from botocore's service model. The package version is aligned with botocore (e.g. boto3-errors 1.42.44 is generated from botocore 1.42.44).
+All AWS services with exception classes auto-generated from botocore's service model.
 
 ### Exception hierarchy
 
@@ -81,23 +79,4 @@ from boto3_errors.dynamodb import (
 
 # ConditionalCheckFailedException.item -> dict | None
 # TransactionCanceledException.cancellation_reasons -> list | None
-```
-
-## Catching at multiple levels
-
-```python
-from botocore.exceptions import ClientError
-from boto3_errors import Boto3Error
-from boto3_errors.dynamodb import DynamoDBError, ResourceNotFoundException
-
-try:
-    client.delete_table(TableName="nope")
-except ResourceNotFoundException:
-    ...  # only this specific error
-except DynamoDBError:
-    ...  # any DynamoDB error
-except Boto3Error:
-    ...  # any error from a patched service
-except ClientError:
-    ...  # anything else from botocore
 ```
