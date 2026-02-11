@@ -8,13 +8,13 @@ concurrency:
   group: publish-${{ github.ref }}
   cancel-in-progress: false
 
-permissions:
-  id-token: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     environment: pypi
+    permissions:
+      id-token: write
     timeout-minutes: 1
     steps:
       - name: Checkout repository
