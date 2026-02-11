@@ -36,7 +36,7 @@ except ConditionalCheckFailedException as e:
 
 ## The problem
 
-Every boto3 error comes back as a `ClientError`. The only way to distinguish them is by parsing `e.response["Error"]["Code"]` — a stringly-typed dict lookup with no autocomplete, no type checking, and no IDE support. One typo in the error code string and your handler silently misses the exception.
+Every boto3 error comes back as a `ClientError`. The only way to distinguish them is by parsing `e.response["Error"]["Code"]` — a stringly-typed dict lookup with no autocomplete, no type checking, and no IDE support. A typo in the error code string won't be caught until it crashes.
 
 ## What you get
 
