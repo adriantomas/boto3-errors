@@ -5,8 +5,6 @@ Usage:
     python scripts/generate.py
 """
 
-from __future__ import annotations
-
 import gzip
 import html.parser
 import json
@@ -217,8 +215,6 @@ def _generate_service(service: str) -> str | None:  # noqa: C901, PLR0915
 
     lines: list[str] = []
     lines.append("# Auto-generated. Do not edit manually.")
-    lines.append("from __future__ import annotations")
-    lines.append("")
     lines.append("from typing import Any")
     lines.append("")
     lines.append("from boto3_errors._base import Boto3Error")

@@ -1,6 +1,4 @@
 # Auto-generated. Do not edit manually.
-from __future__ import annotations
-
 from typing import Any
 
 from boto3_errors._base import Boto3Error

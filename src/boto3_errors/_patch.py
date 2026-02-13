@@ -35,9 +35,9 @@ def patch_client(client: BaseClient) -> None:
         operation_name: str, api_params: dict[str, Any]
     ) -> dict[str, Any]:
         try:
-            return original(operation_name, api_params)  # type: ignore[no-any-return]
+            return original(operation_name, api_params)
         except ClientError as e:
-            code = e.response.get("Error", {}).get("Code", "")
+            code = e.response["Error"]["Code"]
             exc_cls = exceptions.get(code)
             if exc_cls is not None:
                 raise exc_cls(e.response, e.operation_name) from e

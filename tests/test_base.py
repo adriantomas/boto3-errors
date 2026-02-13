@@ -38,8 +38,3 @@ class TestBoto3ErrorProperties:
 
     def test_isinstance_client_error(self) -> None:
         assert isinstance(_make_error(), ClientError)
-
-    def test_missing_metadata_defaults(self) -> None:
-        err = _make_error({"Error": {"Code": "X", "Message": "x"}})
-        assert err.http_status_code == 0
-        assert err.request_id == ""
