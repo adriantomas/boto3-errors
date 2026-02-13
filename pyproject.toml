@@ -43,7 +43,6 @@ Issues = "https://github.com/adriantomas/boto3-errors/issues"
 [dependency-groups]
 dev = [
     "pytest>=9.0.0",
-    "mypy>=1.19",
     "prek>=0.3.2",
     "ruff>=0.15.0",
     "commitizen>=4.13.6",
@@ -52,6 +51,7 @@ dev = [
     "botocore-stubs>=1.42.41",
     "boto3>=1.38.0",
     "testcontainers[generic]>=4.0.0",
+    "ty>=0.0.16",
 ]
 
 [build-system]
@@ -61,8 +61,8 @@ build-backend = "uv_build"
 [tool.uv]
 required-version = ">=0.10.0"
 
-[tool.mypy]
-strict = true
+[tool.ty.terminal]
+error-on-warning = true
 
 [tool.pytest.ini_options]
 markers = ["integration: requires Docker"]

@@ -21,8 +21,8 @@ jobs:
         uses: ./.github/actions/install-python-env
       - name: Run ruff
         run: uv run ruff check --output-format=github .
-      - name: Run mypy type checking
-        run: uv run mypy src/boto3_errors/_base.py src/boto3_errors/_patch.py src/boto3_errors/__init__.py
+      - name: Run ty type checking
+        run: uv run ty check src/boto3_errors/_base.py src/boto3_errors/_patch.py src/boto3_errors/__init__.py
       - name: Run mdformat
         run: uv run mdformat --check README.md
 

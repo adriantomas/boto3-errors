@@ -44,10 +44,10 @@ entry = "uv run ruff format --force-exclude"
 types = ["python"]
 
 [[repos.hooks]]
-id = "mypy"
-name = "mypy"
+id = "ty-check"
+name = "ty"
 language = "system"
-entry = "uv run mypy src/boto3_errors/_base.py src/boto3_errors/_patch.py src/boto3_errors/__init__.py"
+entry = "uv run ty check src/boto3_errors/_base.py src/boto3_errors/_patch.py src/boto3_errors/__init__.py"
 pass_filenames = false
 
 [[repos.hooks]]
