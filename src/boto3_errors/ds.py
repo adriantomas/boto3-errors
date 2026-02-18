@@ -8,8 +8,29 @@ class DirectoryServiceError(Boto3Error):
     _SERVICE = "ds"
 
 
+class ADAssessmentLimitExceededException(DirectoryServiceError):
+    """A directory assessment is automatically created when you create a hybrid directory.
+    There are two types of assessments: `CUSTOMER` and `SYSTEM`. Your Amazon Web
+    Services account has a limit of 100 `CUSTOMER` directory assessments.
+
+    If you attempt to create a hybrid directory; and you already have 100 `CUSTOMER`
+    directory assessments;, you will encounter an error. Delete assessments to free up
+    capacity before trying again.
+
+    You can request an increase to your `CUSTOMER` directory assessment quota by
+    contacting customer support or delete existing CUSTOMER directory assessments; to
+    free up capacity.
+    """
+
+    _ERROR_CODE = "ADAssessmentLimitExceededException"
+
+    @property
+    def request_id(self) -> str | None:
+        return self.response.get("RequestId")
+
+
 class AccessDeniedException(DirectoryServiceError):
-    """Client authentication is not available in this region at this time."""
+    """You do not have sufficient access to perform this action."""
     _ERROR_CODE = "AccessDeniedException"
 
     @property
@@ -139,8 +160,20 @@ class DirectoryNotSharedException(DirectoryServiceError):
 
 
 class DirectoryUnavailableException(DirectoryServiceError):
-    """The specified directory is unavailable or could not be found."""
+    """The specified directory is unavailable."""
     _ERROR_CODE = "DirectoryUnavailableException"
+
+    @property
+    def request_id(self) -> str | None:
+        return self.response.get("RequestId")
+
+
+class DisableAlreadyInProgressException(DirectoryServiceError):
+    """A disable operation for CA enrollment policy is already in progress for this
+    directory.
+    """
+
+    _ERROR_CODE = "DisableAlreadyInProgressException"
 
     @property
     def request_id(self) -> str | None:
@@ -153,6 +186,18 @@ class DomainControllerLimitExceededException(DirectoryServiceError):
     """
 
     _ERROR_CODE = "DomainControllerLimitExceededException"
+
+    @property
+    def request_id(self) -> str | None:
+        return self.response.get("RequestId")
+
+
+class EnableAlreadyInProgressException(DirectoryServiceError):
+    """An enable operation for CA enrollment policy is already in progress for this
+    directory.
+    """
+
+    _ERROR_CODE = "EnableAlreadyInProgressException"
 
     @property
     def request_id(self) -> str | None:
@@ -380,6 +425,7 @@ class UserDoesNotExistException(DirectoryServiceError):
 
 
 EXCEPTIONS: dict[str, type[DirectoryServiceError]] = {
+    "ADAssessmentLimitExceededException": ADAssessmentLimitExceededException,
     "AccessDeniedException": AccessDeniedException,
     "AuthenticationFailedException": AuthenticationFailedException,
     "CertificateAlreadyExistsException": CertificateAlreadyExistsException,
@@ -394,7 +440,9 @@ EXCEPTIONS: dict[str, type[DirectoryServiceError]] = {
     "DirectoryLimitExceededException": DirectoryLimitExceededException,
     "DirectoryNotSharedException": DirectoryNotSharedException,
     "DirectoryUnavailableException": DirectoryUnavailableException,
+    "DisableAlreadyInProgressException": DisableAlreadyInProgressException,
     "DomainControllerLimitExceededException": DomainControllerLimitExceededException,
+    "EnableAlreadyInProgressException": EnableAlreadyInProgressException,
     "EntityAlreadyExistsException": EntityAlreadyExistsException,
     "EntityDoesNotExistException": EntityDoesNotExistException,
     "IncompatibleSettingsException": IncompatibleSettingsException,

@@ -21,6 +21,14 @@ class AlreadyExistsFault(AutoScalingError):
     _ERROR_CODE = "AlreadyExists"
 
 
+class IdempotentParameterMismatchError(AutoScalingError):
+    """Indicates that the parameters in the current request do not match the parameters
+    from a previous request with the same client token within the idempotency window.
+    """
+
+    _ERROR_CODE = "IdempotentParameterMismatch"
+
+
 class InstanceRefreshInProgressFault(AutoScalingError):
     """The request failed because an active instance refresh already exists for the
     specified Auto Scaling group.
@@ -78,6 +86,7 @@ class ServiceLinkedRoleFailure(AutoScalingError):
 EXCEPTIONS: dict[str, type[AutoScalingError]] = {
     "ActiveInstanceRefreshNotFound": ActiveInstanceRefreshNotFoundFault,
     "AlreadyExists": AlreadyExistsFault,
+    "IdempotentParameterMismatch": IdempotentParameterMismatchError,
     "InstanceRefreshInProgress": InstanceRefreshInProgressFault,
     "InvalidNextToken": InvalidNextToken,
     "IrreversibleInstanceRefresh": IrreversibleInstanceRefreshFault,

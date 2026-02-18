@@ -63,7 +63,7 @@ class ModelStreamError(SageMakerRuntimeError):
     following error codes: ModelInvocationTimeExceeded
 
     The model failed to finish sending the response within the timeout period allowed by
-    Amazon SageMaker. StreamBroken
+    Amazon SageMaker AI. StreamBroken
 
     The Transmission Control Protocol (TCP) connection between the client and the model
     was reset or closed.
@@ -76,7 +76,7 @@ class ModelStreamError(SageMakerRuntimeError):
         """This error can have the following error codes: ModelInvocationTimeExceeded
 
         The model failed to finish sending the response within the timeout period
-        allowed by Amazon SageMaker. StreamBroken
+        allowed by Amazon SageMaker AI. StreamBroken
 
         The Transmission Control Protocol (TCP) connection between the client and the
         model was reset or closed.

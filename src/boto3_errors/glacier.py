@@ -69,6 +69,25 @@ class MissingParameterValueException(GlacierError):
         return self.response.get("type")
 
 
+class NoLongerSupportedException(GlacierError):
+    """Returned if the request was made by a customer with no Amazon Glacier storage. The
+    request is denied as the API is no longer supported for new customers. Please use
+    Amazon S3 Glacier storage classes instead.
+    """
+
+    _ERROR_CODE = "NoLongerSupportedException"
+
+    @property
+    def code(self) -> str | None:
+        """400 Bad Request"""
+        return self.response.get("code")
+
+    @property
+    def type(self) -> str | None:
+        """Client"""
+        return self.response.get("type")
+
+
 class PolicyEnforcedException(GlacierError):
     """Returned if a retrieval job would exceed the current data policy's retrieval rate
     limit. For more information about data retrieval policies,
@@ -88,8 +107,8 @@ class PolicyEnforcedException(GlacierError):
 
 
 class RequestTimeoutException(GlacierError):
-    """Returned if, when uploading an archive, Amazon S3 Glacier times out while receiving
-    the upload.
+    """Returned if, when uploading an archive, Amazon Glacier times out while receiving the
+    upload.
     """
 
     _ERROR_CODE = "RequestTimeoutException"
@@ -143,6 +162,7 @@ EXCEPTIONS: dict[str, type[GlacierError]] = {
     "InvalidParameterValueException": InvalidParameterValueException,
     "LimitExceededException": LimitExceededException,
     "MissingParameterValueException": MissingParameterValueException,
+    "NoLongerSupportedException": NoLongerSupportedException,
     "PolicyEnforcedException": PolicyEnforcedException,
     "RequestTimeoutException": RequestTimeoutException,
     "ResourceNotFoundException": ResourceNotFoundException,

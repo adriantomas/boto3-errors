@@ -55,6 +55,16 @@ class ConcurrentModificationException(AppSyncError):
     _ERROR_CODE = "ConcurrentModificationException"
 
 
+class ConflictException(AppSyncError):
+    """A conflict with a previous successful update is detected. This typically occurs when
+    the previous update did not have time to propagate before the next update was made.
+    A retry (with appropriate backoff logic) is the recommended response to this
+    exception.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+
 class GraphQLSchemaException(AppSyncError):
     """The GraphQL schema is not valid."""
     _ERROR_CODE = "GraphQLSchemaException"
@@ -78,6 +88,11 @@ class NotFoundException(AppSyncError):
     _ERROR_CODE = "NotFoundException"
 
 
+class ServiceQuotaExceededException(AppSyncError):
+    """The operation exceeded the service quota for this resource."""
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+
 class UnauthorizedException(AppSyncError):
     """You aren't authorized to perform this operation."""
     _ERROR_CODE = "UnauthorizedException"
@@ -90,9 +105,11 @@ EXCEPTIONS: dict[str, type[AppSyncError]] = {
     "ApiLimitExceededException": ApiLimitExceededException,
     "BadRequestException": BadRequestException,
     "ConcurrentModificationException": ConcurrentModificationException,
+    "ConflictException": ConflictException,
     "GraphQLSchemaException": GraphQLSchemaException,
     "InternalFailureException": InternalFailureException,
     "LimitExceededException": LimitExceededException,
     "NotFoundException": NotFoundException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "UnauthorizedException": UnauthorizedException,
 }

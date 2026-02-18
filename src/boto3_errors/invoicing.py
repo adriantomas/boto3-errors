@@ -80,9 +80,11 @@ class ValidationException(InvoicingError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def resource_name(self) -> str | None:
-        """You don't have sufficient access to perform this action."""
-        return self.response.get("resourceName")
+    def field_list(self) -> list[Any] | None:
+        """The input fails to satisfy the constraints specified by an Amazon Web Services
+        service.
+        """
+        return self.response.get("fieldList")
 
     @property
     def reason(self) -> str | None:
@@ -90,11 +92,9 @@ class ValidationException(InvoicingError):
         return self.response.get("reason")
 
     @property
-    def field_list(self) -> list[Any] | None:
-        """The input fails to satisfy the constraints specified by an Amazon Web Services
-        service.
-        """
-        return self.response.get("fieldList")
+    def resource_name(self) -> str | None:
+        """You don't have sufficient access to perform this action."""
+        return self.response.get("resourceName")
 
 
 EXCEPTIONS: dict[str, type[InvoicingError]] = {

@@ -22,7 +22,7 @@ class BackupNotFoundException(DynamoDBError):
 
 
 class ConditionalCheckFailedException(DynamoDBError):
-    """A condition specified in the operation could not be evaluated."""
+    """A condition specified in the operation failed to be evaluated."""
     _ERROR_CODE = "ConditionalCheckFailedException"
 
     @property
@@ -150,15 +150,34 @@ class PointInTimeRecoveryUnavailableException(DynamoDBError):
     _ERROR_CODE = "PointInTimeRecoveryUnavailableException"
 
 
+class PolicyNotFoundException(DynamoDBError):
+    """The operation tried to access a nonexistent resource-based policy.
+
+    If you specified an `ExpectedRevisionId`, it's possible that a policy is present for
+    the resource but its revision ID didn't match the expected value.
+    """
+
+    _ERROR_CODE = "PolicyNotFoundException"
+
+
 class ProvisionedThroughputExceededException(DynamoDBError):
-    """Your request rate is too high. The Amazon Web Services SDKs for DynamoDB
-    automatically retry requests that receive this exception. Your request is eventually
-    successful, unless your retry queue is too large to finish. Reduce the frequency of
-    requests and use exponential backoff. For more information, go to Error Retries and
-    Exponential Backoff in the Amazon DynamoDB Developer Guide.
+    """The request was denied due to request throttling. For detailed information about why
+    the request was throttled and the ARN of the impacted resource, find the
+    ThrottlingReason field in the returned exception. The Amazon Web Services SDKs for
+    DynamoDB automatically retry requests that receive this exception. Your request is
+    eventually successful, unless your retry queue is too large to finish. Reduce the
+    frequency of requests and use exponential backoff. For more information, go to Error
+    Retries and Exponential Backoff in the Amazon DynamoDB Developer Guide.
     """
 
     _ERROR_CODE = "ProvisionedThroughputExceededException"
+
+    @property
+    def throttling_reasons(self) -> list[Any] | None:
+        """A list of ThrottlingReason that provide detailed diagnostic information about
+        why the request was throttled.
+        """
+        return self.response.get("ThrottlingReasons")
 
 
 class ReplicaAlreadyExistsException(DynamoDBError):
@@ -171,18 +190,40 @@ class ReplicaNotFoundException(DynamoDBError):
     _ERROR_CODE = "ReplicaNotFoundException"
 
 
+class ReplicatedWriteConflictException(DynamoDBError):
+    """The request was rejected because one or more items in the request are being modified
+    by a request in another Region.
+    """
+
+    _ERROR_CODE = "ReplicatedWriteConflictException"
+
+
 class RequestLimitExceeded(DynamoDBError):
-    """Throughput exceeds the current throughput quota for your account. Please contact
-    Amazon Web Services Support to request a quota increase.
+    """Throughput exceeds the current throughput quota for your account. For detailed
+    information about why the request was throttled and the ARN of the impacted
+    resource, find the ThrottlingReason field in the returned exception. Contact Amazon
+    Web Services Support to request a quota increase.
     """
 
     _ERROR_CODE = "RequestLimitExceeded"
 
+    @property
+    def throttling_reasons(self) -> list[Any] | None:
+        """A list of ThrottlingReason that provide detailed diagnostic information about
+        why the request was throttled.
+        """
+        return self.response.get("ThrottlingReasons")
+
 
 class ResourceInUseException(DynamoDBError):
-    """The operation conflicts with the resource's availability. For example, you attempted
-    to recreate an existing table, or tried to delete a table currently in the
-    `CREATING` state.
+    """The operation conflicts with the resource's availability. For example:
+
+    - You attempted to recreate an existing table.
+    - You tried to delete a table currently in the `CREATING` state.
+    - You tried to update a resource that was already being updated.
+
+    When appropriate, wait for the ongoing update to complete and attempt the request
+    again.
     """
 
     _ERROR_CODE = "ResourceInUseException"
@@ -215,6 +256,22 @@ class TableNotFoundException(DynamoDBError):
     _ERROR_CODE = "TableNotFoundException"
 
 
+class ThrottlingException(DynamoDBError):
+    """The request was denied due to request throttling. For detailed information about why
+    the request was throttled and the ARN of the impacted resource, find the
+    ThrottlingReason field in the returned exception.
+    """
+
+    _ERROR_CODE = "ThrottlingException"
+
+    @property
+    def throttling_reasons(self) -> list[Any] | None:
+        """A list of ThrottlingReason that provide detailed diagnostic information about
+        why the request was throttled.
+        """
+        return self.response.get("throttlingReasons")
+
+
 class TransactionCanceledException(DynamoDBError):
     """The entire transaction request was canceled.
 
@@ -243,10 +300,9 @@ class TransactionCanceledException(DynamoDBError):
 
     Note:
 
-    If using Java, DynamoDB lists the cancellation reasons on the `CancellationReasons`
-    property. This property is not set for other languages. Transaction cancellation
-    reasons are ordered in the order of requested items, if an item has no error it will
-    have `None` code and `Null` message.
+    DynamoDB lists the cancellation reasons on the `CancellationReasons` property.
+    Transaction cancellation reasons are ordered in the order of requested items, if an
+    item has no error it will have `None` code and `Null` message.
 
     Cancellation reason codes and possible error messages:
 
@@ -404,15 +460,18 @@ EXCEPTIONS: dict[str, type[DynamoDBError]] = {
     "ItemCollectionSizeLimitExceededException": ItemCollectionSizeLimitExceededException,
     "LimitExceededException": LimitExceededException,
     "PointInTimeRecoveryUnavailableException": PointInTimeRecoveryUnavailableException,
+    "PolicyNotFoundException": PolicyNotFoundException,
     "ProvisionedThroughputExceededException": ProvisionedThroughputExceededException,
     "ReplicaAlreadyExistsException": ReplicaAlreadyExistsException,
     "ReplicaNotFoundException": ReplicaNotFoundException,
+    "ReplicatedWriteConflictException": ReplicatedWriteConflictException,
     "RequestLimitExceeded": RequestLimitExceeded,
     "ResourceInUseException": ResourceInUseException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "TableAlreadyExistsException": TableAlreadyExistsException,
     "TableInUseException": TableInUseException,
     "TableNotFoundException": TableNotFoundException,
+    "ThrottlingException": ThrottlingException,
     "TransactionCanceledException": TransactionCanceledException,
     "TransactionConflictException": TransactionConflictException,
     "TransactionInProgressException": TransactionInProgressException,

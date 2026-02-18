@@ -93,6 +93,14 @@ class SlotNotAvailableException(OpenSearchError):
         return self.response.get("SlotSuggestions")
 
 
+class ThrottlingException(OpenSearchError):
+    """The request was denied due to request throttling. Reduce the frequency of your
+    requests and try again.
+    """
+
+    _ERROR_CODE = "ThrottlingException"
+
+
 class ValidationException(OpenSearchError):
     """An exception for accessing or deleting a resource that doesn't exist."""
     _ERROR_CODE = "ValidationException"
@@ -111,5 +119,6 @@ EXCEPTIONS: dict[str, type[OpenSearchError]] = {
     "ResourceAlreadyExistsException": ResourceAlreadyExistsException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "SlotNotAvailableException": SlotNotAvailableException,
+    "ThrottlingException": ThrottlingException,
     "ValidationException": ValidationException,
 }

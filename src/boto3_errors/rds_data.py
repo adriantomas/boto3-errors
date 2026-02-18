@@ -31,6 +31,15 @@ class DatabaseNotFoundException(RDSDataError):
     _ERROR_CODE = "DatabaseNotFoundException"
 
 
+class DatabaseResumingException(RDSDataError):
+    """A request was cancelled because the Aurora Serverless v2 DB instance was paused. The
+    Data API request automatically resumes the DB instance. Wait a few seconds and try
+    again.
+    """
+
+    _ERROR_CODE = "DatabaseResumingException"
+
+
 class DatabaseUnavailableException(RDSDataError):
     """The writer instance in the DB cluster isn't available."""
     _ERROR_CODE = "DatabaseUnavailableException"
@@ -49,6 +58,11 @@ class HttpEndpointNotEnabledException(RDSDataError):
 class InternalServerErrorException(RDSDataError):
     """An internal error occurred."""
     _ERROR_CODE = "InternalServerErrorException"
+
+
+class InvalidResourceStateException(RDSDataError):
+    """The resource is in an invalid state."""
+    _ERROR_CODE = "InvalidResourceStateException"
 
 
 class InvalidSecretException(RDSDataError):
@@ -109,10 +123,12 @@ EXCEPTIONS: dict[str, type[RDSDataError]] = {
     "BadRequestException": BadRequestException,
     "DatabaseErrorException": DatabaseErrorException,
     "DatabaseNotFoundException": DatabaseNotFoundException,
+    "DatabaseResumingException": DatabaseResumingException,
     "DatabaseUnavailableException": DatabaseUnavailableException,
     "ForbiddenException": ForbiddenException,
     "HttpEndpointNotEnabledException": HttpEndpointNotEnabledException,
     "InternalServerErrorException": InternalServerErrorException,
+    "InvalidResourceStateException": InvalidResourceStateException,
     "InvalidSecretException": InvalidSecretException,
     "NotFoundException": NotFoundException,
     "SecretsErrorException": SecretsErrorException,

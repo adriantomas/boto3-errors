@@ -58,6 +58,11 @@ class ServiceQuotaExceededException(WorkspacesInstancesError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """Specific code for the exceeded quota."""
+        return self.response.get("QuotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the resource related to the quota."""
         return self.response.get("ResourceId")
@@ -72,20 +77,10 @@ class ServiceQuotaExceededException(WorkspacesInstancesError):
         """Code identifying the service with the quota limitation."""
         return self.response.get("ServiceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """Specific code for the exceeded quota."""
-        return self.response.get("QuotaCode")
-
 
 class ThrottlingException(WorkspacesInstancesError):
     """Indicates the request rate has exceeded limits."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """Code identifying the service experiencing throttling."""
-        return self.response.get("ServiceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -97,20 +92,25 @@ class ThrottlingException(WorkspacesInstancesError):
         """Recommended wait time before retrying the request."""
         return self.response.get("RetryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """Code identifying the service experiencing throttling."""
+        return self.response.get("ServiceCode")
+
 
 class ValidationException(WorkspacesInstancesError):
     """Indicates invalid input parameters in the request."""
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """Specific reason for the validation failure."""
-        return self.response.get("Reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """List of fields that failed validation."""
         return self.response.get("FieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """Specific reason for the validation failure."""
+        return self.response.get("Reason")
 
 
 EXCEPTIONS: dict[str, type[WorkspacesInstancesError]] = {

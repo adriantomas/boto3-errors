@@ -967,6 +967,11 @@ class NumberOfRulesExceededException(CodeCommitError):
     _ERROR_CODE = "NumberOfRulesExceededException"
 
 
+class OperationNotAllowedException(CodeCommitError):
+    """The requested action is not allowed."""
+    _ERROR_CODE = "OperationNotAllowedException"
+
+
 class OverrideAlreadySetException(CodeCommitError):
     """The pull request has already had its approval rules set to override."""
     _ERROR_CODE = "OverrideAlreadySetException"
@@ -1426,6 +1431,7 @@ EXCEPTIONS: dict[str, type[CodeCommitError]] = {
     "NoChangeException": NoChangeException,
     "NumberOfRuleTemplatesExceededException": NumberOfRuleTemplatesExceededException,
     "NumberOfRulesExceededException": NumberOfRulesExceededException,
+    "OperationNotAllowedException": OperationNotAllowedException,
     "OverrideAlreadySetException": OverrideAlreadySetException,
     "OverrideStatusRequiredException": OverrideStatusRequiredException,
     "ParentCommitDoesNotExistException": ParentCommitDoesNotExistException,

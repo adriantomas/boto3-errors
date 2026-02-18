@@ -18,6 +18,11 @@ class CollectorNotFoundFault(DatabaseMigrationServiceError):
     _ERROR_CODE = "CollectorNotFoundFault"
 
 
+class FailedDependencyFault(DatabaseMigrationServiceError):
+    """A dependency threw an exception."""
+    _ERROR_CODE = "FailedDependencyFault"
+
+
 class InsufficientResourceCapacityFault(DatabaseMigrationServiceError):
     """There are not enough resources allocated to the database migration."""
     _ERROR_CODE = "InsufficientResourceCapacityFault"
@@ -146,6 +151,7 @@ class UpgradeDependencyFailureFault(DatabaseMigrationServiceError):
 EXCEPTIONS: dict[str, type[DatabaseMigrationServiceError]] = {
     "AccessDeniedFault": AccessDeniedFault,
     "CollectorNotFoundFault": CollectorNotFoundFault,
+    "FailedDependencyFault": FailedDependencyFault,
     "InsufficientResourceCapacityFault": InsufficientResourceCapacityFault,
     "InvalidCertificateFault": InvalidCertificateFault,
     "InvalidOperationFault": InvalidOperationFault,

@@ -8,6 +8,11 @@ class SFNError(Boto3Error):
     _SERVICE = "stepfunctions"
 
 
+class ActivityAlreadyExists(SFNError):
+    """Activity already exists. `EncryptionConfiguration` may not be updated."""
+    _ERROR_CODE = "ActivityAlreadyExists"
+
+
 class ActivityDoesNotExist(SFNError):
     """The specified activity does not exist."""
     _ERROR_CODE = "ActivityDoesNotExist"
@@ -83,12 +88,24 @@ class InvalidDefinition(SFNError):
     _ERROR_CODE = "InvalidDefinition"
 
 
+class InvalidEncryptionConfiguration(SFNError):
+    """Received when `encryptionConfiguration` is specified but various conditions exist
+    which make the configuration invalid. For example, if `type` is set to
+    `CUSTOMER_MANAGED_KMS_KEY`, but `kmsKeyId` is null, or
+    `kmsDataKeyReusePeriodSeconds` is not between 60 and 900, or the KMS key is not
+    symmetric or inactive.
+    """
+
+    _ERROR_CODE = "InvalidEncryptionConfiguration"
+
+
 class InvalidExecutionInput(SFNError):
     """The provided JSON input data is not valid."""
     _ERROR_CODE = "InvalidExecutionInput"
 
 
 class InvalidLoggingConfiguration(SFNError):
+    """Configuration is not valid."""
     _ERROR_CODE = "InvalidLoggingConfiguration"
 
 
@@ -113,6 +130,31 @@ class InvalidTracingConfiguration(SFNError):
     """
 
     _ERROR_CODE = "InvalidTracingConfiguration"
+
+
+class KmsAccessDeniedException(SFNError):
+    """Either your KMS key policy or API caller does not have the required permissions."""
+    _ERROR_CODE = "KmsAccessDeniedException"
+
+
+class KmsInvalidStateException(SFNError):
+    """The KMS key is not in valid state, for example: Disabled or Deleted."""
+    _ERROR_CODE = "KmsInvalidStateException"
+
+    @property
+    def kms_key_state(self) -> str | None:
+        """Current status of the KMS; key. For example: `DISABLED`, `PENDING_DELETION`,
+        `PENDING_IMPORT`, `UNAVAILABLE`, `CREATING`.
+        """
+        return self.response.get("kmsKeyState")
+
+
+class KmsThrottlingException(SFNError):
+    """Received when KMS returns `ThrottlingException` for a KMS call that Step Functions
+    makes on behalf of the caller.
+    """
+
+    _ERROR_CODE = "KmsThrottlingException"
 
 
 class MissingRequiredParameter(SFNError):
@@ -168,6 +210,7 @@ class StateMachineLimitExceeded(SFNError):
 
 
 class StateMachineTypeNotSupported(SFNError):
+    """State machine type is not supported."""
     _ERROR_CODE = "StateMachineTypeNotSupported"
 
 
@@ -212,6 +255,7 @@ class ValidationException(SFNError):
 
 
 EXCEPTIONS: dict[str, type[SFNError]] = {
+    "ActivityAlreadyExists": ActivityAlreadyExists,
     "ActivityDoesNotExist": ActivityDoesNotExist,
     "ActivityLimitExceeded": ActivityLimitExceeded,
     "ActivityWorkerLimitExceeded": ActivityWorkerLimitExceeded,
@@ -222,12 +266,16 @@ EXCEPTIONS: dict[str, type[SFNError]] = {
     "ExecutionNotRedrivable": ExecutionNotRedrivable,
     "InvalidArn": InvalidArn,
     "InvalidDefinition": InvalidDefinition,
+    "InvalidEncryptionConfiguration": InvalidEncryptionConfiguration,
     "InvalidExecutionInput": InvalidExecutionInput,
     "InvalidLoggingConfiguration": InvalidLoggingConfiguration,
     "InvalidName": InvalidName,
     "InvalidOutput": InvalidOutput,
     "InvalidToken": InvalidToken,
     "InvalidTracingConfiguration": InvalidTracingConfiguration,
+    "KmsAccessDeniedException": KmsAccessDeniedException,
+    "KmsInvalidStateException": KmsInvalidStateException,
+    "KmsThrottlingException": KmsThrottlingException,
     "MissingRequiredParameter": MissingRequiredParameter,
     "ResourceNotFound": ResourceNotFound,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,

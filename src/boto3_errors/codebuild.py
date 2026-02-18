@@ -16,6 +16,11 @@ class AccountLimitExceededException(CodeBuildError):
     _ERROR_CODE = "AccountLimitExceededException"
 
 
+class AccountSuspendedException(CodeBuildError):
+    """The CodeBuild access has been suspended for the calling Amazon Web Services account."""
+    _ERROR_CODE = "AccountSuspendedException"
+
+
 class InvalidInputException(CodeBuildError):
     """The input value that was provided is not valid."""
     _ERROR_CODE = "InvalidInputException"
@@ -41,6 +46,7 @@ class ResourceNotFoundException(CodeBuildError):
 
 EXCEPTIONS: dict[str, type[CodeBuildError]] = {
     "AccountLimitExceededException": AccountLimitExceededException,
+    "AccountSuspendedException": AccountSuspendedException,
     "InvalidInputException": InvalidInputException,
     "OAuthProviderException": OAuthProviderException,
     "ResourceAlreadyExistsException": ResourceAlreadyExistsException,

@@ -9,7 +9,7 @@ class TimestreamQueryError(Boto3Error):
 
 
 class AccessDeniedException(TimestreamQueryError):
-    """You are not authorized to perform this action."""
+    """You do not have the necessary permissions to access the account settings."""
     _ERROR_CODE = "AccessDeniedException"
 
 
@@ -19,15 +19,12 @@ class ConflictException(TimestreamQueryError):
 
 
 class InternalServerException(TimestreamQueryError):
-    """Timestream was unable to fully process this request because of an internal server
-    error.
-    """
-
+    """An internal server error occurred while processing the request."""
     _ERROR_CODE = "InternalServerException"
 
 
 class InvalidEndpointException(TimestreamQueryError):
-    """The requested endpoint was not valid."""
+    """The requested endpoint is invalid."""
     _ERROR_CODE = "InvalidEndpointException"
 
 
@@ -52,7 +49,7 @@ class ServiceQuotaExceededException(TimestreamQueryError):
 
 
 class ThrottlingException(TimestreamQueryError):
-    """The request was denied due to request throttling."""
+    """The request was throttled due to excessive requests."""
     _ERROR_CODE = "ThrottlingException"
 
 

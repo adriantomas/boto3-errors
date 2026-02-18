@@ -41,9 +41,14 @@ class ExpiredTokenException(MarketplaceMeteringError):
     _ERROR_CODE = "ExpiredTokenException"
 
 
+class IdempotencyConflictException(MarketplaceMeteringError):
+    """The `ClientToken` is being used for multiple requests."""
+    _ERROR_CODE = "IdempotencyConflictException"
+
+
 class InternalServiceErrorException(MarketplaceMeteringError):
     """An internal error has occurred. Retry your request. If the problem persists, post a
-    message with details on the AWS forums.
+    message with details on the Amazon Web Services forums.
     """
 
     _ERROR_CODE = "InternalServiceErrorException"
@@ -55,9 +60,9 @@ class InvalidCustomerIdentifierException(MarketplaceMeteringError):
 
 
 class InvalidEndpointRegionException(MarketplaceMeteringError):
-    """The endpoint being called is in a AWS Region different from your EC2 instance, ECS
-    task, or EKS pod. The Region of the Metering Service endpoint and the AWS Region of
-    the resource must match.
+    """The endpoint being called is in a Amazon Web Services Region different from your EC2
+    instance, ECS task, or EKS pod. The Region of the Metering Service endpoint and the
+    Amazon Web Services Region of the resource must match.
     """
 
     _ERROR_CODE = "InvalidEndpointRegionException"
@@ -77,9 +82,9 @@ class InvalidPublicKeyVersionException(MarketplaceMeteringError):
 
 
 class InvalidRegionException(MarketplaceMeteringError):
-    """`RegisterUsage` must be called in the same AWS Region the ECS task was launched in.
-    This prevents a container from hardcoding a Region (e.g. withRegion(“us-east-1”)
-    when calling `RegisterUsage`.
+    """`RegisterUsage` must be called in the same Amazon Web Services Region the ECS task
+    was launched in. This prevents a container from hardcoding a Region (e.g.
+    withRegion(“us-east-1”) when calling `RegisterUsage`.
     """
 
     _ERROR_CODE = "InvalidRegionException"
@@ -96,10 +101,7 @@ class InvalidTokenException(MarketplaceMeteringError):
 
 
 class InvalidUsageAllocationsException(MarketplaceMeteringError):
-    """The usage allocation objects are invalid, or the number of allocations is greater
-    than 500 for a single usage record.
-    """
-
+    """Sum of allocated usage quantities is not equal to the usage quantity."""
     _ERROR_CODE = "InvalidUsageAllocationsException"
 
 
@@ -112,8 +114,8 @@ class InvalidUsageDimensionException(MarketplaceMeteringError):
 
 
 class PlatformNotSupportedException(MarketplaceMeteringError):
-    """AWS Marketplace does not support metering usage from the underlying platform.
-    Currently, Amazon ECS, Amazon EKS, and AWS Fargate are supported.
+    """Amazon Web Services Marketplace does not support metering usage from the underlying
+    platform. Currently, Amazon ECS, Amazon EKS, and Fargate are supported.
     """
 
     _ERROR_CODE = "PlatformNotSupportedException"
@@ -139,6 +141,7 @@ EXCEPTIONS: dict[str, type[MarketplaceMeteringError]] = {
     "DisabledApiException": DisabledApiException,
     "DuplicateRequestException": DuplicateRequestException,
     "ExpiredTokenException": ExpiredTokenException,
+    "IdempotencyConflictException": IdempotencyConflictException,
     "InternalServiceErrorException": InternalServiceErrorException,
     "InvalidCustomerIdentifierException": InvalidCustomerIdentifierException,
     "InvalidEndpointRegionException": InvalidEndpointRegionException,

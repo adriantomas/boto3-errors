@@ -94,6 +94,14 @@ class CloudHsmClusterNotRelatedException(KMSError):
     _ERROR_CODE = "CloudHsmClusterNotRelatedException"
 
 
+class ConflictException(KMSError):
+    """The request was rejected because an automatic rotation of this key is currently in
+    progress or scheduled to begin within the next 20 minutes.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+
 class CustomKeyStoreHasCMKsException(KMSError):
     """The request was rejected because the custom key store contains KMS keys. After
     verifying that you do not need to use the KMS keys, use the ScheduleKeyDeletion
@@ -185,8 +193,9 @@ class IncorrectKeyException(KMSError):
 
 class IncorrectKeyMaterialException(KMSError):
     """The request was rejected because the key material in the request is, expired,
-    invalid, or is not the same key material that was previously imported into this KMS
-    key.
+    invalid, or does not meet expectations. For example, it is not the same key material
+    that was previously imported or KMS expected new key material but the key material
+    being imported is already associated with the KMS key.
     """
 
     _ERROR_CODE = "IncorrectKeyMaterialException"
@@ -258,8 +267,9 @@ class InvalidKeyUsageException(KMSError):
     For encrypting, decrypting, re-encrypting, and generating data keys, the `KeyUsage`
     must be `ENCRYPT_DECRYPT`. For signing and verifying messages, the `KeyUsage` must
     be `SIGN_VERIFY`. For generating and verifying message authentication codes (MACs),
-    the `KeyUsage` must be `GENERATE_VERIFY_MAC`. To find the `KeyUsage` of a KMS key,
-    use the DescribeKey operation.
+    the `KeyUsage` must be `GENERATE_VERIFY_MAC`. For deriving key agreement secrets,
+    the `KeyUsage` must be `KEY_AGREEMENT`. To find the `KeyUsage` of a KMS key, use the
+    DescribeKey operation.
 
     To find the encryption or signing algorithms supported for a particular KMS key, use
     the DescribeKey operation.
@@ -329,8 +339,8 @@ class KeyUnavailableException(KMSError):
 
 
 class LimitExceededException(KMSError):
-    """The request was rejected because a quota was exceeded. For more information, see
-    Quotas in the Key Management Service Developer Guide.
+    """The request was rejected because a length constraint or quota was exceeded. For more
+    information, see Quotas in the Key Management Service Developer Guide.
     """
 
     _ERROR_CODE = "LimitExceededException"
@@ -497,6 +507,7 @@ EXCEPTIONS: dict[str, type[KMSError]] = {
     "CloudHsmClusterNotActiveException": CloudHsmClusterNotActiveException,
     "CloudHsmClusterNotFoundException": CloudHsmClusterNotFoundException,
     "CloudHsmClusterNotRelatedException": CloudHsmClusterNotRelatedException,
+    "ConflictException": ConflictException,
     "CustomKeyStoreHasCMKsException": CustomKeyStoreHasCMKsException,
     "CustomKeyStoreInvalidStateException": CustomKeyStoreInvalidStateException,
     "CustomKeyStoreNameInUseException": CustomKeyStoreNameInUseException,

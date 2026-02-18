@@ -23,14 +23,31 @@ class InternalServerException(BedrockError):
     _ERROR_CODE = "InternalServerException"
 
 
+class ResourceInUseException(BedrockError):
+    """Thrown when attempting to delete or modify a resource that is currently being used
+    by other resources or operations. For example, trying to delete an Automated
+    Reasoning policy that is referenced by an active guardrail.
+    """
+
+    _ERROR_CODE = "ResourceInUseException"
+
+
 class ResourceNotFoundException(BedrockError):
-    """The specified resource ARN was not found. Check the ARN and try your request again."""
+    """The specified resource Amazon Resource Name (ARN) was not found. Check the Amazon
+    Resource Name (ARN) and try your request again.
+    """
+
     _ERROR_CODE = "ResourceNotFoundException"
 
 
 class ServiceQuotaExceededException(BedrockError):
     """The number of requests exceeds the service quota. Resubmit your request later."""
     _ERROR_CODE = "ServiceQuotaExceededException"
+
+
+class ServiceUnavailableException(BedrockError):
+    """Returned if the service cannot complete the request."""
+    _ERROR_CODE = "ServiceUnavailableException"
 
 
 class ThrottlingException(BedrockError):
@@ -61,8 +78,10 @@ EXCEPTIONS: dict[str, type[BedrockError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
+    "ResourceInUseException": ResourceInUseException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
+    "ServiceUnavailableException": ServiceUnavailableException,
     "ThrottlingException": ThrottlingException,
     "TooManyTagsException": TooManyTagsException,
     "ValidationException": ValidationException,

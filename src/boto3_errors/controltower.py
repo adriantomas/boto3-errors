@@ -29,10 +29,7 @@ class ResourceNotFoundException(ControlTowerError):
 
 
 class ServiceQuotaExceededException(ControlTowerError):
-    """The request would cause a service quota to be exceeded. The limit is 10 concurrent
-    operations.
-    """
-
+    """The request would cause a service quota to be exceeded. See Service quotas."""
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 

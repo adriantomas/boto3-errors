@@ -8,6 +8,30 @@ class ConfigServiceError(Boto3Error):
     _SERVICE = "config"
 
 
+class ConflictException(ConfigServiceError):
+    """For PutServiceLinkedConfigurationRecorder, you cannot create a service-linked
+    recorder because a service-linked recorder already exists for the specified service.
+
+    For DeleteServiceLinkedConfigurationRecorder, you cannot delete the service-linked
+    recorder because it is currently in use by the linked Amazon Web Services service.
+
+    For DeleteDeliveryChannel, you cannot delete the specified delivery channel because
+    the customer managed configuration recorder is running. Use the
+    StopConfigurationRecorder operation to stop the customer managed configuration
+    recorder.
+
+    For AssociateResourceTypes and DisassociateResourceTypes, one of the following
+    errors:
+
+    - For service-linked configuration recorders, the configuration recorder is not in
+      use by the service. No association or dissociation of resource types is permitted.
+    - For service-linked configuration recorders, your requested change to the
+      configuration recorder has been denied by its linked Amazon Web Services service.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+
 class ConformancePackTemplateValidationException(ConfigServiceError):
     """You have specified a template that is not valid or supported."""
     _ERROR_CODE = "ConformancePackTemplateValidationException"
@@ -22,7 +46,7 @@ class IdempotentParameterMismatch(ConfigServiceError):
 
 
 class InsufficientDeliveryPolicyException(ConfigServiceError):
-    """Your Amazon S3 bucket policy does not permit Config to write to it."""
+    """Your Amazon S3 bucket policy does not allow Config to write to it."""
     _ERROR_CODE = "InsufficientDeliveryPolicyException"
 
 
@@ -42,13 +66,21 @@ class InsufficientPermissionsException(ConfigServiceError):
       - You do not have permission to call IAM `GetRole` action or create a service-
         linked role.
       - You do not have permission to read Amazon S3 bucket or call SSM:GetDocument.
+
+    - For PutServiceLinkedConfigurationRecorder, a service-linked configuration recorder
+      cannot be created because you do not have the following permissions: IAM
+      `CreateServiceLinkedRole`.
     """
 
     _ERROR_CODE = "InsufficientPermissionsException"
 
 
 class InvalidConfigurationRecorderNameException(ConfigServiceError):
-    """You have provided a name for the configuration recorder that is not valid."""
+    """The configuration recorder name is not valid. The prefix
+    "`AWSConfigurationRecorderFor`" is reserved for service-linked configuration
+    recorders.
+    """
+
     _ERROR_CODE = "InvalidConfigurationRecorderNameException"
 
 
@@ -84,7 +116,7 @@ class InvalidParameterValueException(ConfigServiceError):
 
 
 class InvalidRecordingGroupException(ConfigServiceError):
-    """Indicates one of the following errors:
+    """One of the following errors:
 
     - You have provided a combination of parameter values that is not valid. For
       example:
@@ -110,7 +142,7 @@ class InvalidResultTokenException(ConfigServiceError):
 
 class InvalidRoleException(ConfigServiceError):
     """You have provided a null or empty Amazon Resource Name (ARN) for the IAM role
-    assumed by Config and used by the configuration recorder.
+    assumed by Config and used by the customer managed configuration recorder.
     """
 
     _ERROR_CODE = "InvalidRoleException"
@@ -140,15 +172,18 @@ class InvalidTimeRangeException(ConfigServiceError):
 
 
 class LastDeliveryChannelDeleteFailedException(ConfigServiceError):
-    """You cannot delete the delivery channel you specified because the configuration
-    recorder is running.
+    """You cannot delete the delivery channel you specified because the customer managed
+    configuration recorder is running.
     """
 
     _ERROR_CODE = "LastDeliveryChannelDeleteFailedException"
 
 
 class LimitExceededException(ConfigServiceError):
-    """For `StartConfigRulesEvaluation` API, this exception is thrown if an evaluation is
+    """For `PutServiceLinkedConfigurationRecorder` API, this exception is thrown if the
+    number of service-linked roles in the account exceeds the limit.
+
+    For `StartConfigRulesEvaluation` API, this exception is thrown if an evaluation is
     in progress or if you call the StartConfigRulesEvaluation API more than once per
     minute.
 
@@ -169,7 +204,7 @@ class MaxActiveResourcesExceededException(ConfigServiceError):
 
 class MaxNumberOfConfigRulesExceededException(ConfigServiceError):
     """Failed to add the Config rule because the account already contains the maximum
-    number of 150 rules. Consider deleting any deactivated rules before you add new
+    number of 1000 rules. Consider deleting any deactivated rules before you add new
     rules.
     """
 
@@ -220,8 +255,9 @@ class MaxNumberOfRetentionConfigurationsExceededException(ConfigServiceError):
 
 
 class NoAvailableConfigurationRecorderException(ConfigServiceError):
-    """There are no configuration recorders available to provide the role needed to
-    describe your resources. Create a configuration recorder.
+    """There are no customer managed configuration recorders available to record your
+    resources. Use the PutConfigurationRecorder operation to create the customer managed
+    configuration recorder.
     """
 
     _ERROR_CODE = "NoAvailableConfigurationRecorderException"
@@ -330,7 +366,7 @@ class OrganizationAccessDeniedException(ConfigServiceError):
       Web Services Organization.
     - You are not a registered delegated administrator for Config with permissions to
       call `ListDelegatedAdministrators` API. Ensure that the management account
-      registers delagated administrator for Config service principle name before the
+      registers delagated administrator for Config service principal name before the
       delegated administrator creates an aggregator.
 
     For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config
@@ -415,22 +451,63 @@ class TooManyTagsException(ConfigServiceError):
     _ERROR_CODE = "TooManyTagsException"
 
 
+class UnmodifiableEntityException(ConfigServiceError):
+    """The requested operation is not valid.
+
+    For PutConfigurationRecorder, you will see this exception because you cannot use
+    this operation to create a service-linked configuration recorder. Use the
+    PutServiceLinkedConfigurationRecorder operation to create a service-linked
+    configuration recorder.
+
+    For DeleteConfigurationRecorder, you will see this exception because you cannot use
+    this operation to delete a service-linked configuration recorder. Use the
+    DeleteServiceLinkedConfigurationRecorder operation to delete a service-linked
+    configuration recorder.
+
+    For StartConfigurationRecorder and StopConfigurationRecorder, you will see this
+    exception because these operations do not affect service-linked configuration
+    recorders. Service-linked configuration recorders are always recording. To stop
+    recording, you must delete the service-linked configuration recorder. Use the
+    DeleteServiceLinkedConfigurationRecorder operation to delete a service-linked
+    configuration recorder.
+    """
+
+    _ERROR_CODE = "UnmodifiableEntityException"
+
+
 class ValidationException(ConfigServiceError):
-    """The requested action is not valid.
+    """The requested operation is not valid. You will see this exception if there are
+    missing required fields or if the input value fails the validation.
 
-    For PutStoredQuery, you will see this exception if there are missing required fields
-    or if the input value fails the validation, or if you are trying to create more than
-    300 queries.
+    For PutStoredQuery, one of the following errors:
 
-    For GetStoredQuery, ListStoredQuery, and DeleteStoredQuery you will see this
-    exception if there are missing required fields or if the input value fails the
-    validation.
+    - There are missing required fields.
+    - The input value fails the validation.
+    - You are trying to create more than 300 queries.
+
+    For DescribeConfigurationRecorders and DescribeConfigurationRecorderStatus, one of
+    the following errors:
+
+    - You have specified more than one configuration recorder.
+    - You have provided a service principal for service-linked configuration recorder
+      that is not valid.
+
+    For AssociateResourceTypes and DisassociateResourceTypes, one of the following
+    errors:
+
+    - Your configuraiton recorder has a recording strategy that does not allow the
+      association or disassociation of resource types.
+    - One or more of the specified resource types are already associated or
+      disassociated with the configuration recorder.
+    - For service-linked configuration recorders, the configuration recorder does not
+      record one or more of the specified resource types.
     """
 
     _ERROR_CODE = "ValidationException"
 
 
 EXCEPTIONS: dict[str, type[ConfigServiceError]] = {
+    "ConflictException": ConflictException,
     "ConformancePackTemplateValidationException": ConformancePackTemplateValidationException,
     "IdempotentParameterMismatch": IdempotentParameterMismatch,
     "InsufficientDeliveryPolicyException": InsufficientDeliveryPolicyException,
@@ -484,5 +561,6 @@ EXCEPTIONS: dict[str, type[ConfigServiceError]] = {
     "ResourceNotDiscoveredException": ResourceNotDiscoveredException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "TooManyTagsException": TooManyTagsException,
+    "UnmodifiableEntityException": UnmodifiableEntityException,
     "ValidationException": ValidationException,
 }

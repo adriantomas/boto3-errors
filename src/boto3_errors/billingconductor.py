@@ -94,7 +94,10 @@ class ThrottlingException(billingconductorError):
 
 
 class ValidationException(billingconductorError):
-    """The input doesn't match with the constraints specified by Amazon Web Services."""
+    """The input doesn't match with the constraints specified by Amazon Web Services
+    services.
+    """
+
     _ERROR_CODE = "ValidationException"
 
     @property

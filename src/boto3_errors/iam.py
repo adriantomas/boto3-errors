@@ -8,6 +8,22 @@ class IAMError(Boto3Error):
     _SERVICE = "iam"
 
 
+class AccountNotManagementOrDelegatedAdministratorException(IAMError):
+    """The request was rejected because the account making the request is not the
+    management account or delegated administrator account for centralized root access.
+    """
+
+    _ERROR_CODE = "AccountNotManagementOrDelegatedAdministratorException"
+
+
+class CallerIsNotManagementAccountException(IAMError):
+    """The request was rejected because the account making the request is not the
+    management account for the organization.
+    """
+
+    _ERROR_CODE = "CallerIsNotManagementAccountException"
+
+
 class ConcurrentModificationException(IAMError):
     """The request was rejected because multiple requests to change this object were
     submitted simultaneously. Wait a few minutes and submit your request again.
@@ -81,6 +97,24 @@ class EntityTemporarilyUnmodifiableException(IAMError):
     _ERROR_CODE = "EntityTemporarilyUnmodifiable"
 
 
+class FeatureDisabledException(IAMError):
+    """The request failed because outbound identity federation is already disabled for your
+    Amazon Web Services account. You cannot disable the feature multiple times
+    """
+
+    _ERROR_CODE = "FeatureDisabled"
+
+
+class FeatureEnabledException(IAMError):
+    """The request failed because outbound identity federation is already enabled for your
+    Amazon Web Services account. You cannot enable the feature multiple times. To fetch
+    the current configuration (including the unique issuer URL), use the
+    `GetOutboundWebIdentityFederationInfo` operation.
+    """
+
+    _ERROR_CODE = "FeatureEnabled"
+
+
 class InvalidAuthenticationCodeException(IAMError):
     """The request was rejected because the authentication code was not recognized. The
     error message describes the specific error.
@@ -152,6 +186,28 @@ class NoSuchEntityException(IAMError):
     _ERROR_CODE = "NoSuchEntity"
 
 
+class OpenIdIdpCommunicationErrorException(IAMError):
+    """The request failed because IAM cannot connect to the OpenID Connect identity
+    provider URL.
+    """
+
+    _ERROR_CODE = "OpenIdIdpCommunicationError"
+
+
+class OrganizationNotFoundException(IAMError):
+    """The request was rejected because no organization is associated with your account."""
+    _ERROR_CODE = "OrganizationNotFoundException"
+
+
+class OrganizationNotInAllFeaturesModeException(IAMError):
+    """The request was rejected because your organization does not have All features
+    enabled. For more information, see Available feature sets in the Organizations User
+    Guide.
+    """
+
+    _ERROR_CODE = "OrganizationNotInAllFeaturesModeException"
+
+
 class PasswordPolicyViolationException(IAMError):
     """The request was rejected because the provided password did not meet the requirements
     imposed by the account password policy.
@@ -184,6 +240,15 @@ class ReportGenerationLimitExceededException(IAMError):
     _ERROR_CODE = "ReportGenerationLimitExceeded"
 
 
+class ServiceAccessNotEnabledException(IAMError):
+    """The request was rejected because trusted access is not enabled for IAM in
+    Organizations. For details, see IAM and Organizations in the Organizations User
+    Guide.
+    """
+
+    _ERROR_CODE = "ServiceAccessNotEnabledException"
+
+
 class ServiceFailureException(IAMError):
     """The request processing has failed because of an unknown error, exception or failure."""
     _ERROR_CODE = "ServiceFailure"
@@ -214,6 +279,8 @@ class UnrecognizedPublicKeyEncodingException(IAMError):
 
 
 EXCEPTIONS: dict[str, type[IAMError]] = {
+    "AccountNotManagementOrDelegatedAdministratorException": AccountNotManagementOrDelegatedAdministratorException,
+    "CallerIsNotManagementAccountException": CallerIsNotManagementAccountException,
     "ConcurrentModification": ConcurrentModificationException,
     "ReportExpired": CredentialReportExpiredException,
     "ReportNotPresent": CredentialReportNotPresentException,
@@ -223,6 +290,8 @@ EXCEPTIONS: dict[str, type[IAMError]] = {
     "DuplicateSSHPublicKey": DuplicateSSHPublicKeyException,
     "EntityAlreadyExists": EntityAlreadyExistsException,
     "EntityTemporarilyUnmodifiable": EntityTemporarilyUnmodifiableException,
+    "FeatureDisabled": FeatureDisabledException,
+    "FeatureEnabled": FeatureEnabledException,
     "InvalidAuthenticationCode": InvalidAuthenticationCodeException,
     "InvalidCertificate": InvalidCertificateException,
     "InvalidInput": InvalidInputException,
@@ -233,10 +302,14 @@ EXCEPTIONS: dict[str, type[IAMError]] = {
     "MalformedCertificate": MalformedCertificateException,
     "MalformedPolicyDocument": MalformedPolicyDocumentException,
     "NoSuchEntity": NoSuchEntityException,
+    "OpenIdIdpCommunicationError": OpenIdIdpCommunicationErrorException,
+    "OrganizationNotFoundException": OrganizationNotFoundException,
+    "OrganizationNotInAllFeaturesModeException": OrganizationNotInAllFeaturesModeException,
     "PasswordPolicyViolation": PasswordPolicyViolationException,
     "PolicyEvaluation": PolicyEvaluationException,
     "PolicyNotAttachable": PolicyNotAttachableException,
     "ReportGenerationLimitExceeded": ReportGenerationLimitExceededException,
+    "ServiceAccessNotEnabledException": ServiceAccessNotEnabledException,
     "ServiceFailure": ServiceFailureException,
     "NotSupportedService": ServiceNotSupportedException,
     "UnmodifiableEntity": UnmodifiableEntityException,

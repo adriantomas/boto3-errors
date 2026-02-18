@@ -42,16 +42,6 @@ class InternalServerException(WorkSpacesThinClientError):
         return self.response.get("retryAfterSeconds")
 
 
-class InternalServiceException(WorkSpacesThinClientError):
-    """Request processing failed due to some unknown error, exception, or failure."""
-    _ERROR_CODE = "InternalServiceException"
-
-    @property
-    def retry_after_seconds(self) -> int | None:
-        """The number of seconds to wait before retrying the next request."""
-        return self.response.get("retryAfterSeconds")
-
-
 class ResourceNotFoundException(WorkSpacesThinClientError):
     """The resource specified in the request was not found."""
     _ERROR_CODE = "ResourceNotFoundException"
@@ -131,7 +121,6 @@ EXCEPTIONS: dict[str, type[WorkSpacesThinClientError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
-    "InternalServiceException": InternalServiceException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,

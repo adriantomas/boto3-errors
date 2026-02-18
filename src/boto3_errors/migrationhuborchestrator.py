@@ -13,6 +13,14 @@ class AccessDeniedException(MigrationHubOrchestratorError):
     _ERROR_CODE = "AccessDeniedException"
 
 
+class ConflictException(MigrationHubOrchestratorError):
+    """This exception is thrown when an attempt to update or delete a resource would cause
+    an inconsistent state.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+
 class InternalServerException(MigrationHubOrchestratorError):
     """An internal error has occurred."""
     _ERROR_CODE = "InternalServerException"
@@ -35,6 +43,7 @@ class ValidationException(MigrationHubOrchestratorError):
 
 EXCEPTIONS: dict[str, type[MigrationHubOrchestratorError]] = {
     "AccessDeniedException": AccessDeniedException,
+    "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ThrottlingException": ThrottlingException,

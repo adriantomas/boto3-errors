@@ -13,6 +13,15 @@ class ConcurrentModificationException(AppStreamError):
     _ERROR_CODE = "ConcurrentModificationException"
 
 
+class DryRunOperationException(AppStreamError):
+    """The exception that is thrown when a dry run operation is requested. This indicates
+    that the validation checks have been performed successfully, but no actual resources
+    were created or modified.
+    """
+
+    _ERROR_CODE = "DryRunOperationException"
+
+
 class EntitlementAlreadyExistsException(AppStreamError):
     """The entitlement already exists."""
     _ERROR_CODE = "EntitlementAlreadyExistsException"
@@ -57,8 +66,8 @@ class OperationNotPermittedException(AppStreamError):
 
 
 class RequestLimitExceededException(AppStreamError):
-    """AppStream 2.0 can’t process the request right now because the Describe calls from
-    your AWS account are being throttled by Amazon EC2. Try again later.
+    """WorkSpaces Applications can’t process the request right now because the Describe
+    calls from your AWS account are being throttled by Amazon EC2. Try again later.
     """
 
     _ERROR_CODE = "RequestLimitExceededException"
@@ -86,6 +95,7 @@ class ResourceNotFoundException(AppStreamError):
 
 EXCEPTIONS: dict[str, type[AppStreamError]] = {
     "ConcurrentModificationException": ConcurrentModificationException,
+    "DryRunOperationException": DryRunOperationException,
     "EntitlementAlreadyExistsException": EntitlementAlreadyExistsException,
     "EntitlementNotFoundException": EntitlementNotFoundException,
     "IncompatibleImageException": IncompatibleImageException,

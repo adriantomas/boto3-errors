@@ -108,9 +108,22 @@ class ServiceAlreadyExists(ServiceDiscoveryError):
         return self.response.get("CreatorRequestId")
 
     @property
+    def service_arn(self) -> str | None:
+        """The ARN of the existing service."""
+        return self.response.get("ServiceArn")
+
+    @property
     def service_id(self) -> str | None:
         """The ID of the existing service."""
         return self.response.get("ServiceId")
+
+
+class ServiceAttributesLimitExceededException(ServiceDiscoveryError):
+    """The attribute can't be added to the service because you've exceeded the quota for
+    the number of attributes you can add to a service.
+    """
+
+    _ERROR_CODE = "ServiceAttributesLimitExceededException"
 
 
 class ServiceNotFound(ServiceDiscoveryError):
@@ -144,6 +157,7 @@ EXCEPTIONS: dict[str, type[ServiceDiscoveryError]] = {
     "ResourceLimitExceeded": ResourceLimitExceeded,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceAlreadyExists": ServiceAlreadyExists,
+    "ServiceAttributesLimitExceededException": ServiceAttributesLimitExceededException,
     "ServiceNotFound": ServiceNotFound,
     "TooManyTagsException": TooManyTagsException,
 }

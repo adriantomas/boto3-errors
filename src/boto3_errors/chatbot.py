@@ -93,13 +93,18 @@ class GetTeamsChannelConfigurationException(chatbotError):
     _ERROR_CODE = "GetTeamsChannelConfigurationException"
 
 
+class InternalServiceError(chatbotError):
+    """Unexpected error during processing of request."""
+    _ERROR_CODE = "InternalServiceError"
+
+
 class InvalidParameterException(chatbotError):
-    """Your request input doesn't meet the constraints that AWS Chatbot requires."""
+    """Your request input doesn't meet the constraints required by AWS Chatbot."""
     _ERROR_CODE = "InvalidParameterException"
 
 
 class InvalidRequestException(chatbotError):
-    """Your request input doesn't meet the constraints that AWS Chatbot requires."""
+    """Your request input doesn't meet the constraints required by AWS Chatbot."""
     _ERROR_CODE = "InvalidRequestException"
 
 
@@ -124,8 +129,26 @@ class ListTeamsChannelConfigurationsException(chatbotError):
 
 
 class ResourceNotFoundException(chatbotError):
-    """We were not able to find the resource for your request."""
+    """We were unable to find the resource for your request"""
     _ERROR_CODE = "ResourceNotFoundException"
+
+
+class ServiceUnavailableException(chatbotError):
+    """We can’t process your request right now because of a server issue. Try again later."""
+    _ERROR_CODE = "ServiceUnavailableException"
+
+
+class TooManyTagsException(chatbotError):
+    """The supplied list of tags contains too many tags."""
+    _ERROR_CODE = "TooManyTagsException"
+
+
+class UnauthorizedException(chatbotError):
+    """The request was rejected because it doesn't have valid credentials for the target
+    resource.
+    """
+
+    _ERROR_CODE = "UnauthorizedException"
 
 
 class UpdateAccountPreferencesException(chatbotError):
@@ -166,6 +189,7 @@ EXCEPTIONS: dict[str, type[chatbotError]] = {
     "DescribeSlackWorkspacesException": DescribeSlackWorkspacesException,
     "GetAccountPreferencesException": GetAccountPreferencesException,
     "GetTeamsChannelConfigurationException": GetTeamsChannelConfigurationException,
+    "InternalServiceError": InternalServiceError,
     "InvalidParameterException": InvalidParameterException,
     "InvalidRequestException": InvalidRequestException,
     "LimitExceededException": LimitExceededException,
@@ -173,6 +197,9 @@ EXCEPTIONS: dict[str, type[chatbotError]] = {
     "ListMicrosoftTeamsUserIdentitiesException": ListMicrosoftTeamsUserIdentitiesException,
     "ListTeamsChannelConfigurationsException": ListTeamsChannelConfigurationsException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "ServiceUnavailableException": ServiceUnavailableException,
+    "TooManyTagsException": TooManyTagsException,
+    "UnauthorizedException": UnauthorizedException,
     "UpdateAccountPreferencesException": UpdateAccountPreferencesException,
     "UpdateChimeWebhookConfigurationException": UpdateChimeWebhookConfigurationException,
     "UpdateSlackChannelConfigurationException": UpdateSlackChannelConfigurationException,

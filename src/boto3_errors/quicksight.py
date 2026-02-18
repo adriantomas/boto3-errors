@@ -11,8 +11,8 @@ class QuickSightError(Boto3Error):
 class AccessDeniedException(QuickSightError):
     """You don't have access to this item. The provided credentials couldn't be validated.
     You might not be authorized to carry out the request. Make sure that your account is
-    authorized to use the Amazon QuickSight service, that your policies have the correct
-    permissions, and that you are using the correct credentials.
+    authorized to use the Amazon Quick Sight service, that your policies have the
+    correct permissions, and that you are using the correct credentials.
     """
 
     _ERROR_CODE = "AccessDeniedException"
@@ -45,9 +45,22 @@ class ConflictException(QuickSightError):
         return self.response.get("RequestId")
 
 
+class CustomerManagedKeyUnavailableException(QuickSightError):
+    """The customer managed key that is registered to your Amazon Quick Sight account is
+    unavailable.
+    """
+
+    _ERROR_CODE = "CustomerManagedKeyUnavailableException"
+
+    @property
+    def request_id(self) -> str | None:
+        """The Amazon Web Services request ID for this operation."""
+        return self.response.get("RequestId")
+
+
 class DomainNotWhitelistedException(QuickSightError):
     """The domain specified isn't on the allow list. All domains for embedded dashboards
-    must be added to the approved list by an Amazon QuickSight admin.
+    must be added to the approved list by an Amazon Quick Suite admin.
     """
 
     _ERROR_CODE = "DomainNotWhitelistedException"
@@ -81,9 +94,37 @@ class InternalFailureException(QuickSightError):
         return self.response.get("RequestId")
 
 
+class InternalServerException(QuickSightError):
+    """An internal service exception."""
+    _ERROR_CODE = "InternalServerException"
+
+
+class InvalidDataSetParameterValueException(QuickSightError):
+    """An exception thrown when an invalid parameter value is provided for dataset
+    operations.
+    """
+
+    _ERROR_CODE = "InvalidDataSetParameterValueException"
+
+    @property
+    def request_id(self) -> str | None:
+        """The Amazon Web Services request ID for this request."""
+        return self.response.get("RequestId")
+
+
 class InvalidNextTokenException(QuickSightError):
     """The `NextToken` value isn't valid."""
     _ERROR_CODE = "InvalidNextTokenException"
+
+    @property
+    def request_id(self) -> str | None:
+        """The Amazon Web Services request ID for this request."""
+        return self.response.get("RequestId")
+
+
+class InvalidParameterException(QuickSightError):
+    """One or more parameter has a value that isn't valid."""
+    _ERROR_CODE = "InvalidParameterException"
 
     @property
     def request_id(self) -> str | None:
@@ -222,11 +263,10 @@ class ThrottlingException(QuickSightError):
 
 
 class UnsupportedPricingPlanException(QuickSightError):
-    """This error indicates that you are calling an embedding operation in Amazon
-    QuickSight without the required pricing plan on your Amazon Web Services account.
-    Before you can use embedding for anonymous users, a QuickSight administrator needs
-    to add capacity pricing to Amazon QuickSight. You can do this on the Manage Amazon
-    QuickSight page.
+    """This error indicates that you are calling an embedding operation in Amazon Quick
+    Sight without the required pricing plan on your Amazon Web Services account. Before
+    you can use embedding for anonymous users, a Quick Suite administrator needs to add
+    capacity pricing to Quick Sight. You can do this on the Manage Quick Suite page.
 
     After capacity pricing is added, you can use the ` GetDashboardEmbedUrl ` API
     operation with the `--identity-type ANONYMOUS` option.
@@ -241,9 +281,9 @@ class UnsupportedPricingPlanException(QuickSightError):
 
 
 class UnsupportedUserEditionException(QuickSightError):
-    """This error indicates that you are calling an operation on an Amazon QuickSight
+    """This error indicates that you are calling an operation on an Amazon Quick Suite
     subscription where the edition doesn't include support for that operation. Amazon
-    Amazon QuickSight currently has Standard Edition and Enterprise Edition. Not every
+    Quick Suite currently has Standard Edition and Enterprise Edition. Not every
     operation and capability is available in every edition.
     """
 
@@ -259,10 +299,14 @@ EXCEPTIONS: dict[str, type[QuickSightError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConcurrentUpdatingException": ConcurrentUpdatingException,
     "ConflictException": ConflictException,
+    "CustomerManagedKeyUnavailableException": CustomerManagedKeyUnavailableException,
     "DomainNotWhitelistedException": DomainNotWhitelistedException,
     "IdentityTypeNotSupportedException": IdentityTypeNotSupportedException,
     "InternalFailureException": InternalFailureException,
+    "InternalServerException": InternalServerException,
+    "InvalidDataSetParameterValueException": InvalidDataSetParameterValueException,
     "InvalidNextTokenException": InvalidNextTokenException,
+    "InvalidParameterException": InvalidParameterException,
     "InvalidParameterValueException": InvalidParameterValueException,
     "InvalidRequestException": InvalidRequestException,
     "LimitExceededException": LimitExceededException,

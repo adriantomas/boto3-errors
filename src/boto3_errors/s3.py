@@ -8,6 +8,14 @@ class S3Error(Boto3Error):
     _SERVICE = "s3"
 
 
+class AccessDenied(S3Error):
+    """You might receive this error for several reasons. For details, see the description
+    of this API operation.
+    """
+
+    _ERROR_CODE = "AccessDenied"
+
+
 class BucketAlreadyExists(S3Error):
     """The requested bucket name is not available. The bucket namespace is shared by all
     users of the system. Select a different name and try again.
@@ -25,6 +33,31 @@ class BucketAlreadyOwnedByYou(S3Error):
     """
 
     _ERROR_CODE = "BucketAlreadyOwnedByYou"
+
+
+class EncryptionTypeMismatch(S3Error):
+    """The existing object was created with a different encryption type. Subsequent write
+    requests must include the appropriate encryption parameters in the request or while
+    creating the session.
+    """
+
+    _ERROR_CODE = "EncryptionTypeMismatch"
+
+
+class IdempotencyParameterMismatch(S3Error):
+    """Parameters on this idempotent request are inconsistent with parameters used in
+    previous request(s).
+
+    For a list of error codes and more information on Amazon S3 errors, see Error codes.
+
+    Note:
+
+    Idempotency ensures that an API request completes no more than one time. With an
+    idempotent request, if the original request completes successfully, any subsequent
+    retries complete successfully without performing any further actions.
+    """
+
+    _ERROR_CODE = "IdempotencyParameterMismatch"
 
 
 class InvalidObjectState(S3Error):
@@ -48,6 +81,19 @@ class InvalidObjectState(S3Error):
     @property
     def storage_class(self) -> str | None:
         return self.response.get("StorageClass")
+
+
+class InvalidRequest(S3Error):
+    """A parameter or header in your request isn't valid. For details, see the description
+    of this API operation.
+    """
+
+    _ERROR_CODE = "InvalidRequest"
+
+
+class InvalidWriteOffset(S3Error):
+    """The write offset value that you specified does not match the current object size."""
+    _ERROR_CODE = "InvalidWriteOffset"
 
 
 class NoSuchBucket(S3Error):
@@ -78,13 +124,28 @@ class ObjectNotInActiveTierError(S3Error):
     _ERROR_CODE = "ObjectNotInActiveTierError"
 
 
+class TooManyParts(S3Error):
+    """You have attempted to add more parts than the maximum of 10000 that are allowed for
+    this object. You can use the CopyObject operation to copy this object to another and
+    then add more data to the newly copied object.
+    """
+
+    _ERROR_CODE = "TooManyParts"
+
+
 EXCEPTIONS: dict[str, type[S3Error]] = {
+    "AccessDenied": AccessDenied,
     "BucketAlreadyExists": BucketAlreadyExists,
     "BucketAlreadyOwnedByYou": BucketAlreadyOwnedByYou,
+    "EncryptionTypeMismatch": EncryptionTypeMismatch,
+    "IdempotencyParameterMismatch": IdempotencyParameterMismatch,
     "InvalidObjectState": InvalidObjectState,
+    "InvalidRequest": InvalidRequest,
+    "InvalidWriteOffset": InvalidWriteOffset,
     "NoSuchBucket": NoSuchBucket,
     "NoSuchKey": NoSuchKey,
     "NoSuchUpload": NoSuchUpload,
     "ObjectAlreadyInActiveTierError": ObjectAlreadyInActiveTierError,
     "ObjectNotInActiveTierError": ObjectNotInActiveTierError,
+    "TooManyParts": TooManyParts,
 }

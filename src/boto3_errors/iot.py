@@ -28,7 +28,7 @@ class CertificateValidationException(IoTError):
 
 
 class ConflictException(IoTError):
-    """A resource with the same name already exists."""
+    """The request conflicts with the current state of the resource."""
     _ERROR_CODE = "ConflictException"
 
     @property
@@ -147,7 +147,7 @@ class ResourceRegistrationFailureException(IoTError):
 
 
 class ServiceQuotaExceededException(IoTError):
-    """A limit has been exceeded."""
+    """Service quota has been exceeded."""
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 

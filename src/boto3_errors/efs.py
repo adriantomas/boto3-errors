@@ -267,10 +267,7 @@ class NoFreeAddressesInSubnet(EFSError):
 
 
 class PolicyNotFound(EFSError):
-    """Returned if the default file system policy is in effect for the EFS file system
-    specified.
-    """
-
+    """Returned if `no backup` is specified for a One Zone EFS file system."""
     _ERROR_CODE = "PolicyNotFound"
 
     @property
@@ -298,8 +295,10 @@ class ReplicationNotFound(EFSError):
 
 
 class SecurityGroupLimitExceeded(EFSError):
-    """Returned if the size of `SecurityGroups` specified in the request is greater than
-    five.
+    """Returned if the number of `SecurityGroups` specified in the request is greater than
+    the limit, which is based on account quota. Either delete some security groups or
+    request that the account quota be raised. For more information, see Amazon VPC
+    Quotas in the Amazon VPC User Guide (see the Security Groups table).
     """
 
     _ERROR_CODE = "SecurityGroupLimitExceeded"

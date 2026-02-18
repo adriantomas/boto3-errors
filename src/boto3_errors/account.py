@@ -15,14 +15,25 @@ class AccessDeniedException(AccountError):
 
     _ERROR_CODE = "AccessDeniedException"
 
+    @property
+    def error_type(self) -> str | None:
+        """The value populated to the `x-amzn-ErrorType` response header by API Gateway."""
+        return self.response.get("errorType")
+
 
 class ConflictException(AccountError):
     """The request could not be processed because of a conflict in the current status of
     the resource. For example, this happens if you try to enable a Region that is
-    currently being disabled (in a status of DISABLING).
+    currently being disabled (in a status of DISABLING) or if you try to change an
+    account’s root user email to an email address which is already in use.
     """
 
     _ERROR_CODE = "ConflictException"
+
+    @property
+    def error_type(self) -> str | None:
+        """The value populated to the `x-amzn-ErrorType` response header by API Gateway."""
+        return self.response.get("errorType")
 
 
 class InternalServerException(AccountError):
@@ -32,10 +43,33 @@ class InternalServerException(AccountError):
 
     _ERROR_CODE = "InternalServerException"
 
+    @property
+    def error_type(self) -> str | None:
+        """The value populated to the `x-amzn-ErrorType` response header by API Gateway."""
+        return self.response.get("errorType")
+
 
 class ResourceNotFoundException(AccountError):
     """The operation failed because it specified a resource that can't be found."""
     _ERROR_CODE = "ResourceNotFoundException"
+
+    @property
+    def error_type(self) -> str | None:
+        """The value populated to the `x-amzn-ErrorType` response header by API Gateway."""
+        return self.response.get("errorType")
+
+
+class ResourceUnavailableException(AccountError):
+    """The operation failed because it specified a resource that is not currently
+    available.
+    """
+
+    _ERROR_CODE = "ResourceUnavailableException"
+
+    @property
+    def error_type(self) -> str | None:
+        """The value populated to the `x-amzn-ErrorType` response header by API Gateway."""
+        return self.response.get("errorType")
 
 
 class TooManyRequestsException(AccountError):
@@ -44,6 +78,11 @@ class TooManyRequestsException(AccountError):
     """
 
     _ERROR_CODE = "TooManyRequestsException"
+
+    @property
+    def error_type(self) -> str | None:
+        """The value populated to the `x-amzn-ErrorType` response header by API Gateway."""
+        return self.response.get("errorType")
 
 
 class ValidationException(AccountError):
@@ -66,6 +105,7 @@ EXCEPTIONS: dict[str, type[AccountError]] = {
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "ResourceUnavailableException": ResourceUnavailableException,
     "TooManyRequestsException": TooManyRequestsException,
     "ValidationException": ValidationException,
 }

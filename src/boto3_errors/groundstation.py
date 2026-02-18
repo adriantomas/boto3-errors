@@ -26,6 +26,14 @@ class InvalidParameterException(GroundStationError):
         return self.response.get("parameterName")
 
 
+class ResourceInUseException(GroundStationError):
+    """The specified resource is in use by non-terminal state contacts and cannot be
+    modified or deleted.
+    """
+
+    _ERROR_CODE = "ResourceInUseException"
+
+
 class ResourceLimitExceededException(GroundStationError):
     """Account limits for this resource have been exceeded."""
     _ERROR_CODE = "ResourceLimitExceededException"
@@ -40,9 +48,21 @@ class ResourceNotFoundException(GroundStationError):
     _ERROR_CODE = "ResourceNotFoundException"
 
 
+class ServiceQuotaExceededException(GroundStationError):
+    """Request would cause a service quota to be exceeded."""
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+    @property
+    def parameter_name(self) -> str | None:
+        """Parameter name that caused the exception"""
+        return self.response.get("parameterName")
+
+
 EXCEPTIONS: dict[str, type[GroundStationError]] = {
     "DependencyException": DependencyException,
     "InvalidParameterException": InvalidParameterException,
+    "ResourceInUseException": ResourceInUseException,
     "ResourceLimitExceededException": ResourceLimitExceededException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
 }

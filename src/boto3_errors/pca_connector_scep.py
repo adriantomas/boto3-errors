@@ -77,6 +77,11 @@ class ServiceQuotaExceededException(PcaConnectorScepError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The quota identifier."""
+        return self.response.get("QuotaCode")
+
+    @property
     def resource_type(self) -> str | None:
         """The resource type, which can be either `Connector` or `Challenge`."""
         return self.response.get("ResourceType")
@@ -85,11 +90,6 @@ class ServiceQuotaExceededException(PcaConnectorScepError):
     def service_code(self) -> str | None:
         """Identifies the originating service."""
         return self.response.get("ServiceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """The quota identifier."""
-        return self.response.get("QuotaCode")
 
 
 class ThrottlingException(PcaConnectorScepError):

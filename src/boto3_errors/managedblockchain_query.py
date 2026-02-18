@@ -19,7 +19,7 @@ class InternalServerException(ManagedBlockchainQueryError):
 
     @property
     def retry_after_seconds(self) -> int | None:
-        """The container of the `retryAfterSeconds` value."""
+        """Specifies the `retryAfterSeconds` value."""
         return self.response.get("retryAfterSeconds")
 
 

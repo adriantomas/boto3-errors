@@ -14,7 +14,7 @@ class AccessDeniedException(HealthLakeError):
 
 
 class ConflictException(HealthLakeError):
-    """The data store is in a transition state and the user requested action can not be
+    """The data store is in a transition state and the user requested action cannot be
     performed.
     """
 
@@ -22,7 +22,7 @@ class ConflictException(HealthLakeError):
 
 
 class InternalServerException(HealthLakeError):
-    """Unknown error occurs in the service."""
+    """An unknown internal error occurred in the service."""
     _ERROR_CODE = "InternalServerException"
 
 

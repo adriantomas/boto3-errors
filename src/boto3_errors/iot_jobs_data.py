@@ -13,12 +13,23 @@ class CertificateValidationException(IoTJobsDataPlaneError):
     _ERROR_CODE = "CertificateValidationException"
 
 
-class InvalidRequestException(IoTJobsDataPlaneError):
-    """The contents of the request were invalid. For example, this code is returned when an
-    UpdateJobExecution request contains invalid status details. The message contains
-    details about the error.
-    """
+class ConflictException(IoTJobsDataPlaneError):
+    """A conflict has occurred when performing the API request."""
+    _ERROR_CODE = "ConflictException"
 
+    @property
+    def resource_id(self) -> str | None:
+        """A conflict occurred while performing the API request on the resource ID."""
+        return self.response.get("resourceId")
+
+
+class InternalServerException(IoTJobsDataPlaneError):
+    """An internal server error occurred when performing the API request."""
+    _ERROR_CODE = "InternalServerException"
+
+
+class InvalidRequestException(IoTJobsDataPlaneError):
+    """The contents of the request were invalid."""
     _ERROR_CODE = "InvalidRequestException"
 
 
@@ -35,6 +46,11 @@ class InvalidStateTransitionException(IoTJobsDataPlaneError):
 class ResourceNotFoundException(IoTJobsDataPlaneError):
     """The specified resource does not exist."""
     _ERROR_CODE = "ResourceNotFoundException"
+
+
+class ServiceQuotaExceededException(IoTJobsDataPlaneError):
+    """The service quota has been exceeded for this request."""
+    _ERROR_CODE = "ServiceQuotaExceededException"
 
 
 class ServiceUnavailableException(IoTJobsDataPlaneError):
@@ -57,12 +73,21 @@ class ThrottlingException(IoTJobsDataPlaneError):
         return self.response.get("payload")
 
 
+class ValidationException(IoTJobsDataPlaneError):
+    """A validation error occurred when performing the API request."""
+    _ERROR_CODE = "ValidationException"
+
+
 EXCEPTIONS: dict[str, type[IoTJobsDataPlaneError]] = {
     "CertificateValidationException": CertificateValidationException,
+    "ConflictException": ConflictException,
+    "InternalServerException": InternalServerException,
     "InvalidRequestException": InvalidRequestException,
     "InvalidStateTransitionException": InvalidStateTransitionException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ServiceUnavailableException": ServiceUnavailableException,
     "TerminalStateException": TerminalStateException,
     "ThrottlingException": ThrottlingException,
+    "ValidationException": ValidationException,
 }

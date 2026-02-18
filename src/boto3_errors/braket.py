@@ -9,7 +9,7 @@ class BraketError(Boto3Error):
 
 
 class AccessDeniedException(BraketError):
-    """You do not have sufficient access to perform this action."""
+    """You do not have sufficient permissions to perform this action."""
     _ERROR_CODE = "AccessDeniedException"
 
 
@@ -29,10 +29,7 @@ class DeviceRetiredException(BraketError):
 
 
 class InternalServiceException(BraketError):
-    """The request processing has failed because of an unknown error, exception, or
-    failure.
-    """
-
+    """The request failed because of an unknown error."""
     _ERROR_CODE = "InternalServiceException"
 
 
@@ -47,13 +44,23 @@ class ServiceQuotaExceededException(BraketError):
 
 
 class ThrottlingException(BraketError):
-    """The throttling rate limit is met."""
+    """The API throttling rate limit is exceeded."""
     _ERROR_CODE = "ThrottlingException"
 
 
 class ValidationException(BraketError):
-    """The input fails to satisfy the constraints specified by an AWS service."""
+    """The input request failed to satisfy constraints expected by Amazon Braket."""
     _ERROR_CODE = "ValidationException"
+
+    @property
+    def program_set_validation_failures(self) -> list[Any] | None:
+        """The validation failures in the program set submitted in the request."""
+        return self.response.get("programSetValidationFailures")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for validation failure."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[BraketError]] = {

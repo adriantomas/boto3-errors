@@ -74,6 +74,11 @@ class TypeDeprecatedFault(SWFError):
     _ERROR_CODE = "TypeDeprecatedFault"
 
 
+class TypeNotDeprecatedFault(SWFError):
+    """Returned when the resource type has not been deprecated."""
+    _ERROR_CODE = "TypeNotDeprecatedFault"
+
+
 class UnknownResourceFault(SWFError):
     """Returned when the named resource cannot be found with in the scope of this operation
     (region or domain). This could happen if the named resource was never created or is
@@ -100,6 +105,7 @@ EXCEPTIONS: dict[str, type[SWFError]] = {
     "TooManyTagsFault": TooManyTagsFault,
     "TypeAlreadyExistsFault": TypeAlreadyExistsFault,
     "TypeDeprecatedFault": TypeDeprecatedFault,
+    "TypeNotDeprecatedFault": TypeNotDeprecatedFault,
     "UnknownResourceFault": UnknownResourceFault,
     "WorkflowExecutionAlreadyStartedFault": WorkflowExecutionAlreadyStartedFault,
 }

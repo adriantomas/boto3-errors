@@ -23,14 +23,14 @@ class ResourceNotFoundException(ApplicationSignalsError):
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
-    def resource_type(self) -> str | None:
-        """The resource type is not valid."""
-        return self.response.get("ResourceType")
-
-    @property
     def resource_id(self) -> str | None:
         """Can't find the resource id."""
         return self.response.get("ResourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The resource type is not valid."""
+        return self.response.get("ResourceType")
 
 
 class ServiceQuotaExceededException(ApplicationSignalsError):

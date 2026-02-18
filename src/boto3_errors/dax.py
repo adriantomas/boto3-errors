@@ -19,8 +19,8 @@ class ClusterNotFoundFault(DAXError):
 
 
 class ClusterQuotaForCustomerExceededFault(DAXError):
-    """You have attempted to exceed the maximum number of DAX clusters for your AWS
-    account.
+    """You have attempted to exceed the maximum number of DAX clusters for your Amazon Web
+    Services account.
     """
 
     _ERROR_CODE = "ClusterQuotaForCustomerExceededFault"
@@ -80,7 +80,10 @@ class NodeQuotaForClusterExceededFault(DAXError):
 
 
 class NodeQuotaForCustomerExceededFault(DAXError):
-    """You have attempted to exceed the maximum number of nodes for your AWS account."""
+    """You have attempted to exceed the maximum number of nodes for your Amazon Web
+    Services account.
+    """
+
     _ERROR_CODE = "NodeQuotaForCustomerExceededFault"
 
 
@@ -106,8 +109,8 @@ class ServiceLinkedRoleNotFoundFault(DAXError):
 
 class ServiceQuotaExceededException(DAXError):
     """You have reached the maximum number of x509 certificates that can be created for
-    encrypted clusters in a 30 day period. Contact AWS customer support to discuss
-    options for continuing to create encrypted clusters.
+    encrypted clusters in a 30 day period. Contact Amazon Web Services customer support
+    to discuss options for continuing to create encrypted clusters.
     """
 
     _ERROR_CODE = "ServiceQuotaExceededException"
@@ -139,6 +142,17 @@ class SubnetGroupQuotaExceededFault(DAXError):
 class SubnetInUse(DAXError):
     """The requested subnet is being used by another subnet group."""
     _ERROR_CODE = "SubnetInUse"
+
+
+class SubnetNotAllowedFault(DAXError):
+    """The specified subnet can't be used for the requested network type. This error occurs
+    when either there aren't enough subnets of the required network type to create the
+    cluster, or when you try to use a subnet that doesn't support the requested network
+    type (for example, trying to create a dual-stack cluster with a subnet that doesn't
+    have IPv6 CIDR).
+    """
+
+    _ERROR_CODE = "SubnetNotAllowedFault"
 
 
 class SubnetQuotaExceededFault(DAXError):
@@ -184,6 +198,7 @@ EXCEPTIONS: dict[str, type[DAXError]] = {
     "SubnetGroupNotFoundFault": SubnetGroupNotFoundFault,
     "SubnetGroupQuotaExceededFault": SubnetGroupQuotaExceededFault,
     "SubnetInUse": SubnetInUse,
+    "SubnetNotAllowedFault": SubnetNotAllowedFault,
     "SubnetQuotaExceededFault": SubnetQuotaExceededFault,
     "TagNotFoundFault": TagNotFoundFault,
     "TagQuotaPerResourceExceeded": TagQuotaPerResourceExceeded,

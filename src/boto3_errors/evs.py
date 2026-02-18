@@ -88,14 +88,14 @@ class ValidationException(evsError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the exception."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """A list of fields that didn't validate."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the exception."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[evsError]] = {

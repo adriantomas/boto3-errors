@@ -8,6 +8,11 @@ class EMRcontainersError(Boto3Error):
     _SERVICE = "emr-containers"
 
 
+class EKSRequestThrottledException(EMRcontainersError):
+    """The request exceeded the Amazon EKS API operation limits."""
+    _ERROR_CODE = "EKSRequestThrottledException"
+
+
 class InternalServerException(EMRcontainersError):
     """This is an internal server exception."""
     _ERROR_CODE = "InternalServerException"
@@ -29,6 +34,7 @@ class ValidationException(EMRcontainersError):
 
 
 EXCEPTIONS: dict[str, type[EMRcontainersError]] = {
+    "EKSRequestThrottledException": EKSRequestThrottledException,
     "InternalServerException": InternalServerException,
     "RequestThrottledException": RequestThrottledException,
     "ResourceNotFoundException": ResourceNotFoundException,

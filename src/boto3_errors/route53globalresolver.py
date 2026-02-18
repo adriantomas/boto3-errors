@@ -68,6 +68,11 @@ class ServiceQuotaExceededException(Route53GlobalResolverError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The quota code recognized by the AWS Service Quotas service."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The unique ID of the resource referenced in the failed request."""
         return self.response.get("resourceId")
@@ -82,20 +87,10 @@ class ServiceQuotaExceededException(Route53GlobalResolverError):
         """The code for the AWS service that owns the quota."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The quota code recognized by the AWS Service Quotas service."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(Route53GlobalResolverError):
     """The request was throttled due to too many requests. Wait a moment and try again."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The code for the AWS service that owns the quota."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -107,20 +102,25 @@ class ThrottlingException(Route53GlobalResolverError):
         """Number of seconds in which the caller can retry the request."""
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """The code for the AWS service that owns the quota."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(Route53GlobalResolverError):
     """The input parameters are invalid. Check the parameter values and try again."""
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """Reason the request failed validation."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The list of fields that aren't valid."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """Reason the request failed validation."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[Route53GlobalResolverError]] = {

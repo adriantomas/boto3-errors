@@ -14,8 +14,16 @@ class AccessDeniedException(CleanRoomsMLError):
 
 
 class ConflictException(CleanRoomsMLError):
-    """A resource with that name already exists in this region."""
+    """You can't complete this action because another resource depends on this resource."""
     _ERROR_CODE = "ConflictException"
+
+
+class InternalServiceException(CleanRoomsMLError):
+    """An internal service error occurred. Retry your request. If the problem persists,
+    contact AWS Support.
+    """
+
+    _ERROR_CODE = "InternalServiceException"
 
 
 class ResourceNotFoundException(CleanRoomsMLError):
@@ -27,6 +35,21 @@ class ServiceQuotaExceededException(CleanRoomsMLError):
     """You have exceeded your service quota."""
     _ERROR_CODE = "ServiceQuotaExceededException"
 
+    @property
+    def quota_name(self) -> str | None:
+        """The name of the service quota limit that was exceeded"""
+        return self.response.get("quotaName")
+
+    @property
+    def quota_value(self) -> float | None:
+        """The current limit on the service quota that was exceeded"""
+        return self.response.get("quotaValue")
+
+
+class ThrottlingException(CleanRoomsMLError):
+    """The request was denied due to request throttling."""
+    _ERROR_CODE = "ThrottlingException"
+
 
 class ValidationException(CleanRoomsMLError):
     """The request parameters for this request are incorrect."""
@@ -36,7 +59,9 @@ class ValidationException(CleanRoomsMLError):
 EXCEPTIONS: dict[str, type[CleanRoomsMLError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
+    "InternalServiceException": InternalServiceException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
+    "ThrottlingException": ThrottlingException,
     "ValidationException": ValidationException,
 }

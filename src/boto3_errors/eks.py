@@ -120,6 +120,20 @@ class InvalidRequestException(EKSError):
         return self.response.get("subscriptionId")
 
 
+class InvalidStateException(EKSError):
+    """Amazon EKS detected upgrade readiness issues. Call the `ListInsights` API to view
+    detected upgrade blocking issues. Pass the `force` flag when updating to override
+    upgrade readiness errors.
+    """
+
+    _ERROR_CODE = "InvalidStateException"
+
+    @property
+    def cluster_name(self) -> str | None:
+        """The Amazon EKS cluster associated with the exception."""
+        return self.response.get("clusterName")
+
+
 class NotFoundException(EKSError):
     """A service resource associated with the request could not be found. Clients should
     not retry such requests.
@@ -241,6 +255,19 @@ class ServiceUnavailableException(EKSError):
     _ERROR_CODE = "ServiceUnavailableException"
 
 
+class ThrottlingException(EKSError):
+    """The request or operation couldn't be performed because a service is throttling
+    requests.
+    """
+
+    _ERROR_CODE = "ThrottlingException"
+
+    @property
+    def cluster_name(self) -> str | None:
+        """The Amazon EKS cluster associated with the exception."""
+        return self.response.get("clusterName")
+
+
 class UnsupportedAvailabilityZoneException(EKSError):
     """At least one of your specified cluster subnets is in an Availability Zone that does
     not support Amazon EKS. The exception output specifies the supported Availability
@@ -273,6 +300,7 @@ EXCEPTIONS: dict[str, type[EKSError]] = {
     "ClientException": ClientException,
     "InvalidParameterException": InvalidParameterException,
     "InvalidRequestException": InvalidRequestException,
+    "InvalidStateException": InvalidStateException,
     "NotFoundException": NotFoundException,
     "ResourceInUseException": ResourceInUseException,
     "ResourceLimitExceededException": ResourceLimitExceededException,
@@ -280,5 +308,6 @@ EXCEPTIONS: dict[str, type[EKSError]] = {
     "ResourcePropagationDelayException": ResourcePropagationDelayException,
     "ServerException": ServerException,
     "ServiceUnavailableException": ServiceUnavailableException,
+    "ThrottlingException": ThrottlingException,
     "UnsupportedAvailabilityZoneException": UnsupportedAvailabilityZoneException,
 }

@@ -28,14 +28,14 @@ class ValidationException(GeoRoutesError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """A message with the reason for the validation exception error."""
-        return self.response.get("Reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The field where the invalid entry was detected."""
         return self.response.get("FieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """A message with the reason for the validation exception error."""
+        return self.response.get("Reason")
 
 
 EXCEPTIONS: dict[str, type[GeoRoutesError]] = {

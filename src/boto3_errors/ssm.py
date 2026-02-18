@@ -8,6 +8,11 @@ class SSMError(Boto3Error):
     _SERVICE = "ssm"
 
 
+class AccessDeniedException(SSMError):
+    """The requester doesn't have permissions to perform the requested operation."""
+    _ERROR_CODE = "AccessDeniedException"
+
+
 class AlreadyExistsException(SSMError):
     """Error returned if an attempt is made to register a patch group with a patch baseline
     that is already registered with a different patch baseline.
@@ -228,7 +233,7 @@ class InvalidActivation(SSMError):
 
 
 class InvalidActivationId(SSMError):
-    """The activation ID isn't valid. Verify the you entered the correct ActivationId or
+    """The activation ID isn't valid. Verify that you entered the correct ActivationId or
     ActivationCode and try again.
     """
 
@@ -236,9 +241,8 @@ class InvalidActivationId(SSMError):
 
 
 class InvalidAggregatorException(SSMError):
-    """The specified aggregator isn't valid for inventory groups. Verify that the
-    aggregator uses a valid inventory type such as `AWS:Application` or
-    `AWS:InstanceInformation`.
+    """The specified aggregator isn't valid for the group type. Verify that the aggregator
+    you provided is supported.
     """
 
     _ERROR_CODE = "InvalidAggregatorException"
@@ -340,7 +344,7 @@ class InvalidDocumentVersion(SSMError):
 
 
 class InvalidFilter(SSMError):
-    """The filter name isn't valid. Verify the you entered the correct name and try again."""
+    """The filter name isn't valid. Verify that you entered the correct name and try again."""
     _ERROR_CODE = "InvalidFilter"
 
 
@@ -366,10 +370,10 @@ class InvalidInstanceId(SSMError):
     """The following problems can cause this exception:
 
     - You don't have permission to access the managed node.
-    - Amazon Web Services Systems Manager Agent(SSM Agent) isn't running. Verify that
+    - Amazon Web Services Systems Manager Agent (SSM Agent) isn't running. Verify that
       SSM Agent is running.
     - SSM Agent isn't registered with the SSM endpoint. Try reinstalling SSM Agent.
-    - The managed node isn't in valid state. Valid states are: `Running`, `Pending`,
+    - The managed node isn't in a valid state. Valid states are: `Running`, `Pending`,
       `Stopped`, and `Stopping`. Invalid states are: `Shutting-down` and `Terminated`.
     """
 
@@ -379,6 +383,11 @@ class InvalidInstanceId(SSMError):
 class InvalidInstanceInformationFilterValue(SSMError):
     """The specified filter value isn't valid."""
     _ERROR_CODE = "InvalidInstanceInformationFilterValue"
+
+
+class InvalidInstancePropertyFilterValue(SSMError):
+    """The specified filter value isn't valid."""
+    _ERROR_CODE = "InvalidInstancePropertyFilterValue"
 
 
 class InvalidInventoryGroupException(SSMError):
@@ -494,9 +503,9 @@ class InvalidResultAttributeException(SSMError):
 class InvalidRole(SSMError):
     """The role name can't contain invalid characters. Also verify that you specified an
     IAM role for notifications that includes the required trust policy. For information
-    about configuring the IAM role for Run Command notifications, see Configuring Amazon
-    SNS Notifications for Run Command in the Amazon Web Services Systems Manager User
-    Guide.
+    about configuring the IAM role for Run Command notifications, see Monitoring Systems
+    Manager status changes using Amazon SNS notifications in the Amazon Web Services
+    Systems Manager User Guide.
     """
 
     _ERROR_CODE = "InvalidRole"
@@ -561,9 +570,22 @@ class ItemSizeLimitExceededException(SSMError):
         return self.response.get("TypeName")
 
 
+class MalformedResourcePolicyDocumentException(SSMError):
+    """The specified policy document is malformed or invalid, or excessive
+    `PutResourcePolicy` or `DeleteResourcePolicy` calls have been made.
+    """
+
+    _ERROR_CODE = "MalformedResourcePolicyDocumentException"
+
+
 class MaxDocumentSizeExceeded(SSMError):
     """The size limit of a document is 64 KB."""
     _ERROR_CODE = "MaxDocumentSizeExceeded"
+
+
+class NoLongerSupportedException(SSMError):
+    """The requested operation is no longer supported by Systems Manager."""
+    _ERROR_CODE = "NoLongerSupportedException"
 
 
 class OpsItemAccessDeniedException(SSMError):
@@ -722,7 +744,15 @@ class ParameterMaxVersionLimitExceeded(SSMError):
 
 
 class ParameterNotFound(SSMError):
-    """The parameter couldn't be found. Verify the name and try again."""
+    """The parameter couldn't be found. Verify the name and try again.
+
+    Note:
+
+    For the `DeleteParameter` and `GetParameter` actions, if the specified parameter
+    doesn't exist, the `ParameterNotFound` exception is not recorded in CloudTrail event
+    logs.
+    """
+
     _ERROR_CODE = "ParameterNotFound"
 
 
@@ -811,6 +841,11 @@ class ResourceLimitExceededException(SSMError):
     _ERROR_CODE = "ResourceLimitExceededException"
 
 
+class ResourceNotFoundException(SSMError):
+    """The specified parameter to be shared could not be found."""
+    _ERROR_CODE = "ResourceNotFoundException"
+
+
 class ResourcePolicyConflictException(SSMError):
     """The hash provided in the call doesn't match the stored hash. This exception is
     thrown when trying to update an obsolete policy version or when multiple requests to
@@ -849,6 +884,40 @@ class ResourcePolicyLimitExceededException(SSMError):
         return self.response.get("LimitType")
 
 
+class ResourcePolicyNotFoundException(SSMError):
+    """No policies with the specified policy ID and hash could be found."""
+    _ERROR_CODE = "ResourcePolicyNotFoundException"
+
+
+class ServiceQuotaExceededException(SSMError):
+    """The request exceeds the service quota. Service quotas, also referred to as limits,
+    are the maximum number of service resources or operations for your Amazon Web
+    Services account.
+    """
+
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+    @property
+    def quota_code(self) -> str | None:
+        """The quota code recognized by the Amazon Web Services Service Quotas service."""
+        return self.response.get("QuotaCode")
+
+    @property
+    def resource_id(self) -> str | None:
+        """The unique ID of the resource referenced in the failed request."""
+        return self.response.get("ResourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The resource type of the resource referenced in the failed request."""
+        return self.response.get("ResourceType")
+
+    @property
+    def service_code(self) -> str | None:
+        """The code for the Amazon Web Services service that owns the quota."""
+        return self.response.get("ServiceCode")
+
+
 class ServiceSettingNotFound(SSMError):
     """The specified service setting wasn't found. Either the service name or the setting
     hasn't been provisioned by the Amazon Web Services service team.
@@ -877,13 +946,31 @@ class TargetInUseException(SSMError):
 
 class TargetNotConnected(SSMError):
     """The specified target managed node for the session isn't fully configured for use
-    with Session Manager. For more information, see Getting started with Session Manager
-    in the Amazon Web Services Systems Manager User Guide. This error is also returned
-    if you attempt to start a session on a managed node that is located in a different
-    account or Region
+    with Session Manager. For more information, see Setting up Session Manager in the
+    Amazon Web Services Systems Manager User Guide. This error is also returned if you
+    attempt to start a session on a managed node that is located in a different account
+    or Region
     """
 
     _ERROR_CODE = "TargetNotConnected"
+
+
+class ThrottlingException(SSMError):
+    """The request or operation couldn't be performed because the service is throttling
+    requests.
+    """
+
+    _ERROR_CODE = "ThrottlingException"
+
+    @property
+    def quota_code(self) -> str | None:
+        """The quota code recognized by the Amazon Web Services Service Quotas service."""
+        return self.response.get("QuotaCode")
+
+    @property
+    def service_code(self) -> str | None:
+        """The code for the Amazon Web Services service that owns the quota."""
+        return self.response.get("ServiceCode")
 
 
 class TooManyTagsError(SSMError):
@@ -913,8 +1000,8 @@ class UnsupportedFeatureRequiredException(SSMError):
     """Patching for applications released by Microsoft is only available on EC2 instances
     and advanced instances. To patch applications released by Microsoft on on-premises
     servers and VMs, you must enable advanced instances. For more information, see
-    Enabling the advanced-instances tier in the Amazon Web Services Systems Manager User
-    Guide.
+    Turning on the advanced-instances tier in the Amazon Web Services Systems Manager
+    User Guide.
     """
 
     _ERROR_CODE = "UnsupportedFeatureRequiredException"
@@ -950,20 +1037,42 @@ class UnsupportedOperatingSystem(SSMError):
     _ERROR_CODE = "UnsupportedOperatingSystem"
 
 
+class UnsupportedOperationException(SSMError):
+    """This operation is not supported for the current account. You must first enable the
+    Systems Manager integrated experience in your account.
+    """
+
+    _ERROR_CODE = "UnsupportedOperationException"
+
+
 class UnsupportedParameterType(SSMError):
     """The parameter type isn't supported."""
     _ERROR_CODE = "UnsupportedParameterType"
 
 
 class UnsupportedPlatformType(SSMError):
-    """The document doesn't support the platform type of the given managed node ID(s). For
+    """The document doesn't support the platform type of the given managed node IDs. For
     example, you sent an document for a Windows managed node to a Linux node.
     """
 
     _ERROR_CODE = "UnsupportedPlatformType"
 
 
+class ValidationException(SSMError):
+    """The request isn't valid. Verify that you entered valid contents for the command and
+    try again.
+    """
+
+    _ERROR_CODE = "ValidationException"
+
+    @property
+    def reason_code(self) -> str | None:
+        """The reason code for the invalid request."""
+        return self.response.get("ReasonCode")
+
+
 EXCEPTIONS: dict[str, type[SSMError]] = {
+    "AccessDeniedException": AccessDeniedException,
     "AlreadyExistsException": AlreadyExistsException,
     "AssociatedInstances": AssociatedInstances,
     "AssociationAlreadyExists": AssociationAlreadyExists,
@@ -1017,6 +1126,7 @@ EXCEPTIONS: dict[str, type[SSMError]] = {
     "InvalidFilterValue": InvalidFilterValue,
     "InvalidInstanceId": InvalidInstanceId,
     "InvalidInstanceInformationFilterValue": InvalidInstanceInformationFilterValue,
+    "InvalidInstancePropertyFilterValue": InvalidInstancePropertyFilterValue,
     "InvalidInventoryGroupException": InvalidInventoryGroupException,
     "InvalidInventoryItemContextException": InvalidInventoryItemContextException,
     "InvalidInventoryRequestException": InvalidInventoryRequestException,
@@ -1045,7 +1155,9 @@ EXCEPTIONS: dict[str, type[SSMError]] = {
     "InvocationDoesNotExist": InvocationDoesNotExist,
     "ItemContentMismatchException": ItemContentMismatchException,
     "ItemSizeLimitExceededException": ItemSizeLimitExceededException,
+    "MalformedResourcePolicyDocumentException": MalformedResourcePolicyDocumentException,
     "MaxDocumentSizeExceeded": MaxDocumentSizeExceeded,
+    "NoLongerSupportedException": NoLongerSupportedException,
     "OpsItemAccessDeniedException": OpsItemAccessDeniedException,
     "OpsItemAlreadyExistsException": OpsItemAlreadyExistsException,
     "OpsItemConflictException": OpsItemConflictException,
@@ -1075,14 +1187,18 @@ EXCEPTIONS: dict[str, type[SSMError]] = {
     "ResourceDataSyncNotFoundException": ResourceDataSyncNotFoundException,
     "ResourceInUseException": ResourceInUseException,
     "ResourceLimitExceededException": ResourceLimitExceededException,
+    "ResourceNotFoundException": ResourceNotFoundException,
     "ResourcePolicyConflictException": ResourcePolicyConflictException,
     "ResourcePolicyInvalidParameterException": ResourcePolicyInvalidParameterException,
     "ResourcePolicyLimitExceededException": ResourcePolicyLimitExceededException,
+    "ResourcePolicyNotFoundException": ResourcePolicyNotFoundException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ServiceSettingNotFound": ServiceSettingNotFound,
     "StatusUnchanged": StatusUnchanged,
     "SubTypeCountLimitExceededException": SubTypeCountLimitExceededException,
     "TargetInUseException": TargetInUseException,
     "TargetNotConnected": TargetNotConnected,
+    "ThrottlingException": ThrottlingException,
     "TooManyTagsError": TooManyTagsError,
     "TooManyUpdates": TooManyUpdates,
     "TotalSizeLimitExceededException": TotalSizeLimitExceededException,
@@ -1091,6 +1207,8 @@ EXCEPTIONS: dict[str, type[SSMError]] = {
     "UnsupportedInventoryItemContextException": UnsupportedInventoryItemContextException,
     "UnsupportedInventorySchemaVersionException": UnsupportedInventorySchemaVersionException,
     "UnsupportedOperatingSystem": UnsupportedOperatingSystem,
+    "UnsupportedOperationException": UnsupportedOperationException,
     "UnsupportedParameterType": UnsupportedParameterType,
     "UnsupportedPlatformType": UnsupportedPlatformType,
+    "ValidationException": ValidationException,
 }

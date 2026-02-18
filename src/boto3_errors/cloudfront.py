@@ -45,8 +45,13 @@ class CannotChangeImmutablePublicKeyFields(CloudFrontError):
 
 
 class CannotDeleteEntityWhileInUse(CloudFrontError):
-    """The Key Value Store entity cannot be deleted while it is in use."""
+    """The entity cannot be deleted while it is in use."""
     _ERROR_CODE = "CannotDeleteEntityWhileInUse"
+
+
+class CannotUpdateEntityWhileInUse(CloudFrontError):
+    """The entity cannot be updated while it is in use."""
+    _ERROR_CODE = "CannotUpdateEntityWhileInUse"
 
 
 class CloudFrontOriginAccessIdentityAlreadyExists(CloudFrontError):
@@ -94,25 +99,22 @@ class DistributionNotDisabled(CloudFrontError):
 
 
 class EntityAlreadyExists(CloudFrontError):
-    """The Key Value Store entity already exists. You must provide a unique Key Value Store
-    entity.
-    """
-
+    """The entity already exists. You must provide a unique entity."""
     _ERROR_CODE = "EntityAlreadyExists"
 
 
 class EntityLimitExceeded(CloudFrontError):
-    """The Key Value Store entity limit has been exceeded."""
+    """The entity limit has been exceeded."""
     _ERROR_CODE = "EntityLimitExceeded"
 
 
 class EntityNotFound(CloudFrontError):
-    """The Key Value Store entity was not found."""
+    """The entity was not found."""
     _ERROR_CODE = "EntityNotFound"
 
 
 class EntitySizeLimitExceeded(CloudFrontError):
-    """The Key Value Store entity size limit was exceeded."""
+    """The entity size limit was exceeded."""
     _ERROR_CODE = "EntitySizeLimitExceeded"
 
 
@@ -164,7 +166,7 @@ class FunctionSizeLimitExceeded(CloudFrontError):
 
 
 class IllegalDelete(CloudFrontError):
-    """You cannot delete a managed policy."""
+    """Deletion is not allowed for this entity."""
     _ERROR_CODE = "IllegalDelete"
 
 
@@ -197,6 +199,11 @@ class InconsistentQuantities(CloudFrontError):
 class InvalidArgument(CloudFrontError):
     """An argument is invalid."""
     _ERROR_CODE = "InvalidArgument"
+
+
+class InvalidAssociation(CloudFrontError):
+    """The specified CloudFront resource can't be associated."""
+    _ERROR_CODE = "InvalidAssociation"
 
 
 class InvalidDefaultRootObject(CloudFrontError):
@@ -531,6 +538,11 @@ class RealtimeLogConfigOwnerMismatch(CloudFrontError):
 class ResourceInUse(CloudFrontError):
     """Cannot delete this resource because it is in use."""
     _ERROR_CODE = "ResourceInUse"
+
+
+class ResourceNotDisabled(CloudFrontError):
+    """The specified CloudFront resource hasn't been disabled yet."""
+    _ERROR_CODE = "ResourceNotDisabled"
 
 
 class ResponseHeadersPolicyAlreadyExists(CloudFrontError):
@@ -1003,7 +1015,7 @@ class TrustedSignerDoesNotExist(CloudFrontError):
 
 
 class UnsupportedOperation(CloudFrontError):
-    """This operation is not supported in this region."""
+    """This operation is not supported in this Amazon Web Services Region."""
     _ERROR_CODE = "UnsupportedOperation"
 
 
@@ -1015,6 +1027,7 @@ EXCEPTIONS: dict[str, type[CloudFrontError]] = {
     "CachePolicyInUse": CachePolicyInUse,
     "CannotChangeImmutablePublicKeyFields": CannotChangeImmutablePublicKeyFields,
     "CannotDeleteEntityWhileInUse": CannotDeleteEntityWhileInUse,
+    "CannotUpdateEntityWhileInUse": CannotUpdateEntityWhileInUse,
     "CloudFrontOriginAccessIdentityAlreadyExists": CloudFrontOriginAccessIdentityAlreadyExists,
     "CloudFrontOriginAccessIdentityInUse": CloudFrontOriginAccessIdentityInUse,
     "ContinuousDeploymentPolicyAlreadyExists": ContinuousDeploymentPolicyAlreadyExists,
@@ -1039,6 +1052,7 @@ EXCEPTIONS: dict[str, type[CloudFrontError]] = {
     "IllegalUpdate": IllegalUpdate,
     "InconsistentQuantities": InconsistentQuantities,
     "InvalidArgument": InvalidArgument,
+    "InvalidAssociation": InvalidAssociation,
     "InvalidDefaultRootObject": InvalidDefaultRootObject,
     "InvalidDomainNameForOriginAccessControl": InvalidDomainNameForOriginAccessControl,
     "InvalidErrorCode": InvalidErrorCode,
@@ -1096,6 +1110,7 @@ EXCEPTIONS: dict[str, type[CloudFrontError]] = {
     "RealtimeLogConfigInUse": RealtimeLogConfigInUse,
     "RealtimeLogConfigOwnerMismatch": RealtimeLogConfigOwnerMismatch,
     "ResourceInUse": ResourceInUse,
+    "ResourceNotDisabled": ResourceNotDisabled,
     "ResponseHeadersPolicyAlreadyExists": ResponseHeadersPolicyAlreadyExists,
     "ResponseHeadersPolicyInUse": ResponseHeadersPolicyInUse,
     "StagingDistributionInUse": StagingDistributionInUse,

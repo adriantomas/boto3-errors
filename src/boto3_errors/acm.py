@@ -22,7 +22,7 @@ class ConflictException(ACMError):
 
 
 class InvalidArgsException(ACMError):
-    """One or more of of request parameters specified is not valid."""
+    """One or more of request parameters specified is not valid."""
     _ERROR_CODE = "InvalidArgsException"
 
 

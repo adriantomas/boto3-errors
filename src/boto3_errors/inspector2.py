@@ -9,7 +9,12 @@ class Inspector2Error(Boto3Error):
 
 
 class AccessDeniedException(Inspector2Error):
-    """You do not have sufficient access to perform this action."""
+    """You do not have sufficient access to perform this action.
+
+     For `Enable`, you receive this error if you attempt to use a feature in an
+    unsupported Amazon Web Services Region.
+    """
+
     _ERROR_CODE = "AccessDeniedException"
 
 
@@ -19,7 +24,10 @@ class BadRequestException(Inspector2Error):
 
 
 class ConflictException(Inspector2Error):
-    """A conflict occurred."""
+    """A conflict occurred. This exception occurs when the same resource is being modified
+    by concurrent requests.
+    """
+
     _ERROR_CODE = "ConflictException"
 
     @property

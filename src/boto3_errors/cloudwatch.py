@@ -13,6 +13,11 @@ class ConcurrentModificationException(CloudWatchError):
     _ERROR_CODE = "ConcurrentModificationException"
 
 
+class ConflictException(CloudWatchError):
+    """This operation attempted to create a resource that already exists."""
+    _ERROR_CODE = "ConflictException"
+
+
 class DashboardInvalidInputError(CloudWatchError):
     """Some part of the dashboard data is invalid."""
     _ERROR_CODE = "InvalidParameterInput"
@@ -87,6 +92,7 @@ class ResourceNotFoundException(CloudWatchError):
 
 EXCEPTIONS: dict[str, type[CloudWatchError]] = {
     "ConcurrentModificationException": ConcurrentModificationException,
+    "ConflictException": ConflictException,
     "InvalidParameterInput": DashboardInvalidInputError,
     "ResourceNotFound": DashboardNotFoundError,
     "InternalServiceError": InternalServiceFault,

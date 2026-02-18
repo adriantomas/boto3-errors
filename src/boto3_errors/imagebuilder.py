@@ -8,6 +8,11 @@ class imagebuilderError(Boto3Error):
     _SERVICE = "imagebuilder"
 
 
+class AccessDeniedException(imagebuilderError):
+    """You do not have permissions to perform the requested operation."""
+    _ERROR_CODE = "AccessDeniedException"
+
+
 class CallRateLimitExceededException(imagebuilderError):
     """You have exceeded the permitted request rate for the specific operation."""
     _ERROR_CODE = "CallRateLimitExceededException"
@@ -20,6 +25,14 @@ class ClientException(imagebuilderError):
     """
 
     _ERROR_CODE = "ClientException"
+
+
+class DryRunOperationException(imagebuilderError):
+    """The dry run operation of the resource was successful, and no resources or mutations
+    were actually performed due to the dry run flag in the request.
+    """
+
+    _ERROR_CODE = "DryRunOperationException"
 
 
 class ForbiddenException(imagebuilderError):
@@ -115,9 +128,16 @@ class ServiceUnavailableException(imagebuilderError):
     _ERROR_CODE = "ServiceUnavailableException"
 
 
+class TooManyRequestsException(imagebuilderError):
+    """You have attempted too many requests for the specific operation."""
+    _ERROR_CODE = "TooManyRequestsException"
+
+
 EXCEPTIONS: dict[str, type[imagebuilderError]] = {
+    "AccessDeniedException": AccessDeniedException,
     "CallRateLimitExceededException": CallRateLimitExceededException,
     "ClientException": ClientException,
+    "DryRunOperationException": DryRunOperationException,
     "ForbiddenException": ForbiddenException,
     "IdempotentParameterMismatchException": IdempotentParameterMismatchException,
     "InvalidPaginationTokenException": InvalidPaginationTokenException,
@@ -133,4 +153,5 @@ EXCEPTIONS: dict[str, type[imagebuilderError]] = {
     "ServiceException": ServiceException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ServiceUnavailableException": ServiceUnavailableException,
+    "TooManyRequestsException": TooManyRequestsException,
 }

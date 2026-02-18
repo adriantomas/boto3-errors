@@ -13,6 +13,11 @@ class InternalServerException(LicenseManagerLinuxSubscriptionsError):
     _ERROR_CODE = "InternalServerException"
 
 
+class ResourceNotFoundException(LicenseManagerLinuxSubscriptionsError):
+    """Unable to find the requested Amazon Web Services resource."""
+    _ERROR_CODE = "ResourceNotFoundException"
+
+
 class ThrottlingException(LicenseManagerLinuxSubscriptionsError):
     """The request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
@@ -25,6 +30,7 @@ class ValidationException(LicenseManagerLinuxSubscriptionsError):
 
 EXCEPTIONS: dict[str, type[LicenseManagerLinuxSubscriptionsError]] = {
     "InternalServerException": InternalServerException,
+    "ResourceNotFoundException": ResourceNotFoundException,
     "ThrottlingException": ThrottlingException,
     "ValidationException": ValidationException,
 }

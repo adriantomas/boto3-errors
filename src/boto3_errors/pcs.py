@@ -90,9 +90,9 @@ class ServiceQuotaExceededException(PCSError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
-    def service_code(self) -> str | None:
-        """The service code associated with the quota that was exceeded."""
-        return self.response.get("serviceCode")
+    def quota_code(self) -> str | None:
+        """The quota code of the service quota that was exceeded."""
+        return self.response.get("quotaCode")
 
     @property
     def resource_id(self) -> str | None:
@@ -105,9 +105,9 @@ class ServiceQuotaExceededException(PCSError):
         return self.response.get("resourceType")
 
     @property
-    def quota_code(self) -> str | None:
-        """The quota code of the service quota that was exceeded."""
-        return self.response.get("quotaCode")
+    def service_code(self) -> str | None:
+        """The service code associated with the quota that was exceeded."""
+        return self.response.get("serviceCode")
 
 
 class ThrottlingException(PCSError):
@@ -138,14 +138,14 @@ class ValidationException(PCSError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The specific reason or cause of the validation error."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """A list of fields or properties that failed validation."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The specific reason or cause of the validation error."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[PCSError]] = {

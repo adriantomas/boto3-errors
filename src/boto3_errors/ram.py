@@ -141,8 +141,8 @@ class ResourceShareInvitationExpiredException(RAMError):
 
 class ResourceShareLimitExceededException(RAMError):
     """The operation failed because it would exceed the limit for resource shares for your
-    account. To view the limits for your Amazon Web Services account, see the RAM page
-    in the Service Quotas console.
+    account. You can associate up to 100 resources per call. To view the limits for your
+    Amazon Web Services account, see the RAM page in the Service Quotas console.
     """
 
     _ERROR_CODE = "ResourceShareLimitExceededException"

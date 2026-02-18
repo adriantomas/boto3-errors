@@ -38,6 +38,29 @@ class InternalServerException(RUMError):
         return self.response.get("retryAfterSeconds")
 
 
+class InvalidPolicyRevisionIdException(RUMError):
+    """The policy revision ID that you provided doeesn't match the latest policy revision
+    ID.
+    """
+
+    _ERROR_CODE = "InvalidPolicyRevisionIdException"
+
+
+class MalformedPolicyDocumentException(RUMError):
+    """The policy document that you specified is not formatted correctly."""
+    _ERROR_CODE = "MalformedPolicyDocumentException"
+
+
+class PolicyNotFoundException(RUMError):
+    """The resource-based policy doesn't exist on this app monitor."""
+    _ERROR_CODE = "PolicyNotFoundException"
+
+
+class PolicySizeLimitExceededException(RUMError):
+    """The policy document is too large. The limit is 4 KB."""
+    _ERROR_CODE = "PolicySizeLimitExceededException"
+
+
 class ResourceNotFoundException(RUMError):
     """Resource not found."""
     _ERROR_CODE = "ResourceNotFoundException"
@@ -87,6 +110,10 @@ EXCEPTIONS: dict[str, type[RUMError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
+    "InvalidPolicyRevisionIdException": InvalidPolicyRevisionIdException,
+    "MalformedPolicyDocumentException": MalformedPolicyDocumentException,
+    "PolicyNotFoundException": PolicyNotFoundException,
+    "PolicySizeLimitExceededException": PolicySizeLimitExceededException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,

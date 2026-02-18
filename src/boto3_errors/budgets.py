@@ -13,6 +13,14 @@ class AccessDeniedException(BudgetsError):
     _ERROR_CODE = "AccessDeniedException"
 
 
+class BillingViewHealthStatusException(BudgetsError):
+    """The billing view status must be HEALTHY to perform this action. Try again when the
+    status is HEALTHY.
+    """
+
+    _ERROR_CODE = "BillingViewHealthStatusException"
+
+
 class CreationLimitExceededException(BudgetsError):
     """You've exceeded the notification or subscriber limit."""
     _ERROR_CODE = "CreationLimitExceededException"
@@ -59,6 +67,11 @@ class ResourceLockedException(BudgetsError):
     _ERROR_CODE = "ResourceLockedException"
 
 
+class ServiceQuotaExceededException(BudgetsError):
+    """You've reached a Service Quota limit on this resource."""
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+
 class ThrottlingException(BudgetsError):
     """The number of API requests has exceeded the maximum allowed API request throttling
     limit for the account.
@@ -69,6 +82,7 @@ class ThrottlingException(BudgetsError):
 
 EXCEPTIONS: dict[str, type[BudgetsError]] = {
     "AccessDeniedException": AccessDeniedException,
+    "BillingViewHealthStatusException": BillingViewHealthStatusException,
     "CreationLimitExceededException": CreationLimitExceededException,
     "DuplicateRecordException": DuplicateRecordException,
     "ExpiredNextTokenException": ExpiredNextTokenException,
@@ -77,5 +91,6 @@ EXCEPTIONS: dict[str, type[BudgetsError]] = {
     "InvalidParameterException": InvalidParameterException,
     "NotFoundException": NotFoundException,
     "ResourceLockedException": ResourceLockedException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,
 }

@@ -45,6 +45,11 @@ class GeneratedTemplateNotFoundException(CloudFormationError):
     _ERROR_CODE = "GeneratedTemplateNotFound"
 
 
+class HookResultNotFoundException(CloudFormationError):
+    """The specified target doesn't have any requested Hook invocations."""
+    _ERROR_CODE = "HookResultNotFound"
+
+
 class InsufficientCapabilitiesException(CloudFormationError):
     """The template contains resources with capabilities that weren't specified in the
     Capabilities parameter.
@@ -96,8 +101,8 @@ class OperationIdAlreadyExistsException(CloudFormationError):
 
 
 class OperationInProgressException(CloudFormationError):
-    """Another operation is currently in progress for this stack set. Only one operation
-    can be performed for a stack set at a given time.
+    """Another operation is currently in progress for this StackSet. Only one operation can
+    be performed for a stack set at a given time.
     """
 
     _ERROR_CODE = "OperationInProgressException"
@@ -155,22 +160,27 @@ class StackNotFoundException(CloudFormationError):
     _ERROR_CODE = "StackNotFoundException"
 
 
+class StackRefactorNotFoundException(CloudFormationError):
+    """The specified stack refactor can't be found."""
+    _ERROR_CODE = "StackRefactorNotFoundException"
+
+
 class StackSetNotEmptyException(CloudFormationError):
-    """You can't yet delete this stack set, because it still contains one or more stack
-    instances. Delete all stack instances from the stack set before deleting the stack
-    set.
+    """You can't yet delete this StackSet, because it still contains one or more stack
+    instances. Delete all stack instances from the StackSet before deleting the
+    StackSet.
     """
 
     _ERROR_CODE = "StackSetNotEmptyException"
 
 
 class StackSetNotFoundException(CloudFormationError):
-    """The specified stack set doesn't exist."""
+    """The specified StackSet doesn't exist."""
     _ERROR_CODE = "StackSetNotFoundException"
 
 
 class StaleRequestException(CloudFormationError):
-    """Another operation has been performed on this stack set since the specified operation
+    """Another operation has been performed on this StackSet since the specified operation
     was performed.
     """
 
@@ -199,6 +209,7 @@ EXCEPTIONS: dict[str, type[CloudFormationError]] = {
     "ConcurrentResourcesLimitExceeded": ConcurrentResourcesLimitExceededException,
     "CreatedButModifiedException": CreatedButModifiedException,
     "GeneratedTemplateNotFound": GeneratedTemplateNotFoundException,
+    "HookResultNotFound": HookResultNotFoundException,
     "InsufficientCapabilitiesException": InsufficientCapabilitiesException,
     "InvalidChangeSetStatus": InvalidChangeSetStatusException,
     "InvalidOperationException": InvalidOperationException,
@@ -214,6 +225,7 @@ EXCEPTIONS: dict[str, type[CloudFormationError]] = {
     "ResourceScanNotFound": ResourceScanNotFoundException,
     "StackInstanceNotFoundException": StackInstanceNotFoundException,
     "StackNotFoundException": StackNotFoundException,
+    "StackRefactorNotFoundException": StackRefactorNotFoundException,
     "StackSetNotEmptyException": StackSetNotEmptyException,
     "StackSetNotFoundException": StackSetNotFoundException,
     "StaleRequestException": StaleRequestException,

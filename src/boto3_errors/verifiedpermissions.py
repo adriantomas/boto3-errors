@@ -31,6 +31,14 @@ class InternalServerException(VerifiedPermissionsError):
     _ERROR_CODE = "InternalServerException"
 
 
+class InvalidStateException(VerifiedPermissionsError):
+    """The policy store can't be deleted because deletion protection is enabled. To delete
+    this policy store, disable deletion protection.
+    """
+
+    _ERROR_CODE = "InvalidStateException"
+
+
 class ResourceNotFoundException(VerifiedPermissionsError):
     """The request failed because it references a resource that doesn't exist."""
     _ERROR_CODE = "ResourceNotFoundException"
@@ -67,7 +75,7 @@ class ServiceQuotaExceededException(VerifiedPermissionsError):
 
     @property
     def service_code(self) -> str | None:
-        """The code for the Amazon Web Service that owns the quota."""
+        """The code for the Amazon Web Services service that owns the quota."""
         return self.response.get("serviceCode")
 
 
@@ -82,8 +90,20 @@ class ThrottlingException(VerifiedPermissionsError):
 
     @property
     def service_code(self) -> str | None:
-        """The code for the Amazon Web Service that owns the quota."""
+        """The code for the Amazon Web Services service that owns the quota."""
         return self.response.get("serviceCode")
+
+
+class TooManyTagsException(VerifiedPermissionsError):
+    """No more tags be added because the limit (50) has been reached. To add new tags, use
+    `UntagResource` to remove existing tags.
+    """
+
+    _ERROR_CODE = "TooManyTagsException"
+
+    @property
+    def resource_name(self) -> str | None:
+        return self.response.get("resourceName")
 
 
 class ValidationException(VerifiedPermissionsError):
@@ -135,8 +155,10 @@ EXCEPTIONS: dict[str, type[VerifiedPermissionsError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
+    "InvalidStateException": InvalidStateException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,
+    "TooManyTagsException": TooManyTagsException,
     "ValidationException": ValidationException,
 }

@@ -26,6 +26,11 @@ class ConflictException(deadlineError):
     _ERROR_CODE = "ConflictException"
 
     @property
+    def context(self) -> dict[str, Any] | None:
+        """Information about the resources in use when the exception was thrown."""
+        return self.response.get("context")
+
+    @property
     def reason(self) -> str | None:
         """A description of the error."""
         return self.response.get("reason")
@@ -39,11 +44,6 @@ class ConflictException(deadlineError):
     def resource_type(self) -> str | None:
         """The type of the resource in use."""
         return self.response.get("resourceType")
-
-    @property
-    def context(self) -> dict[str, Any] | None:
-        """Information about the resources in use when the exception was thrown."""
-        return self.response.get("context")
 
 
 class InternalServerErrorException(deadlineError):
@@ -61,6 +61,11 @@ class ResourceNotFoundException(deadlineError):
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
+    def context(self) -> dict[str, Any] | None:
+        """Information about the resources in use when the exception was thrown."""
+        return self.response.get("context")
+
+    @property
     def resource_id(self) -> str | None:
         """The identifier of the resource that couldn't be found."""
         return self.response.get("resourceId")
@@ -69,11 +74,6 @@ class ResourceNotFoundException(deadlineError):
     def resource_type(self) -> str | None:
         """The type of the resource that couldn't be found."""
         return self.response.get("resourceType")
-
-    @property
-    def context(self) -> dict[str, Any] | None:
-        """Information about the resources in use when the exception was thrown."""
-        return self.response.get("context")
 
 
 class ServiceQuotaExceededException(deadlineError):
@@ -85,9 +85,24 @@ class ServiceQuotaExceededException(deadlineError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def context(self) -> dict[str, Any] | None:
+        """Information about the resources in use when the exception was thrown."""
+        return self.response.get("context")
+
+    @property
+    def quota_code(self) -> str | None:
+        """Identifies the quota that has been exceeded."""
+        return self.response.get("quotaCode")
+
+    @property
     def reason(self) -> str | None:
         """A string that describes the reason the quota was exceeded."""
         return self.response.get("reason")
+
+    @property
+    def resource_id(self) -> str | None:
+        """The identifier of the affected resource."""
+        return self.response.get("resourceId")
 
     @property
     def resource_type(self) -> str | None:
@@ -99,30 +114,15 @@ class ServiceQuotaExceededException(deadlineError):
         """Identifies the service that exceeded the quota."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """Identifies the quota that has been exceeded."""
-        return self.response.get("quotaCode")
-
-    @property
-    def resource_id(self) -> str | None:
-        """The identifier of the affected resource."""
-        return self.response.get("resourceId")
-
-    @property
-    def context(self) -> dict[str, Any] | None:
-        """Information about the resources in use when the exception was thrown."""
-        return self.response.get("context")
-
 
 class ThrottlingException(deadlineError):
     """Your request exceeded a request rate quota."""
     _ERROR_CODE = "ThrottlingException"
 
     @property
-    def service_code(self) -> str | None:
-        """Identifies the service that is being throttled."""
-        return self.response.get("serviceCode")
+    def context(self) -> dict[str, Any] | None:
+        """Information about the resources in use when the exception was thrown."""
+        return self.response.get("context")
 
     @property
     def quota_code(self) -> str | None:
@@ -135,9 +135,9 @@ class ThrottlingException(deadlineError):
         return self.response.get("retryAfterSeconds")
 
     @property
-    def context(self) -> dict[str, Any] | None:
-        """Information about the resources in use when the exception was thrown."""
-        return self.response.get("context")
+    def service_code(self) -> str | None:
+        """Identifies the service that is being throttled."""
+        return self.response.get("serviceCode")
 
 
 class ValidationException(deadlineError):
@@ -148,9 +148,9 @@ class ValidationException(deadlineError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason that the request failed validation."""
-        return self.response.get("reason")
+    def context(self) -> dict[str, Any] | None:
+        """Information about the resources in use when the exception was thrown."""
+        return self.response.get("context")
 
     @property
     def field_list(self) -> list[Any] | None:
@@ -158,9 +158,9 @@ class ValidationException(deadlineError):
         return self.response.get("fieldList")
 
     @property
-    def context(self) -> dict[str, Any] | None:
-        """Information about the resources in use when the exception was thrown."""
-        return self.response.get("context")
+    def reason(self) -> str | None:
+        """The reason that the request failed validation."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[deadlineError]] = {

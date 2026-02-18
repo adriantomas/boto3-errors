@@ -23,6 +23,11 @@ class ConcurrentModificationException(LakeFormationError):
     _ERROR_CODE = "ConcurrentModificationException"
 
 
+class ConflictException(LakeFormationError):
+    """Multiple resources exist with the same Amazon S3 location"""
+    _ERROR_CODE = "ConflictException"
+
+
 class EntityNotFoundException(LakeFormationError):
     """A specified entity does not exist."""
     _ERROR_CODE = "EntityNotFoundException"
@@ -116,6 +121,7 @@ EXCEPTIONS: dict[str, type[LakeFormationError]] = {
     "AccessDeniedException": AccessDeniedException,
     "AlreadyExistsException": AlreadyExistsException,
     "ConcurrentModificationException": ConcurrentModificationException,
+    "ConflictException": ConflictException,
     "EntityNotFoundException": EntityNotFoundException,
     "ExpiredException": ExpiredException,
     "GlueEncryptionException": GlueEncryptionException,
