@@ -86,16 +86,16 @@ class UnableToDetectSchemaException(KinesisAnalyticsV2Error):
     _ERROR_CODE = "UnableToDetectSchemaException"
 
     @property
-    def raw_input_records(self) -> list[Any] | None:
-        """Raw stream data that was sampled to infer the schema."""
-        return self.response.get("RawInputRecords")
-
-    @property
     def processed_input_records(self) -> list[Any] | None:
         """Stream data that was modified by the processor specified in the
         `InputProcessingConfiguration` parameter.
         """
         return self.response.get("ProcessedInputRecords")
+
+    @property
+    def raw_input_records(self) -> list[Any] | None:
+        """Raw stream data that was sampled to infer the schema."""
+        return self.response.get("RawInputRecords")
 
 
 class UnsupportedOperationException(KinesisAnalyticsV2Error):

@@ -45,6 +45,11 @@ class ServiceQuotaExceededException(PipesError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The identifier of the quota that caused the exception."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The ID of the resource that caused the exception."""
         return self.response.get("resourceId")
@@ -59,20 +64,10 @@ class ServiceQuotaExceededException(PipesError):
         """The identifier of the service that caused the exception."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The identifier of the quota that caused the exception."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(PipesError):
     """An action was throttled."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The identifier of the service that caused the exception."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -85,6 +80,11 @@ class ThrottlingException(PipesError):
         exception.
         """
         return self.response.get("retryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """The identifier of the service that caused the exception."""
+        return self.response.get("serviceCode")
 
 
 class ValidationException(PipesError):

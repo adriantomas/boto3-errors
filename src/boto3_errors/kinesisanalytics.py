@@ -80,12 +80,12 @@ class UnableToDetectSchemaException(KinesisAnalyticsError):
     _ERROR_CODE = "UnableToDetectSchemaException"
 
     @property
-    def raw_input_records(self) -> list[Any] | None:
-        return self.response.get("RawInputRecords")
-
-    @property
     def processed_input_records(self) -> list[Any] | None:
         return self.response.get("ProcessedInputRecords")
+
+    @property
+    def raw_input_records(self) -> list[Any] | None:
+        return self.response.get("RawInputRecords")
 
 
 class UnsupportedOperationException(KinesisAnalyticsError):

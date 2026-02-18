@@ -59,6 +59,11 @@ class ServiceQuotaExceededException(VerifiedPermissionsError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The quota code recognized by the Amazon Web Services Service Quotas service."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The unique ID of the resource referenced in the failed request."""
         return self.response.get("resourceId")
@@ -73,25 +78,20 @@ class ServiceQuotaExceededException(VerifiedPermissionsError):
         """The code for the Amazon Web Services service that owns the quota."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The quota code recognized by the Amazon Web Services Service Quotas service."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(VerifiedPermissionsError):
     """The request failed because it exceeded a throttling quota."""
     _ERROR_CODE = "ThrottlingException"
 
     @property
-    def service_code(self) -> str | None:
-        """The code for the Amazon Web Services service that owns the quota."""
-        return self.response.get("serviceCode")
-
-    @property
     def quota_code(self) -> str | None:
         """The quota code recognized by the Amazon Web Services Service Quotas service."""
         return self.response.get("quotaCode")
+
+    @property
+    def service_code(self) -> str | None:
+        """The code for the Amazon Web Services service that owns the quota."""
+        return self.response.get("serviceCode")
 
 
 class TooManyTagsException(VerifiedPermissionsError):

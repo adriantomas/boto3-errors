@@ -13,24 +13,24 @@ class AlreadyExistsException(BackupError):
     _ERROR_CODE = "AlreadyExistsException"
 
     @property
+    def arn(self) -> str | None:
+        return self.response.get("Arn")
+
+    @property
     def code(self) -> str | None:
         return self.response.get("Code")
+
+    @property
+    def context(self) -> str | None:
+        return self.response.get("Context")
 
     @property
     def creator_request_id(self) -> str | None:
         return self.response.get("CreatorRequestId")
 
     @property
-    def arn(self) -> str | None:
-        return self.response.get("Arn")
-
-    @property
     def type(self) -> str | None:
         return self.response.get("Type")
-
-    @property
-    def context(self) -> str | None:
-        return self.response.get("Context")
 
 
 class ConflictException(BackupError):
@@ -45,12 +45,12 @@ class ConflictException(BackupError):
         return self.response.get("Code")
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def context(self) -> str | None:
         return self.response.get("Context")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 class DependencyFailureException(BackupError):
@@ -65,12 +65,12 @@ class DependencyFailureException(BackupError):
         return self.response.get("Code")
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def context(self) -> str | None:
         return self.response.get("Context")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 class InvalidParameterValueException(BackupError):
@@ -85,12 +85,12 @@ class InvalidParameterValueException(BackupError):
         return self.response.get("Code")
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def context(self) -> str | None:
         return self.response.get("Context")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 class InvalidRequestException(BackupError):
@@ -105,12 +105,12 @@ class InvalidRequestException(BackupError):
         return self.response.get("Code")
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def context(self) -> str | None:
         return self.response.get("Context")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 class InvalidResourceStateException(BackupError):
@@ -125,12 +125,12 @@ class InvalidResourceStateException(BackupError):
         return self.response.get("Code")
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def context(self) -> str | None:
         return self.response.get("Context")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 class LimitExceededException(BackupError):
@@ -145,12 +145,12 @@ class LimitExceededException(BackupError):
         return self.response.get("Code")
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def context(self) -> str | None:
         return self.response.get("Context")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 class MissingParameterValueException(BackupError):
@@ -162,12 +162,12 @@ class MissingParameterValueException(BackupError):
         return self.response.get("Code")
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def context(self) -> str | None:
         return self.response.get("Context")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 class ResourceNotFoundException(BackupError):
@@ -179,12 +179,12 @@ class ResourceNotFoundException(BackupError):
         return self.response.get("Code")
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def context(self) -> str | None:
         return self.response.get("Context")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 class ServiceUnavailableException(BackupError):
@@ -196,12 +196,12 @@ class ServiceUnavailableException(BackupError):
         return self.response.get("Code")
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def context(self) -> str | None:
         return self.response.get("Context")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 EXCEPTIONS: dict[str, type[BackupError]] = {

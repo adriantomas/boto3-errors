@@ -21,14 +21,14 @@ class ConflictingOperationException(IoTSiteWiseError):
     _ERROR_CODE = "ConflictingOperationException"
 
     @property
-    def resource_id(self) -> str | None:
-        """The ID of the resource that conflicts with this operation."""
-        return self.response.get("resourceId")
-
-    @property
     def resource_arn(self) -> str | None:
         """The ARN of the resource that conflicts with this operation."""
         return self.response.get("resourceArn")
+
+    @property
+    def resource_id(self) -> str | None:
+        """The ID of the resource that conflicts with this operation."""
+        return self.response.get("resourceId")
 
 
 class InternalFailureException(IoTSiteWiseError):
@@ -60,14 +60,14 @@ class PreconditionFailedException(IoTSiteWiseError):
     _ERROR_CODE = "PreconditionFailedException"
 
     @property
-    def resource_id(self) -> str | None:
-        """The ID of the resource on which precondition failed with this operation."""
-        return self.response.get("resourceId")
-
-    @property
     def resource_arn(self) -> str | None:
         """The ARN of the resource on which precondition failed with this operation."""
         return self.response.get("resourceArn")
+
+    @property
+    def resource_id(self) -> str | None:
+        """The ID of the resource on which precondition failed with this operation."""
+        return self.response.get("resourceId")
 
 
 class QueryTimeoutException(IoTSiteWiseError):
@@ -80,14 +80,14 @@ class ResourceAlreadyExistsException(IoTSiteWiseError):
     _ERROR_CODE = "ResourceAlreadyExistsException"
 
     @property
-    def resource_id(self) -> str | None:
-        """The ID of the resource that already exists."""
-        return self.response.get("resourceId")
-
-    @property
     def resource_arn(self) -> str | None:
         """The ARN of the resource that already exists."""
         return self.response.get("resourceArn")
+
+    @property
+    def resource_id(self) -> str | None:
+        """The ID of the resource that already exists."""
+        return self.response.get("resourceId")
 
 
 class ResourceNotFoundException(IoTSiteWiseError):

@@ -22,12 +22,12 @@ class InvalidRequestException(DataSyncError):
     _ERROR_CODE = "InvalidRequestException"
 
     @property
-    def error_code(self) -> str | None:
-        return self.response.get("errorCode")
-
-    @property
     def datasync_error_code(self) -> str | None:
         return self.response.get("datasyncErrorCode")
+
+    @property
+    def error_code(self) -> str | None:
+        return self.response.get("errorCode")
 
 
 EXCEPTIONS: dict[str, type[DataSyncError]] = {

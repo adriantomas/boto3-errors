@@ -69,6 +69,11 @@ class ServiceQuotaExceededException(BillingError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The container for the `quotaCode`."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The ID of the resource."""
         return self.response.get("resourceId")
@@ -82,11 +87,6 @@ class ServiceQuotaExceededException(BillingError):
     def service_code(self) -> str | None:
         """The container for the `serviceCode`."""
         return self.response.get("serviceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """The container for the `quotaCode`."""
-        return self.response.get("quotaCode")
 
 
 class ThrottlingException(BillingError):
@@ -102,18 +102,18 @@ class ValidationException(BillingError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The input fails to satisfy the constraints specified by an Amazon Web Services
-        service.
-        """
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The input fails to satisfy the constraints specified by an Amazon Web Services
         service.
         """
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The input fails to satisfy the constraints specified by an Amazon Web Services
+        service.
+        """
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[BillingError]] = {

@@ -16,12 +16,12 @@ class BadRequestException(AppConfigError):
     _ERROR_CODE = "BadRequestException"
 
     @property
-    def reason(self) -> str | None:
-        return self.response.get("Reason")
-
-    @property
     def details(self) -> dict[str, Any] | None:
         return self.response.get("Details")
+
+    @property
+    def reason(self) -> str | None:
+        return self.response.get("Reason")
 
 
 class ConflictException(AppConfigError):
@@ -42,12 +42,12 @@ class PayloadTooLargeException(AppConfigError):
     _ERROR_CODE = "PayloadTooLargeException"
 
     @property
-    def measure(self) -> str | None:
-        return self.response.get("Measure")
-
-    @property
     def limit(self) -> float | None:
         return self.response.get("Limit")
+
+    @property
+    def measure(self) -> str | None:
+        return self.response.get("Measure")
 
     @property
     def size(self) -> float | None:

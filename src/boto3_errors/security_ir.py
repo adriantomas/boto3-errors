@@ -51,6 +51,11 @@ class ServiceQuotaExceededException(SecurityIRError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The code of the quota."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The ID of the requested resource which lead to the service quota exception."""
         return self.response.get("resourceId")
@@ -65,19 +70,9 @@ class ServiceQuotaExceededException(SecurityIRError):
         """The service code of the quota."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The code of the quota."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(SecurityIRError):
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The service code of the exception."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -89,19 +84,24 @@ class ThrottlingException(SecurityIRError):
         """The number of seconds after which to retry the request."""
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """The service code of the exception."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(SecurityIRError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the exception."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The fields which lead to the exception."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the exception."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[SecurityIRError]] = {

@@ -60,14 +60,14 @@ class ModelStreamErrorException(BedrockRuntimeError):
     _ERROR_CODE = "ModelStreamErrorException"
 
     @property
-    def original_status_code(self) -> int | None:
-        """The original status code."""
-        return self.response.get("originalStatusCode")
-
-    @property
     def original_message(self) -> str | None:
         """The original message."""
         return self.response.get("originalMessage")
+
+    @property
+    def original_status_code(self) -> int | None:
+        """The original status code."""
+        return self.response.get("originalStatusCode")
 
 
 class ModelTimeoutException(BedrockRuntimeError):

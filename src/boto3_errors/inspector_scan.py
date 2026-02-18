@@ -46,14 +46,14 @@ class ValidationException(InspectorScanError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the validation failure."""
-        return self.response.get("reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         """The fields that failed validation."""
         return self.response.get("fields")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the validation failure."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[InspectorScanError]] = {

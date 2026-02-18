@@ -86,6 +86,13 @@ class InvalidLayerPartException(ECRError):
     _ERROR_CODE = "InvalidLayerPartException"
 
     @property
+    def last_valid_byte_received(self) -> int | None:
+        """The last valid byte received from the layer part upload that is associated with
+        the exception.
+        """
+        return self.response.get("lastValidByteReceived")
+
+    @property
     def registry_id(self) -> str | None:
         """The registry ID associated with the exception."""
         return self.response.get("registryId")
@@ -99,13 +106,6 @@ class InvalidLayerPartException(ECRError):
     def upload_id(self) -> str | None:
         """The upload ID associated with the exception."""
         return self.response.get("uploadId")
-
-    @property
-    def last_valid_byte_received(self) -> int | None:
-        """The last valid byte received from the layer part upload that is associated with
-        the exception.
-        """
-        return self.response.get("lastValidByteReceived")
 
 
 class InvalidParameterException(ECRError):

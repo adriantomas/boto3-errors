@@ -41,6 +41,11 @@ class ServiceQuotaExceededException(AIOpsError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """This quota that was exceeded."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The resource that caused the quota exception."""
         return self.response.get("resourceId")
@@ -54,11 +59,6 @@ class ServiceQuotaExceededException(AIOpsError):
     def service_code(self) -> str | None:
         """This name of the service associated with the error."""
         return self.response.get("serviceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """This quota that was exceeded."""
-        return self.response.get("quotaCode")
 
 
 class ThrottlingException(AIOpsError):

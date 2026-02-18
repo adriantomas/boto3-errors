@@ -31,14 +31,14 @@ class ValidationException(BCMRecommendedActionsError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """Provides a single, overarching explanation for the validation failure."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """Lists each problematic field and why it failed validation."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """Provides a single, overarching explanation for the validation failure."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[BCMRecommendedActionsError]] = {

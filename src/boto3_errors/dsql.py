@@ -58,6 +58,11 @@ class ServiceQuotaExceededException(DSQLError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The service exceeds a quota."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The resource ID exceeds a quota."""
         return self.response.get("resourceId")
@@ -72,20 +77,10 @@ class ServiceQuotaExceededException(DSQLError):
         """The request exceeds a service quota."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The service exceeds a quota."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(DSQLError):
     """The request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The request exceeds a service quota."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -97,6 +92,11 @@ class ThrottlingException(DSQLError):
         """The request exceeds a request rate quota. Retry after seconds."""
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """The request exceeds a service quota."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(DSQLError):
     """The input failed to satisfy the constraints specified by an Amazon Web Services
@@ -106,14 +106,14 @@ class ValidationException(DSQLError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the validation exception."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """A list of fields that didn't validate."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the validation exception."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[DSQLError]] = {

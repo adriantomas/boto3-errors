@@ -160,14 +160,14 @@ class ResourceInUseException(ConnectError):
     _ERROR_CODE = "ResourceInUseException"
 
     @property
-    def resource_type(self) -> str | None:
-        """The type of resource."""
-        return self.response.get("ResourceType")
-
-    @property
     def resource_id(self) -> str | None:
         """The identifier for the resource."""
         return self.response.get("ResourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The type of resource."""
+        return self.response.get("ResourceType")
 
 
 class ResourceNotFoundException(ConnectError):

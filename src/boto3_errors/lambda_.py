@@ -112,12 +112,12 @@ class EC2UnexpectedException(LambdaError):
     _ERROR_CODE = "EC2UnexpectedException"
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def ec2_error_code(self) -> str | None:
         return self.response.get("EC2ErrorCode")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 class EFSIOException(LambdaError):
@@ -504,17 +504,17 @@ class TooManyRequestsException(LambdaError):
     _ERROR_CODE = "TooManyRequestsException"
 
     @property
-    def retry_after_seconds(self) -> str | None:
-        """The number of seconds the caller should wait before retrying."""
-        return self.response.get("retryAfterSeconds")
+    def reason(self) -> str | None:
+        return self.response.get("Reason")
 
     @property
     def type(self) -> str | None:
         return self.response.get("Type")
 
     @property
-    def reason(self) -> str | None:
-        return self.response.get("Reason")
+    def retry_after_seconds(self) -> str | None:
+        """The number of seconds the caller should wait before retrying."""
+        return self.response.get("retryAfterSeconds")
 
 
 class UnsupportedMediaTypeException(LambdaError):

@@ -29,6 +29,11 @@ class ConflictException(mgnError):
         return self.response.get("code")
 
     @property
+    def errors(self) -> list[Any] | None:
+        """Conflict Exception specific errors."""
+        return self.response.get("errors")
+
+    @property
     def resource_id(self) -> str | None:
         """A conflict occurred when prompting for the Resource ID."""
         return self.response.get("resourceId")
@@ -37,11 +42,6 @@ class ConflictException(mgnError):
     def resource_type(self) -> str | None:
         """A conflict occurred when prompting for resource type."""
         return self.response.get("resourceType")
-
-    @property
-    def errors(self) -> list[Any] | None:
-        """Conflict Exception specific errors."""
-        return self.response.get("errors")
 
 
 class InternalServerException(mgnError):
@@ -87,6 +87,16 @@ class ServiceQuotaExceededException(mgnError):
         return self.response.get("code")
 
     @property
+    def quota_code(self) -> str | None:
+        """Exceeded the service quota code."""
+        return self.response.get("quotaCode")
+
+    @property
+    def quota_value(self) -> int | None:
+        """Exceeded the service quota value."""
+        return self.response.get("quotaValue")
+
+    @property
     def resource_id(self) -> str | None:
         """Exceeded the service quota resource ID."""
         return self.response.get("resourceId")
@@ -101,25 +111,10 @@ class ServiceQuotaExceededException(mgnError):
         """Exceeded the service quota service code."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """Exceeded the service quota code."""
-        return self.response.get("quotaCode")
-
-    @property
-    def quota_value(self) -> int | None:
-        """Exceeded the service quota value."""
-        return self.response.get("quotaValue")
-
 
 class ThrottlingException(mgnError):
     """Reached throttling quota exception."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """Reached throttling quota exception service code."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -130,6 +125,11 @@ class ThrottlingException(mgnError):
     def retry_after_seconds(self) -> str | None:
         """Reached throttling quota exception will retry after x seconds."""
         return self.response.get("retryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """Reached throttling quota exception service code."""
+        return self.response.get("serviceCode")
 
 
 class UninitializedAccountException(mgnError):
@@ -150,14 +150,14 @@ class ValidationException(mgnError):
         return self.response.get("code")
 
     @property
-    def reason(self) -> str | None:
-        """Validate exception reason."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """Validate exception field list."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """Validate exception reason."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[mgnError]] = {

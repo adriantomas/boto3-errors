@@ -28,14 +28,14 @@ class ResourceAlreadyExistsException(IoTAnalyticsError):
     _ERROR_CODE = "ResourceAlreadyExistsException"
 
     @property
-    def resource_id(self) -> str | None:
-        """The ID of the resource."""
-        return self.response.get("resourceId")
-
-    @property
     def resource_arn(self) -> str | None:
         """The ARN of the resource."""
         return self.response.get("resourceArn")
+
+    @property
+    def resource_id(self) -> str | None:
+        """The ID of the resource."""
+        return self.response.get("resourceId")
 
 
 class ResourceNotFoundException(IoTAnalyticsError):

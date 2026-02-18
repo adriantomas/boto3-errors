@@ -628,16 +628,16 @@ class OpsItemLimitExceededException(SSMError):
     _ERROR_CODE = "OpsItemLimitExceededException"
 
     @property
-    def resource_types(self) -> list[Any] | None:
-        return self.response.get("ResourceTypes")
-
-    @property
     def limit(self) -> int | None:
         return self.response.get("Limit")
 
     @property
     def limit_type(self) -> str | None:
         return self.response.get("LimitType")
+
+    @property
+    def resource_types(self) -> list[Any] | None:
+        return self.response.get("ResourceTypes")
 
 
 class OpsItemNotFoundException(SSMError):
@@ -650,12 +650,12 @@ class OpsItemRelatedItemAlreadyExistsException(SSMError):
     _ERROR_CODE = "OpsItemRelatedItemAlreadyExistsException"
 
     @property
-    def resource_uri(self) -> str | None:
-        return self.response.get("ResourceUri")
-
-    @property
     def ops_item_id(self) -> str | None:
         return self.response.get("OpsItemId")
+
+    @property
+    def resource_uri(self) -> str | None:
+        return self.response.get("ResourceUri")
 
 
 class OpsItemRelatedItemAssociationNotFoundException(SSMError):
@@ -898,6 +898,11 @@ class ServiceQuotaExceededException(SSMError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The quota code recognized by the Amazon Web Services Service Quotas service."""
+        return self.response.get("QuotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The unique ID of the resource referenced in the failed request."""
         return self.response.get("ResourceId")
@@ -906,11 +911,6 @@ class ServiceQuotaExceededException(SSMError):
     def resource_type(self) -> str | None:
         """The resource type of the resource referenced in the failed request."""
         return self.response.get("ResourceType")
-
-    @property
-    def quota_code(self) -> str | None:
-        """The quota code recognized by the Amazon Web Services Service Quotas service."""
-        return self.response.get("QuotaCode")
 
     @property
     def service_code(self) -> str | None:

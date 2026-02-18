@@ -49,16 +49,16 @@ class ServiceQuotaExceededException(WellArchitectedError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        return self.response.get("QuotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         return self.response.get("ResourceId")
 
     @property
     def resource_type(self) -> str | None:
         return self.response.get("ResourceType")
-
-    @property
-    def quota_code(self) -> str | None:
-        return self.response.get("QuotaCode")
 
     @property
     def service_code(self) -> str | None:
@@ -83,12 +83,12 @@ class ValidationException(WellArchitectedError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        return self.response.get("Reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         return self.response.get("Fields")
+
+    @property
+    def reason(self) -> str | None:
+        return self.response.get("Reason")
 
 
 EXCEPTIONS: dict[str, type[WellArchitectedError]] = {

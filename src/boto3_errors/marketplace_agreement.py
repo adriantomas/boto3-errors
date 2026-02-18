@@ -63,9 +63,9 @@ class ValidationException(MarketplaceAgreementError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def request_id(self) -> str | None:
-        """The unique identifier associated with the error."""
-        return self.response.get("requestId")
+    def fields(self) -> list[Any] | None:
+        """The fields associated with the error."""
+        return self.response.get("fields")
 
     @property
     def reason(self) -> str | None:
@@ -73,9 +73,9 @@ class ValidationException(MarketplaceAgreementError):
         return self.response.get("reason")
 
     @property
-    def fields(self) -> list[Any] | None:
-        """The fields associated with the error."""
-        return self.response.get("fields")
+    def request_id(self) -> str | None:
+        """The unique identifier associated with the error."""
+        return self.response.get("requestId")
 
 
 EXCEPTIONS: dict[str, type[MarketplaceAgreementError]] = {

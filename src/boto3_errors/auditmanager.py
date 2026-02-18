@@ -59,14 +59,14 @@ class ValidationException(AuditManagerError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason the request failed validation."""
-        return self.response.get("reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         """The fields that caused the error, if applicable."""
         return self.response.get("fields")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason the request failed validation."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[AuditManagerError]] = {

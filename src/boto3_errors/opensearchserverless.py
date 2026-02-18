@@ -42,6 +42,11 @@ class ServiceQuotaExceededException(OpenSearchServerlessError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """Service Quotas requirement to identify originating quota."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the resource affected."""
         return self.response.get("resourceId")
@@ -55,11 +60,6 @@ class ServiceQuotaExceededException(OpenSearchServerlessError):
     def service_code(self) -> str | None:
         """Service Quotas requirement to identify originating service."""
         return self.response.get("serviceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """Service Quotas requirement to identify originating quota."""
-        return self.response.get("quotaCode")
 
 
 class ValidationException(OpenSearchServerlessError):

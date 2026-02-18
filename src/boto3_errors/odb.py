@@ -72,6 +72,11 @@ class ServiceQuotaExceededException(odbError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The unqiue identifier of the service quota that was exceeded."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The identifier of the resource that exceeded the service quota."""
         return self.response.get("resourceId")
@@ -80,11 +85,6 @@ class ServiceQuotaExceededException(odbError):
     def resource_type(self) -> str | None:
         """The type of resource that exceeded the service quota."""
         return self.response.get("resourceType")
-
-    @property
-    def quota_code(self) -> str | None:
-        """The unqiue identifier of the service quota that was exceeded."""
-        return self.response.get("quotaCode")
 
 
 class ThrottlingException(odbError):
@@ -105,14 +105,14 @@ class ValidationException(odbError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason why the validation failed."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """A list of fields that failed validation."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason why the validation failed."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[odbError]] = {

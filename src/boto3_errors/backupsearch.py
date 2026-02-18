@@ -70,6 +70,11 @@ class ServiceQuotaExceededException(BackupSearchError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """This is the code specific to the quota type."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the resource."""
         return self.response.get("resourceId")
@@ -84,20 +89,10 @@ class ServiceQuotaExceededException(BackupSearchError):
         """This is the code unique to the originating service with the quota."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """This is the code specific to the quota type."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(BackupSearchError):
     """The request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """This is the code unique to the originating service."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -108,6 +103,11 @@ class ThrottlingException(BackupSearchError):
     def retry_after_seconds(self) -> int | None:
         """Retry the call after number of seconds."""
         return self.response.get("retryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """This is the code unique to the originating service."""
+        return self.response.get("serviceCode")
 
 
 class ValidationException(BackupSearchError):

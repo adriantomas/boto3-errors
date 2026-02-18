@@ -13,6 +13,11 @@ class AccessDeniedException(neptunedataError):
     _ERROR_CODE = "AccessDeniedException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -22,15 +27,15 @@ class AccessDeniedException(neptunedataError):
         """The ID of the request in question."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class BadRequestException(neptunedataError):
     """Raised when a request is submitted that cannot be processed."""
     _ERROR_CODE = "BadRequestException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -42,15 +47,15 @@ class BadRequestException(neptunedataError):
         """The ID of the bad request."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class BulkLoadIdNotFoundException(neptunedataError):
     """Raised when a specified bulk-load job ID cannot be found."""
     _ERROR_CODE = "BulkLoadIdNotFoundException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -62,15 +67,15 @@ class BulkLoadIdNotFoundException(neptunedataError):
         """The bulk-load job ID that could not be found."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class CancelledByUserException(neptunedataError):
     """Raised when a user cancelled a request."""
     _ERROR_CODE = "CancelledByUserException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -81,11 +86,6 @@ class CancelledByUserException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class ClientTimeoutException(neptunedataError):
@@ -93,6 +93,11 @@ class ClientTimeoutException(neptunedataError):
     _ERROR_CODE = "ClientTimeoutException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -101,11 +106,6 @@ class ClientTimeoutException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class ConcurrentModificationException(neptunedataError):
@@ -116,6 +116,11 @@ class ConcurrentModificationException(neptunedataError):
     _ERROR_CODE = "ConcurrentModificationException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -124,11 +129,6 @@ class ConcurrentModificationException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class ConstraintViolationException(neptunedataError):
@@ -136,6 +136,11 @@ class ConstraintViolationException(neptunedataError):
     _ERROR_CODE = "ConstraintViolationException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -144,11 +149,6 @@ class ConstraintViolationException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class ExpiredStreamException(neptunedataError):
@@ -156,6 +156,11 @@ class ExpiredStreamException(neptunedataError):
     _ERROR_CODE = "ExpiredStreamException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -164,11 +169,6 @@ class ExpiredStreamException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class FailureByQueryException(neptunedataError):
@@ -176,6 +176,11 @@ class FailureByQueryException(neptunedataError):
     _ERROR_CODE = "FailureByQueryException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -184,11 +189,6 @@ class FailureByQueryException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class IllegalArgumentException(neptunedataError):
@@ -196,6 +196,11 @@ class IllegalArgumentException(neptunedataError):
     _ERROR_CODE = "IllegalArgumentException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -204,11 +209,6 @@ class IllegalArgumentException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class InternalFailureException(neptunedataError):
@@ -216,6 +216,11 @@ class InternalFailureException(neptunedataError):
     _ERROR_CODE = "InternalFailureException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -224,11 +229,6 @@ class InternalFailureException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class InvalidArgumentException(neptunedataError):
@@ -236,6 +236,11 @@ class InvalidArgumentException(neptunedataError):
     _ERROR_CODE = "InvalidArgumentException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -244,11 +249,6 @@ class InvalidArgumentException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class InvalidNumericDataException(neptunedataError):
@@ -256,6 +256,11 @@ class InvalidNumericDataException(neptunedataError):
     _ERROR_CODE = "InvalidNumericDataException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -265,15 +270,15 @@ class InvalidNumericDataException(neptunedataError):
         """The ID of the request in question."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class InvalidParameterException(neptunedataError):
     """Raised when a parameter value is not valid."""
     _ERROR_CODE = "InvalidParameterException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -285,15 +290,15 @@ class InvalidParameterException(neptunedataError):
         """The ID of the request that includes an invalid parameter."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class LoadUrlAccessDeniedException(neptunedataError):
     """Raised when access is denied to a specified load URL."""
     _ERROR_CODE = "LoadUrlAccessDeniedException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -304,11 +309,6 @@ class LoadUrlAccessDeniedException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class MLResourceNotFoundException(neptunedataError):
@@ -316,6 +316,11 @@ class MLResourceNotFoundException(neptunedataError):
     _ERROR_CODE = "MLResourceNotFoundException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -324,11 +329,6 @@ class MLResourceNotFoundException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class MalformedQueryException(neptunedataError):
@@ -337,6 +337,11 @@ class MalformedQueryException(neptunedataError):
     """
 
     _ERROR_CODE = "MalformedQueryException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -348,11 +353,6 @@ class MalformedQueryException(neptunedataError):
         """The ID of the malformed query request."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class MemoryLimitExceededException(neptunedataError):
     """Raised when a request fails because of insufficient memory resources. The request
@@ -360,6 +360,11 @@ class MemoryLimitExceededException(neptunedataError):
     """
 
     _ERROR_CODE = "MemoryLimitExceededException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -371,11 +376,6 @@ class MemoryLimitExceededException(neptunedataError):
         """The ID of the request that failed."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class MethodNotAllowedException(neptunedataError):
     """Raised when the HTTP method used by a request is not supported by the endpoint being
@@ -383,6 +383,11 @@ class MethodNotAllowedException(neptunedataError):
     """
 
     _ERROR_CODE = "MethodNotAllowedException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -394,15 +399,15 @@ class MethodNotAllowedException(neptunedataError):
         """The ID of the request in question."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class MissingParameterException(neptunedataError):
     """Raised when a required parameter is missing."""
     _ERROR_CODE = "MissingParameterException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -414,15 +419,15 @@ class MissingParameterException(neptunedataError):
         """The ID of the request in which the parameter is missing."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class ParsingException(neptunedataError):
     """Raised when a parsing issue is encountered."""
     _ERROR_CODE = "ParsingException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -433,11 +438,6 @@ class ParsingException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class PreconditionsFailedException(neptunedataError):
@@ -445,6 +445,11 @@ class PreconditionsFailedException(neptunedataError):
     _ERROR_CODE = "PreconditionsFailedException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -453,11 +458,6 @@ class PreconditionsFailedException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class QueryLimitExceededException(neptunedataError):
@@ -466,6 +466,11 @@ class QueryLimitExceededException(neptunedataError):
     """
 
     _ERROR_CODE = "QueryLimitExceededException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -477,15 +482,15 @@ class QueryLimitExceededException(neptunedataError):
         """The ID of the request which exceeded the limit."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class QueryLimitException(neptunedataError):
     """Raised when the size of a query exceeds the system limit."""
     _ERROR_CODE = "QueryLimitException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -497,15 +502,15 @@ class QueryLimitException(neptunedataError):
         """The ID of the request that exceeded the limit."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class QueryTooLargeException(neptunedataError):
     """Raised when the body of a query is too large."""
     _ERROR_CODE = "QueryTooLargeException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -517,15 +522,15 @@ class QueryTooLargeException(neptunedataError):
         """The ID of the request that is too large."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class ReadOnlyViolationException(neptunedataError):
     """Raised when a request attempts to write to a read-only resource."""
     _ERROR_CODE = "ReadOnlyViolationException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -537,15 +542,15 @@ class ReadOnlyViolationException(neptunedataError):
         """The ID of the request in which the parameter is missing."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class S3Exception(neptunedataError):
     """Raised when there is a problem accessing Amazon S3."""
     _ERROR_CODE = "S3Exception"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -556,11 +561,6 @@ class S3Exception(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class ServerShutdownException(neptunedataError):
@@ -568,6 +568,11 @@ class ServerShutdownException(neptunedataError):
     _ERROR_CODE = "ServerShutdownException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -576,11 +581,6 @@ class ServerShutdownException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class StatisticsNotAvailableException(neptunedataError):
@@ -588,6 +588,11 @@ class StatisticsNotAvailableException(neptunedataError):
     _ERROR_CODE = "StatisticsNotAvailableException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -596,11 +601,6 @@ class StatisticsNotAvailableException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class StreamRecordsNotFoundException(neptunedataError):
@@ -608,6 +608,11 @@ class StreamRecordsNotFoundException(neptunedataError):
     _ERROR_CODE = "StreamRecordsNotFoundException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -616,11 +621,6 @@ class StreamRecordsNotFoundException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class ThrottlingException(neptunedataError):
@@ -631,6 +631,11 @@ class ThrottlingException(neptunedataError):
     _ERROR_CODE = "ThrottlingException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -639,11 +644,6 @@ class ThrottlingException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request that could not be processed for this reason."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class TimeLimitExceededException(neptunedataError):
@@ -651,6 +651,11 @@ class TimeLimitExceededException(neptunedataError):
     _ERROR_CODE = "TimeLimitExceededException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -659,11 +664,6 @@ class TimeLimitExceededException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request that could not be processed for this reason."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 class TooManyRequestsException(neptunedataError):
@@ -671,6 +671,11 @@ class TooManyRequestsException(neptunedataError):
     _ERROR_CODE = "TooManyRequestsException"
 
     @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
     def detailed_message(self) -> str | None:
         """A detailed message describing the problem."""
         return self.response.get("detailedMessage")
@@ -680,15 +685,15 @@ class TooManyRequestsException(neptunedataError):
         """The ID of the request that could not be processed for this reason."""
         return self.response.get("requestId")
 
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
-
 
 class UnsupportedOperationException(neptunedataError):
     """Raised when a request attempts to initiate an operation that is not supported."""
     _ERROR_CODE = "UnsupportedOperationException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
 
     @property
     def detailed_message(self) -> str | None:
@@ -699,11 +704,6 @@ class UnsupportedOperationException(neptunedataError):
     def request_id(self) -> str | None:
         """The ID of the request in question."""
         return self.response.get("requestId")
-
-    @property
-    def code(self) -> str | None:
-        """The HTTP status code returned with the exception."""
-        return self.response.get("code")
 
 
 EXCEPTIONS: dict[str, type[neptunedataError]] = {

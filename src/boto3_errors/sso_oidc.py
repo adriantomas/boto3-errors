@@ -18,16 +18,16 @@ class AccessDeniedException(SSOOIDCError):
         return self.response.get("error")
 
     @property
-    def reason(self) -> str | None:
-        """A string that uniquely identifies a reason for the error."""
-        return self.response.get("reason")
-
-    @property
     def error_description(self) -> str | None:
         """Human-readable text providing additional information, used to assist the client
         developer in understanding the error that occurred.
         """
         return self.response.get("error_description")
+
+    @property
+    def reason(self) -> str | None:
+        """A string that uniquely identifies a reason for the error."""
+        return self.response.get("reason")
 
 
 class AuthorizationPendingException(SSOOIDCError):
@@ -180,16 +180,16 @@ class InvalidRequestException(SSOOIDCError):
         return self.response.get("error")
 
     @property
-    def reason(self) -> str | None:
-        """A string that uniquely identifies a reason for the error."""
-        return self.response.get("reason")
-
-    @property
     def error_description(self) -> str | None:
         """Human-readable text providing additional information, used to assist the client
         developer in understanding the error that occurred.
         """
         return self.response.get("error_description")
+
+    @property
+    def reason(self) -> str | None:
+        """A string that uniquely identifies a reason for the error."""
+        return self.response.get("reason")
 
 
 class InvalidRequestRegionException(SSOOIDCError):
@@ -198,6 +198,13 @@ class InvalidRequestRegionException(SSOOIDCError):
     """
 
     _ERROR_CODE = "InvalidRequestRegionException"
+
+    @property
+    def endpoint(self) -> str | None:
+        """Indicates the IAM Identity Center endpoint which the requester may call with
+        this token.
+        """
+        return self.response.get("endpoint")
 
     @property
     def error(self) -> str | None:
@@ -210,13 +217,6 @@ class InvalidRequestRegionException(SSOOIDCError):
         developer in understanding the error that occurred.
         """
         return self.response.get("error_description")
-
-    @property
-    def endpoint(self) -> str | None:
-        """Indicates the IAM Identity Center endpoint which the requester may call with
-        this token.
-        """
-        return self.response.get("endpoint")
 
     @property
     def region(self) -> str | None:

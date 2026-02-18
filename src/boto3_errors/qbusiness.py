@@ -112,14 +112,14 @@ class ValidationException(QBusinessError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the `ValidationException`."""
-        return self.response.get("reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         """The input field(s) that failed validation."""
         return self.response.get("fields")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the `ValidationException`."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[QBusinessError]] = {

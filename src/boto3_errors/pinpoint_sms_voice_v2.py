@@ -36,14 +36,14 @@ class ConflictException(PinpointSMSVoiceV2Error):
         return self.response.get("Reason")
 
     @property
-    def resource_type(self) -> str | None:
-        """The type of resource that caused the exception."""
-        return self.response.get("ResourceType")
-
-    @property
     def resource_id(self) -> str | None:
         """The unique identifier of the request."""
         return self.response.get("ResourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The type of resource that caused the exception."""
+        return self.response.get("ResourceType")
 
 
 class InternalServerException(PinpointSMSVoiceV2Error):
@@ -64,14 +64,14 @@ class ResourceNotFoundException(PinpointSMSVoiceV2Error):
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
-    def resource_type(self) -> str | None:
-        """The type of resource that caused the exception."""
-        return self.response.get("ResourceType")
-
-    @property
     def resource_id(self) -> str | None:
         """The unique identifier of the resource."""
         return self.response.get("ResourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The type of resource that caused the exception."""
+        return self.response.get("ResourceType")
 
 
 class ServiceQuotaExceededException(PinpointSMSVoiceV2Error):
@@ -97,14 +97,14 @@ class ValidationException(PinpointSMSVoiceV2Error):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the exception."""
-        return self.response.get("Reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         """The field that failed validation."""
         return self.response.get("Fields")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the exception."""
+        return self.response.get("Reason")
 
 
 EXCEPTIONS: dict[str, type[PinpointSMSVoiceV2Error]] = {

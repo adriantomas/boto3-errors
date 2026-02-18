@@ -52,6 +52,11 @@ class ServiceQuotaExceededException(b2biError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The quota that was exceeded, which caused the exception."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The ID for the resource that exceeded the quota, which caused the exception."""
         return self.response.get("resourceId")
@@ -67,11 +72,6 @@ class ServiceQuotaExceededException(b2biError):
     def service_code(self) -> str | None:
         """The code responsible for exceeding the quota, which caused the exception."""
         return self.response.get("serviceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """The quota that was exceeded, which caused the exception."""
-        return self.response.get("quotaCode")
 
 
 class ThrottlingException(b2biError):
