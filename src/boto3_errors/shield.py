@@ -56,14 +56,14 @@ class InvalidParameterException(ShieldError):
     _ERROR_CODE = "InvalidParameterException"
 
     @property
-    def reason(self) -> str | None:
-        """Additional information about the exception."""
-        return self.response.get("reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         """Fields that caused the exception."""
         return self.response.get("fields")
+
+    @property
+    def reason(self) -> str | None:
+        """Additional information about the exception."""
+        return self.response.get("reason")
 
 
 class InvalidResourceException(ShieldError):
@@ -79,14 +79,14 @@ class LimitsExceededException(ShieldError):
     _ERROR_CODE = "LimitsExceededException"
 
     @property
-    def type(self) -> str | None:
-        """The type of limit that would be exceeded."""
-        return self.response.get("Type")
-
-    @property
     def limit(self) -> int | None:
         """The threshold that would be exceeded."""
         return self.response.get("Limit")
+
+    @property
+    def type(self) -> str | None:
+        """The type of limit that would be exceeded."""
+        return self.response.get("Type")
 
 
 class LockedSubscriptionException(ShieldError):

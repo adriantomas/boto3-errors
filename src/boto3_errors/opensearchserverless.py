@@ -10,7 +10,8 @@ class OpenSearchServerlessError(Boto3Error):
 
 class ConflictException(OpenSearchServerlessError):
     """When creating a resource, thrown when a resource with the same name already exists
-    or is being created.
+    or is being created. When deleting a resource, thrown when the resource is not in
+    the ACTIVE or FAILED state.
     """
 
     _ERROR_CODE = "ConflictException"
@@ -42,6 +43,11 @@ class ServiceQuotaExceededException(OpenSearchServerlessError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """Service Quotas requirement to identify originating quota."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the resource affected."""
         return self.response.get("resourceId")
@@ -55,11 +61,6 @@ class ServiceQuotaExceededException(OpenSearchServerlessError):
     def service_code(self) -> str | None:
         """Service Quotas requirement to identify originating service."""
         return self.response.get("serviceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """Service Quotas requirement to identify originating quota."""
-        return self.response.get("quotaCode")
 
 
 class ValidationException(OpenSearchServerlessError):

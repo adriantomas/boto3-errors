@@ -58,6 +58,11 @@ class ServiceQuotaExceededException(ArtifactError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """Code for the affected quota."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the affected resource."""
         return self.response.get("resourceId")
@@ -72,20 +77,10 @@ class ServiceQuotaExceededException(ArtifactError):
         """Code for the affected service."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """Code for the affected quota."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(ArtifactError):
     """Request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """Code for the affected service."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -97,20 +92,25 @@ class ThrottlingException(ArtifactError):
         """Number of seconds in which the caller can retry the request."""
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """Code for the affected service."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(ArtifactError):
     """Request fails to satisfy the constraints specified by an AWS service."""
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """Reason the request failed validation."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The field that caused the error, if applicable."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """Reason the request failed validation."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[ArtifactError]] = {

@@ -90,9 +90,6 @@ class CloudTrailARNInvalidException(CloudTrailError):
     The following is the format of an event data store ARN: `arn:aws:cloudtrail:us-
     east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE`
 
-    The following is the format of a dashboard ARN: `arn:aws:cloudtrail:us-
-    east-1:123456789012:dashboard/exampleDash`
-
     The following is the format of a channel ARN: `arn:aws:cloudtrail:us-
     east-2:123456789012:channel/01234567890`
     """
@@ -102,9 +99,8 @@ class CloudTrailARNInvalidException(CloudTrailError):
 
 class CloudTrailAccessNotEnabledException(CloudTrailError):
     """This exception is thrown when trusted access has not been enabled between CloudTrail
-    and Organizations. For more information, see How to enable or disable trusted access
-    in the Organizations User Guide and Prepare For Creating a Trail For Your
-    Organization in the CloudTrail User Guide.
+    and Organizations. For more information, see Enabling Trusted Access with Other
+    Amazon Web Services Services and Prepare For Creating a Trail For Your Organization.
     """
 
     _ERROR_CODE = "CloudTrailAccessNotEnabledException"
@@ -199,14 +195,6 @@ class EventDataStoreTerminationProtectedException(CloudTrailError):
     _ERROR_CODE = "EventDataStoreTerminationProtectedException"
 
 
-class GenerateResponseException(CloudTrailError):
-    """This exception is thrown when a valid query could not be generated for the provided
-    prompt.
-    """
-
-    _ERROR_CODE = "GenerateResponseException"
-
-
 class ImportNotFoundException(CloudTrailError):
     """The specified import was not found."""
     _ERROR_CODE = "ImportNotFoundException"
@@ -244,24 +232,11 @@ class InsufficientDependencyServiceAccessPermissionException(CloudTrailError):
 
 
 class InsufficientEncryptionPolicyException(CloudTrailError):
-    """For the `CreateTrail` `PutInsightSelectors`, `UpdateTrail`, `StartQuery`, and
-    `StartImport` operations, this exception is thrown when the policy on the S3 bucket
-    or KMS key does not have sufficient permissions for the operation.
-
-    For all other operations, this exception is thrown when the policy for the KMS key
-    does not have sufficient permissions for the operation.
+    """This exception is thrown when the policy on the S3 bucket or KMS key does not have
+    sufficient permissions for the operation.
     """
 
     _ERROR_CODE = "InsufficientEncryptionPolicyException"
-
-
-class InsufficientIAMAccessPermissionException(CloudTrailError):
-    """The task can't be completed because you are signed in with an account that lacks
-    permissions to view or create a service-linked role. Sign in with an account that
-    has the required permissions and then try again.
-    """
-
-    _ERROR_CODE = "InsufficientIAMAccessPermissionException"
 
 
 class InsufficientS3BucketPolicyException(CloudTrailError):
@@ -533,7 +508,7 @@ class NotOrganizationMasterAccountException(CloudTrailError):
     """This exception is thrown when the Amazon Web Services account making the request to
     create or update an organization trail or event data store is not the management
     account for an organization in Organizations. For more information, see Prepare For
-    Creating a Trail For Your Organization or Organization event data stores.
+    Creating a Trail For Your Organization or Create an event data store.
     """
 
     _ERROR_CODE = "NotOrganizationMasterAccountException"
@@ -569,16 +544,8 @@ class QueryIdNotFoundException(CloudTrailError):
 
 class ResourceARNNotValidException(CloudTrailError):
     """This exception is thrown when the provided resource does not exist, or the ARN
-    format of the resource is not valid.
-
-    The following is the format of an event data store ARN: `arn:aws:cloudtrail:us-
-    east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE`
-
-    The following is the format of a dashboard ARN: `arn:aws:cloudtrail:us-
-    east-1:123456789012:dashboard/exampleDash`
-
-    The following is the format of a channel ARN: `arn:aws:cloudtrail:us-
-    east-2:123456789012:channel/01234567890`
+    format of the resource is not valid. The following is the valid format for a
+    resource ARN: `arn:aws:cloudtrail:us-east-2:123456789012:channel/MyChannel`.
     """
 
     _ERROR_CODE = "ResourceARNNotValidException"
@@ -597,6 +564,13 @@ class ResourcePolicyNotFoundException(CloudTrailError):
 class ResourcePolicyNotValidException(CloudTrailError):
     """This exception is thrown when the resouce-based policy has syntax errors, or
     contains a principal that is not valid.
+
+    The following are requirements for the resource policy:
+
+    - Contains only one action: cloudtrail-data:PutAuditEvents
+    - Contains at least one statement. The policy can have a maximum of 20 statements.
+    - Each statement contains at least one principal. A statement can have a maximum of
+      50 principals.
     """
 
     _ERROR_CODE = "ResourcePolicyNotValidException"
@@ -615,17 +589,9 @@ class S3BucketDoesNotExistException(CloudTrailError):
     _ERROR_CODE = "S3BucketDoesNotExistException"
 
 
-class ServiceQuotaExceededException(CloudTrailError):
-    """This exception is thrown when the quota is exceeded. For information about
-    CloudTrail quotas, see Service quotas in the Amazon Web Services General Reference.
-    """
-
-    _ERROR_CODE = "ServiceQuotaExceededException"
-
-
 class TagsLimitExceededException(CloudTrailError):
-    """The number of tags per trail, event data store, dashboard, or channel has exceeded
-    the permitted amount. Currently, the limit is 50.
+    """The number of tags per trail, event data store, or channel has exceeded the
+    permitted amount. Currently, the limit is 50.
     """
 
     _ERROR_CODE = "TagsLimitExceededException"
@@ -682,14 +648,12 @@ EXCEPTIONS: dict[str, type[CloudTrailError]] = {
     "EventDataStoreMaxLimitExceededException": EventDataStoreMaxLimitExceededException,
     "EventDataStoreNotFoundException": EventDataStoreNotFoundException,
     "EventDataStoreTerminationProtectedException": EventDataStoreTerminationProtectedException,
-    "GenerateResponseException": GenerateResponseException,
     "ImportNotFoundException": ImportNotFoundException,
     "InactiveEventDataStoreException": InactiveEventDataStoreException,
     "InactiveQueryException": InactiveQueryException,
     "InsightNotEnabledException": InsightNotEnabledException,
     "InsufficientDependencyServiceAccessPermissionException": InsufficientDependencyServiceAccessPermissionException,
     "InsufficientEncryptionPolicyException": InsufficientEncryptionPolicyException,
-    "InsufficientIAMAccessPermissionException": InsufficientIAMAccessPermissionException,
     "InsufficientS3BucketPolicyException": InsufficientS3BucketPolicyException,
     "InsufficientSnsTopicPolicyException": InsufficientSnsTopicPolicyException,
     "InvalidCloudWatchLogsLogGroupArnException": InvalidCloudWatchLogsLogGroupArnException,
@@ -736,7 +700,6 @@ EXCEPTIONS: dict[str, type[CloudTrailError]] = {
     "ResourcePolicyNotValidException": ResourcePolicyNotValidException,
     "ResourceTypeNotSupportedException": ResourceTypeNotSupportedException,
     "S3BucketDoesNotExistException": S3BucketDoesNotExistException,
-    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "TagsLimitExceededException": TagsLimitExceededException,
     "ThrottlingException": ThrottlingException,
     "TrailAlreadyExistsException": TrailAlreadyExistsException,

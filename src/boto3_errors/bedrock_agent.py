@@ -9,47 +9,44 @@ class BedrockAgentError(Boto3Error):
 
 
 class AccessDeniedException(BedrockAgentError):
-    """The request is denied because of missing access permissions."""
+    """This exception is thrown when a request is denied per access permissions"""
     _ERROR_CODE = "AccessDeniedException"
 
 
 class ConflictException(BedrockAgentError):
-    """There was a conflict performing an operation."""
+    """This exception is thrown when there is a conflict performing an operation"""
     _ERROR_CODE = "ConflictException"
 
 
 class InternalServerException(BedrockAgentError):
-    """An internal server error occurred. Retry your request."""
+    """This exception is thrown if there was an unexpected error during processing of
+    request
+    """
+
     _ERROR_CODE = "InternalServerException"
 
 
 class ResourceNotFoundException(BedrockAgentError):
-    """The specified resource Amazon Resource Name (ARN) was not found. Check the Amazon
-    Resource Name (ARN) and try your request again.
-    """
-
+    """This exception is thrown when a resource referenced by the operation does not exist"""
     _ERROR_CODE = "ResourceNotFoundException"
 
 
 class ServiceQuotaExceededException(BedrockAgentError):
-    """The number of requests exceeds the service quota. Resubmit your request later."""
+    """This exception is thrown when a request is made beyond the service quota"""
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 
 class ThrottlingException(BedrockAgentError):
-    """The number of requests exceeds the limit. Resubmit your request later."""
+    """This exception is thrown when the number of requests exceeds the limit"""
     _ERROR_CODE = "ThrottlingException"
 
 
 class ValidationException(BedrockAgentError):
-    """Input validation failed. Check your request parameters and retry the request."""
+    """This exception is thrown when the request's input validation fails"""
     _ERROR_CODE = "ValidationException"
 
     @property
     def field_list(self) -> list[Any] | None:
-        """A list of objects containing fields that caused validation errors and their
-        corresponding validation error messages.
-        """
         return self.response.get("fieldList")
 
 

@@ -8,11 +8,6 @@ class EventBridgeError(Boto3Error):
     _SERVICE = "events"
 
 
-class AccessDeniedException(EventBridgeError):
-    """You do not have the necessary permissions for this action."""
-    _ERROR_CODE = "AccessDeniedException"
-
-
 class ConcurrentModificationException(EventBridgeError):
     """There is concurrent modification on a rule, target, archive, or replay."""
     _ERROR_CODE = "ConcurrentModificationException"
@@ -81,13 +76,7 @@ class ResourceNotFoundException(EventBridgeError):
     _ERROR_CODE = "ResourceNotFoundException"
 
 
-class ThrottlingException(EventBridgeError):
-    """This request cannot be completed due to throttling issues."""
-    _ERROR_CODE = "ThrottlingException"
-
-
 EXCEPTIONS: dict[str, type[EventBridgeError]] = {
-    "AccessDeniedException": AccessDeniedException,
     "ConcurrentModificationException": ConcurrentModificationException,
     "IllegalStatusException": IllegalStatusException,
     "InternalException": InternalException,
@@ -99,5 +88,4 @@ EXCEPTIONS: dict[str, type[EventBridgeError]] = {
     "PolicyLengthExceededException": PolicyLengthExceededException,
     "ResourceAlreadyExistsException": ResourceAlreadyExistsException,
     "ResourceNotFoundException": ResourceNotFoundException,
-    "ThrottlingException": ThrottlingException,
 }

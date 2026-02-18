@@ -9,14 +9,14 @@ class EntityResolutionError(Boto3Error):
 
 
 class AccessDeniedException(EntityResolutionError):
-    """You do not have sufficient access to perform this action."""
+    """You do not have sufficient access to perform this action. `HTTP Status Code: 403`"""
     _ERROR_CODE = "AccessDeniedException"
 
 
 class ConflictException(EntityResolutionError):
-    """The request couldn't be processed because of conflict in the current state of the
+    """The request could not be processed because of conflict in the current state of the
     resource. Example: Workflow already exists, Schema already exists, Workflow is
-    currently running, etc.
+    currently running, etc. `HTTP Status Code: 400`
     """
 
     _ERROR_CODE = "ConflictException"
@@ -25,6 +25,7 @@ class ConflictException(EntityResolutionError):
 class ExceedsLimitException(EntityResolutionError):
     """The request was rejected because it attempted to create resources beyond the current
     Entity Resolution account limits. The error message describes the limit exceeded.
+    `HTTP Status Code: 402`
     """
 
     _ERROR_CODE = "ExceedsLimitException"
@@ -42,24 +43,27 @@ class ExceedsLimitException(EntityResolutionError):
 
 class InternalServerException(EntityResolutionError):
     """This exception occurs when there is an internal failure in the Entity Resolution
-    service.
+    service. `HTTP Status Code: 500`
     """
 
     _ERROR_CODE = "InternalServerException"
 
 
 class ResourceNotFoundException(EntityResolutionError):
-    """The resource couldn't be found."""
+    """The resource could not be found. `HTTP Status Code: 404`"""
     _ERROR_CODE = "ResourceNotFoundException"
 
 
 class ThrottlingException(EntityResolutionError):
-    """The request was denied due to request throttling."""
+    """The request was denied due to request throttling. `HTTP Status Code: 429`"""
     _ERROR_CODE = "ThrottlingException"
 
 
 class ValidationException(EntityResolutionError):
-    """The input fails to satisfy the constraints specified by Entity Resolution."""
+    """The input fails to satisfy the constraints specified by Entity Resolution. `HTTP
+    Status Code: 400`
+    """
+
     _ERROR_CODE = "ValidationException"
 
 

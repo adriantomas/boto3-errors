@@ -18,6 +18,11 @@ class ConflictException(billingconductorError):
     _ERROR_CODE = "ConflictException"
 
     @property
+    def reason(self) -> str | None:
+        """Reason for the inconsistent state."""
+        return self.response.get("Reason")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the resource in use."""
         return self.response.get("ResourceId")
@@ -26,11 +31,6 @@ class ConflictException(billingconductorError):
     def resource_type(self) -> str | None:
         """Type of the resource in use."""
         return self.response.get("ResourceType")
-
-    @property
-    def reason(self) -> str | None:
-        """Reason for the inconsistent state."""
-        return self.response.get("Reason")
 
 
 class InternalServerException(billingconductorError):
@@ -63,6 +63,11 @@ class ServiceLimitExceededException(billingconductorError):
     _ERROR_CODE = "ServiceLimitExceededException"
 
     @property
+    def limit_code(self) -> str | None:
+        """The unique code identifier of the service limit that is being exceeded."""
+        return self.response.get("LimitCode")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the resource affected."""
         return self.response.get("ResourceId")
@@ -71,11 +76,6 @@ class ServiceLimitExceededException(billingconductorError):
     def resource_type(self) -> str | None:
         """Type of the resource affected."""
         return self.response.get("ResourceType")
-
-    @property
-    def limit_code(self) -> str | None:
-        """The unique code identifier of the service limit that is being exceeded."""
-        return self.response.get("LimitCode")
 
     @property
     def service_code(self) -> str | None:
@@ -94,21 +94,18 @@ class ThrottlingException(billingconductorError):
 
 
 class ValidationException(billingconductorError):
-    """The input doesn't match with the constraints specified by Amazon Web Services
-    services.
-    """
-
+    """The input doesn't match with the constraints specified by Amazon Web Services."""
     _ERROR_CODE = "ValidationException"
-
-    @property
-    def reason(self) -> str | None:
-        """The reason the request's validation failed."""
-        return self.response.get("Reason")
 
     @property
     def fields(self) -> list[Any] | None:
         """The fields that caused the error, if applicable."""
         return self.response.get("Fields")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason the request's validation failed."""
+        return self.response.get("Reason")
 
 
 EXCEPTIONS: dict[str, type[billingconductorError]] = {

@@ -9,15 +9,15 @@ class codestarnotificationsError(Boto3Error):
 
 
 class AccessDeniedException(codestarnotificationsError):
-    """CodeStar Notifications can't create the notification rule because you do not have
-    sufficient permissions.
+    """AWS CodeStar Notifications can't create the notification rule because you do not
+    have sufficient permissions.
     """
 
     _ERROR_CODE = "AccessDeniedException"
 
 
 class ConcurrentModificationException(codestarnotificationsError):
-    """CodeStar Notifications can't complete the request because the resource is being
+    """AWS CodeStar Notifications can't complete the request because the resource is being
     modified by another process. Wait a few minutes and try again.
     """
 
@@ -38,7 +38,7 @@ class InvalidNextTokenException(codestarnotificationsError):
 
 
 class LimitExceededException(codestarnotificationsError):
-    """One of the CodeStar Notifications limits has been exceeded. Limits apply to
+    """One of the AWS CodeStar Notifications limits has been exceeded. Limits apply to
     accounts, notification rules, notifications, resources, and targets. For more
     information, see Limits.
     """
@@ -55,7 +55,7 @@ class ResourceAlreadyExistsException(codestarnotificationsError):
 
 
 class ResourceNotFoundException(codestarnotificationsError):
-    """CodeStar Notifications can't find a resource that matches the provided ARN."""
+    """AWS CodeStar Notifications can't find a resource that matches the provided ARN."""
     _ERROR_CODE = "ResourceNotFoundException"
 
 

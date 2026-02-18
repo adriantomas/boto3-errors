@@ -31,14 +31,6 @@ class InternalServerException(VerifiedPermissionsError):
     _ERROR_CODE = "InternalServerException"
 
 
-class InvalidStateException(VerifiedPermissionsError):
-    """The policy store can't be deleted because deletion protection is enabled. To delete
-    this policy store, disable deletion protection.
-    """
-
-    _ERROR_CODE = "InvalidStateException"
-
-
 class ResourceNotFoundException(VerifiedPermissionsError):
     """The request failed because it references a resource that doesn't exist."""
     _ERROR_CODE = "ResourceNotFoundException"
@@ -59,6 +51,11 @@ class ServiceQuotaExceededException(VerifiedPermissionsError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The quota code recognized by the Amazon Web Services Service Quotas service."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The unique ID of the resource referenced in the failed request."""
         return self.response.get("resourceId")
@@ -70,13 +67,8 @@ class ServiceQuotaExceededException(VerifiedPermissionsError):
 
     @property
     def service_code(self) -> str | None:
-        """The code for the Amazon Web Services service that owns the quota."""
+        """The code for the Amazon Web Service that owns the quota."""
         return self.response.get("serviceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """The quota code recognized by the Amazon Web Services Service Quotas service."""
-        return self.response.get("quotaCode")
 
 
 class ThrottlingException(VerifiedPermissionsError):
@@ -84,26 +76,14 @@ class ThrottlingException(VerifiedPermissionsError):
     _ERROR_CODE = "ThrottlingException"
 
     @property
-    def service_code(self) -> str | None:
-        """The code for the Amazon Web Services service that owns the quota."""
-        return self.response.get("serviceCode")
-
-    @property
     def quota_code(self) -> str | None:
         """The quota code recognized by the Amazon Web Services Service Quotas service."""
         return self.response.get("quotaCode")
 
-
-class TooManyTagsException(VerifiedPermissionsError):
-    """No more tags be added because the limit (50) has been reached. To add new tags, use
-    `UntagResource` to remove existing tags.
-    """
-
-    _ERROR_CODE = "TooManyTagsException"
-
     @property
-    def resource_name(self) -> str | None:
-        return self.response.get("resourceName")
+    def service_code(self) -> str | None:
+        """The code for the Amazon Web Service that owns the quota."""
+        return self.response.get("serviceCode")
 
 
 class ValidationException(VerifiedPermissionsError):
@@ -155,10 +135,8 @@ EXCEPTIONS: dict[str, type[VerifiedPermissionsError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
-    "InvalidStateException": InvalidStateException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,
-    "TooManyTagsException": TooManyTagsException,
     "ValidationException": ValidationException,
 }

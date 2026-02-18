@@ -18,7 +18,7 @@ class AccessDeniedException(QBusinessError):
 
 class ConflictException(QBusinessError):
     """You are trying to perform an action that conflicts with the current status of your
-    resource. Fix any inconsistencies with your resources and try again.
+    resource. Fix any inconsistences with your resources and try again.
     """
 
     _ERROR_CODE = "ConflictException"
@@ -34,17 +34,9 @@ class ConflictException(QBusinessError):
         return self.response.get("resourceType")
 
 
-class ExternalResourceException(QBusinessError):
-    """An external resource that you configured with your application is returning errors
-    and preventing this operation from succeeding. Fix those errors and try again.
-    """
-
-    _ERROR_CODE = "ExternalResourceException"
-
-
 class InternalServerException(QBusinessError):
-    """An issue occurred with the internal server used for your Amazon Q Business service.
-    Wait some minutes and try again, or contact Support for help.
+    """An issue occurred with the internal server used for your Amazon Q service. Wait some
+    minutes and try again, or contact Support for help.
     """
 
     _ERROR_CODE = "InternalServerException"
@@ -58,14 +50,9 @@ class LicenseNotFoundException(QBusinessError):
     _ERROR_CODE = "LicenseNotFoundException"
 
 
-class MediaTooLargeException(QBusinessError):
-    """The requested media object is too large to be returned."""
-    _ERROR_CODE = "MediaTooLargeException"
-
-
 class ResourceNotFoundException(QBusinessError):
-    """The application or plugin resource you want to use doesn’t exist. Make sure you have
-    provided the correct resource and try again.
+    """The resource you want to use doesn’t exist. Make sure you have provided the correct
+    resource and try again.
     """
 
     _ERROR_CODE = "ResourceNotFoundException"
@@ -82,7 +69,7 @@ class ResourceNotFoundException(QBusinessError):
 
 
 class ServiceQuotaExceededException(QBusinessError):
-    """You have exceeded the set limits for your Amazon Q Business service."""
+    """You have exceeded the set limits for your Amazon Q service."""
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
@@ -105,30 +92,28 @@ class ThrottlingException(QBusinessError):
 
 
 class ValidationException(QBusinessError):
-    """The input doesn't meet the constraints set by the Amazon Q Business service. Provide
-    the correct input and try again.
+    """The input doesn't meet the constraints set by the Amazon Q service. Provide the
+    correct input and try again.
     """
 
     _ERROR_CODE = "ValidationException"
-
-    @property
-    def reason(self) -> str | None:
-        """The reason for the `ValidationException`."""
-        return self.response.get("reason")
 
     @property
     def fields(self) -> list[Any] | None:
         """The input field(s) that failed validation."""
         return self.response.get("fields")
 
+    @property
+    def reason(self) -> str | None:
+        """The reason for the `ValidationException`."""
+        return self.response.get("reason")
+
 
 EXCEPTIONS: dict[str, type[QBusinessError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
-    "ExternalResourceException": ExternalResourceException,
     "InternalServerException": InternalServerException,
     "LicenseNotFoundException": LicenseNotFoundException,
-    "MediaTooLargeException": MediaTooLargeException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,

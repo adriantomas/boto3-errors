@@ -136,10 +136,6 @@ class ConstraintViolationException(OrganizationsError):
     - ACCOUNT_CREATION_NOT_COMPLETE: Your account setup isn't complete or your account
       isn't fully active. You must complete the account setup before you create an
       organization.
-    - ACTIVE_RESPONSIBILITY_TRANSFER_PROCESS: You cannot delete organization due to an
-      ongoing responsibility transfer process. For example, a pending invitation or an
-      in-progress transfer. To delete the organization, you must resolve the current
-      transfer process.
     - ACCOUNT_NUMBER_LIMIT_EXCEEDED: You attempted to exceed the limit on the number of
       accounts in an organization. If you need more accounts, contact Amazon Web
       Services Support to request an increase in your limit. Or the number of
@@ -152,11 +148,6 @@ class ConstraintViolationException(OrganizationsError):
       If you get this exception when running a command immediately after creating the
     organization, wait one hour and try again. After an hour, if the command continues
     to fail with this error, contact Amazon Web Services Support.
-    - ALL_FEATURES_MIGRATION_ORGANIZATION_SIZE_LIMIT_EXCEEDED: Your organization has
-      more than 5000 accounts, and you can only use the standard migration process for
-      organizations with less than 5000 accounts. Use the assisted migration process to
-      enable all features mode, or create a support case for assistance if you are
-      unable to use assisted migration.
     - CANNOT_REGISTER_SUSPENDED_ACCOUNT_AS_DELEGATED_ADMINISTRATOR: You cannot register
       a suspended account as a delegated administrator.
     - CANNOT_REGISTER_MASTER_AS_DELEGATED_ADMINISTRATOR: You attempted to register the
@@ -184,7 +175,7 @@ class ConstraintViolationException(OrganizationsError):
       this service.
     - EMAIL_VERIFICATION_CODE_EXPIRED: The email verification code is only valid for a
       limited period of time. You must resubmit the request and generate a new
-      verification code.
+      verfication code.
     - HANDSHAKE_RATE_LIMIT_EXCEEDED: You attempted to exceed the number of handshakes
       that you can send in one day.
     - INVALID_PAYMENT_INSTRUMENT: You cannot remove an account because no supported
@@ -193,8 +184,9 @@ class ConstraintViolationException(OrganizationsError):
       information, see Managing your Amazon Web Services payments.
     - MASTER_ACCOUNT_ADDRESS_DOES_NOT_MATCH_MARKETPLACE: To create an account in this
       organization, you first must migrate the organization's management account to the
-      marketplace that corresponds to the management account's address. All accounts in
-      an organization must be associated with the same marketplace.
+      marketplace that corresponds to the management account's address. For example,
+      accounts with India addresses must be associated with the AISPL marketplace. All
+      accounts in an organization must be associated with the same marketplace.
     - MASTER_ACCOUNT_MISSING_BUSINESS_LICENSE: Applies only to the Amazon Web Services
       Regions in China. To create an organization, the master must have a valid business
       license. For more information, contact customer support.
@@ -234,35 +226,13 @@ class ConstraintViolationException(OrganizationsError):
       than the maximum size.
     - POLICY_NUMBER_LIMIT_EXCEEDED: You attempted to exceed the number of policies that
       you can have in an organization.
-    - POLICY_TYPE_ENABLED_FOR_THIS_SERVICE: You attempted to disable service access
-      before you disabled the policy type (for example, SECURITYHUB_POLICY). To complete
-      this operation, you must first disable the policy type.
-    - RESPONSIBILITY_TRANSFER_MAX_INBOUND_QUOTA_VIOLATION: You have exceeded your
-      inbound transfers limit.
-    - RESPONSIBILITY_TRANSFER_MAX_LEVEL_VIOLATION: You have exceeded the maximum length
-      of your transfer chain.
-    - RESPONSIBILITY_TRANSFER_MAX_OUTBOUND_QUOTA_VIOLATION: You have exceeded your
-      outbound transfers limit.
-    - RESPONSIBILITY_TRANSFER_MAX_TRANSFERS_QUOTA_VIOLATION: You have exceeded the
-      maximum number of inbound transfers allowed in a transfer chain.
-    - SERVICE_ACCESS_NOT_ENABLED:
-
-      - You attempted to register a delegated administrator before you enabled service
-        access. Call the `EnableAWSServiceAccess` API first.
-      - You attempted to enable a policy type before you enabled service access. Call
-        the `EnableAWSServiceAccess` API first.
-
+    - SERVICE_ACCESS_NOT_ENABLED: You attempted to register a delegated administrator
+      before you enabled service access. Call the `EnableAWSServiceAccess` API first.
     - TAG_POLICY_VIOLATION: You attempted to create or update a resource with tags that
       are not compliant with the tag policy requirements for this account.
-    - TRANSFER_RESPONSIBILITY_SOURCE_DELETION_IN_PROGRESS: The source organization
-      cannot accept this transfer invitation because it is marked for deletion.
-    - TRANSFER_RESPONSIBILITY_TARGET_DELETION_IN_PROGRESS: The source organization
-      cannot accept this transfer invitation because target organization is marked for
-      deletion.
-    - UNSUPPORTED_PRICING: Your organization has a pricing contract that is unsupported.
-    - WAIT_PERIOD_ACTIVE: After you create an Amazon Web Services account, you must wait
-      until at least four days after the account was created. Invited accounts aren't
-      subject to this waiting period.
+    - WAIT_PERIOD_ACTIVE: After you create an Amazon Web Services account, there is a
+      waiting period before you can remove it from the organization. If you get an error
+      that indicates that a wait period is required, try again in a few days.
     """
 
     _ERROR_CODE = "ConstraintViolationException"
@@ -367,25 +337,19 @@ class HandshakeConstraintViolationException(OrganizationsError):
       join an organization while it's in the process of enabling all features. You can
       resume inviting accounts after you finalize the process when all accounts have
       agreed to the change.
-    - LEGACY_PERMISSIONS_STILL_IN_USE: Your organization must migrate to use the new IAM
-      fine-grained actions for billing, cost management, and accounts.
     - ORGANIZATION_ALREADY_HAS_ALL_FEATURES: The handshake request is invalid because
       the organization has already enabled all features.
-    - ORGANIZATION_FROM_DIFFERENT_SELLER_OF_RECORD: The request failed because the
-      account is from a different marketplace than the accounts in the organization.
     - ORGANIZATION_IS_ALREADY_PENDING_ALL_FEATURES_MIGRATION: The handshake request is
       invalid because the organization has already started the process to enable all
       features.
+    - ORGANIZATION_FROM_DIFFERENT_SELLER_OF_RECORD: The request failed because the
+      account is from a different marketplace than the accounts in the organization. For
+      example, accounts with India addresses must be associated with the AISPL
+      marketplace. All accounts in an organization must be from the same marketplace.
     - ORGANIZATION_MEMBERSHIP_CHANGE_RATE_LIMIT_EXCEEDED: You attempted to change the
       membership of an account too quickly after its previous change.
     - PAYMENT_INSTRUMENT_REQUIRED: You can't complete the operation with an account that
       doesn't have a payment instrument, such as a credit card, associated with it.
-    - RESPONSIBILITY_TRANSFER_ALREADY_EXISTS: You cannot perform this operation with the
-      current transfer.
-    - SOURCE_AND_TARGET_CANNOT_MATCH: An account can't accept a transfer invitation if
-      it is both the sender and recipient of the invitation.
-    - UNUSED_PREPAYMENT_BALANCE: Your organization has an outstanding pre-payment
-      balance.
     """
 
     _ERROR_CODE = "HandshakeConstraintViolationException"
@@ -419,22 +383,13 @@ class InvalidInputException(OrganizationsError):
     Some of the reasons in the following list might not be applicable to this specific
     API or operation.
 
-    - CALLER_REQUIRED_FIELD_MISSING: At least one of the required field is missing:
-      Caller Account Id, Management Account Id or Organization Id.
     - DUPLICATE_TAG_KEY: Tag keys must be unique among the tags attached to the same
       entity.
-    - END_DATE_NOT_END_OF_MONTH: You provided an invalid end date. The end date must be
-      the end of the last day of the month (23.59.59.999).
-    - END_DATE_TOO_EARLY: You provided an invalid end date. It is too early for the
-      transfer to end.
     - IMMUTABLE_POLICY: You specified a policy that is managed by Amazon Web Services
       and can't be modified.
     - INPUT_REQUIRED: You must include a value for all required parameters.
     - INVALID_EMAIL_ADDRESS_TARGET: You specified an invalid email address for the
       invited account owner.
-    - INVALID_END_DATE: The selected withdrawal date doesn't meet the terms of your
-      partner agreement. Visit Amazon Web Services Partner Central to view your partner
-      agreements or contact your Amazon Web Services Partner for help.
     - INVALID_ENUM: You specified an invalid value.
     - INVALID_ENUM_POLICY_TYPE: You specified an invalid policy type string.
     - INVALID_FULL_NAME_TARGET: You specified a full name that contains invalid
@@ -448,10 +403,8 @@ class InvalidInputException(OrganizationsError):
     - INVALID_PATTERN: You provided a value that doesn't match the required pattern.
     - INVALID_PATTERN_TARGET_ID: You specified a policy target ID that doesn't match the
       required pattern.
-    - INVALID_PRINCIPAL: You specified an invalid principal element in the policy.
     - INVALID_ROLE_NAME: You provided a role name that isn't valid. A role name can't
       begin with the reserved prefix `AWSServiceRoleFor`.
-    - INVALID_START_DATE: The start date doesn't meet the minimum requirements.
     - INVALID_SYNTAX_ORGANIZATION_ARN: You specified an invalid Amazon Resource Name
       (ARN) for the organization.
     - INVALID_SYNTAX_POLICY_ID: You specified an invalid policy ID.
@@ -468,21 +421,10 @@ class InvalidInputException(OrganizationsError):
       allowed.
     - MOVING_ACCOUNT_BETWEEN_DIFFERENT_ROOTS: You can move an account only between
       entities in the same root.
-    - NON_DETACHABLE_POLICY: You can't detach this Amazon Web Services Managed Policy.
-    - START_DATE_NOT_BEGINNING_OF_DAY: You provided an invalid start date. The start
-      date must be the beginning of the day (00:00:00.000).
-    - START_DATE_NOT_BEGINNING_OF_MONTH: You provided an invalid start date. The start
-      date must be the first day of the month.
-    - START_DATE_TOO_EARLY: You provided an invalid start date. The start date is too
-      early.
-    - START_DATE_TOO_LATE: You provided an invalid start date. The start date is too
-      late.
     - TARGET_NOT_SUPPORTED: You can't perform the specified operation on that target
       entity.
     - UNRECOGNIZED_SERVICE_PRINCIPAL: You specified a service principal that isn't
       recognized.
-    - UNSUPPORTED_ACTION_IN_RESPONSIBILITY_TRANSFER: You provided a value that is not
-      supported by this operation.
     """
 
     _ERROR_CODE = "InvalidInputException"
@@ -490,14 +432,6 @@ class InvalidInputException(OrganizationsError):
     @property
     def reason(self) -> str | None:
         return self.response.get("Reason")
-
-
-class InvalidResponsibilityTransferTransitionException(OrganizationsError):
-    """The responsibility transfer can't transition to the requested state because it's not
-    in a valid state for this operation.
-    """
-
-    _ERROR_CODE = "InvalidResponsibilityTransferTransitionException"
 
 
 class MalformedPolicyDocumentException(OrganizationsError):
@@ -600,16 +534,6 @@ class ResourcePolicyNotFoundException(OrganizationsError):
     _ERROR_CODE = "ResourcePolicyNotFoundException"
 
 
-class ResponsibilityTransferAlreadyInStatusException(OrganizationsError):
-    """The responsibility transfer is already in the status that you specified."""
-    _ERROR_CODE = "ResponsibilityTransferAlreadyInStatusException"
-
-
-class ResponsibilityTransferNotFoundException(OrganizationsError):
-    """We can't find a transfer that you specified."""
-    _ERROR_CODE = "ResponsibilityTransferNotFoundException"
-
-
 class RootNotFoundException(OrganizationsError):
     """We can't find a root with the `RootId` that you specified."""
     _ERROR_CODE = "RootNotFoundException"
@@ -681,7 +605,6 @@ EXCEPTIONS: dict[str, type[OrganizationsError]] = {
     "HandshakeNotFoundException": HandshakeNotFoundException,
     "InvalidHandshakeTransitionException": InvalidHandshakeTransitionException,
     "InvalidInputException": InvalidInputException,
-    "InvalidResponsibilityTransferTransitionException": InvalidResponsibilityTransferTransitionException,
     "MalformedPolicyDocumentException": MalformedPolicyDocumentException,
     "MasterCannotLeaveOrganizationException": MasterCannotLeaveOrganizationException,
     "OrganizationNotEmptyException": OrganizationNotEmptyException,
@@ -696,8 +619,6 @@ EXCEPTIONS: dict[str, type[OrganizationsError]] = {
     "PolicyTypeNotAvailableForOrganizationException": PolicyTypeNotAvailableForOrganizationException,
     "PolicyTypeNotEnabledException": PolicyTypeNotEnabledException,
     "ResourcePolicyNotFoundException": ResourcePolicyNotFoundException,
-    "ResponsibilityTransferAlreadyInStatusException": ResponsibilityTransferAlreadyInStatusException,
-    "ResponsibilityTransferNotFoundException": ResponsibilityTransferNotFoundException,
     "RootNotFoundException": RootNotFoundException,
     "ServiceException": ServiceException,
     "SourceParentNotFoundException": SourceParentNotFoundException,

@@ -13,14 +13,14 @@ class AccessDeniedException(InspectorError):
     _ERROR_CODE = "AccessDeniedException"
 
     @property
-    def error_code(self) -> str | None:
-        """Code that indicates the type of error that is generated."""
-        return self.response.get("errorCode")
-
-    @property
     def can_retry(self) -> bool | None:
         """You can immediately retry your request."""
         return self.response.get("canRetry")
+
+    @property
+    def error_code(self) -> str | None:
+        """Code that indicates the type of error that is generated."""
+        return self.response.get("errorCode")
 
 
 class AgentsAlreadyRunningAssessmentException(InspectorError):
@@ -84,14 +84,14 @@ class InvalidCrossAccountRoleException(InspectorError):
     _ERROR_CODE = "InvalidCrossAccountRoleException"
 
     @property
-    def error_code(self) -> str | None:
-        """Code that indicates the type of error that is generated."""
-        return self.response.get("errorCode")
-
-    @property
     def can_retry(self) -> bool | None:
         """You can immediately retry your request."""
         return self.response.get("canRetry")
+
+    @property
+    def error_code(self) -> str | None:
+        """Code that indicates the type of error that is generated."""
+        return self.response.get("errorCode")
 
 
 class InvalidInputException(InspectorError):
@@ -102,14 +102,14 @@ class InvalidInputException(InspectorError):
     _ERROR_CODE = "InvalidInputException"
 
     @property
-    def error_code(self) -> str | None:
-        """Code that indicates the type of error that is generated."""
-        return self.response.get("errorCode")
-
-    @property
     def can_retry(self) -> bool | None:
         """You can immediately retry your request."""
         return self.response.get("canRetry")
+
+    @property
+    def error_code(self) -> str | None:
+        """Code that indicates the type of error that is generated."""
+        return self.response.get("errorCode")
 
 
 class LimitExceededException(InspectorError):
@@ -120,14 +120,14 @@ class LimitExceededException(InspectorError):
     _ERROR_CODE = "LimitExceededException"
 
     @property
-    def error_code(self) -> str | None:
-        """Code that indicates the type of error that is generated."""
-        return self.response.get("errorCode")
-
-    @property
     def can_retry(self) -> bool | None:
         """You can immediately retry your request."""
         return self.response.get("canRetry")
+
+    @property
+    def error_code(self) -> str | None:
+        """Code that indicates the type of error that is generated."""
+        return self.response.get("errorCode")
 
 
 class NoSuchEntityException(InspectorError):
@@ -138,14 +138,14 @@ class NoSuchEntityException(InspectorError):
     _ERROR_CODE = "NoSuchEntityException"
 
     @property
-    def error_code(self) -> str | None:
-        """Code that indicates the type of error that is generated."""
-        return self.response.get("errorCode")
-
-    @property
     def can_retry(self) -> bool | None:
         """You can immediately retry your request."""
         return self.response.get("canRetry")
+
+    @property
+    def error_code(self) -> str | None:
+        """Code that indicates the type of error that is generated."""
+        return self.response.get("errorCode")
 
 
 class PreviewGenerationInProgressException(InspectorError):

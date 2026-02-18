@@ -22,14 +22,6 @@ class ConflictException(RedshiftServerlessError):
     _ERROR_CODE = "ConflictException"
 
 
-class DryRunException(RedshiftServerlessError):
-    """This exception is thrown when the request was successful, but dry run was enabled so
-    no action was taken.
-    """
-
-    _ERROR_CODE = "DryRunException"
-
-
 class InsufficientCapacityException(RedshiftServerlessError):
     """There is an insufficient capacity to perform the action."""
     _ERROR_CODE = "InsufficientCapacityException"
@@ -43,14 +35,6 @@ class InternalServerException(RedshiftServerlessError):
 class InvalidPaginationException(RedshiftServerlessError):
     """The provided pagination token is invalid."""
     _ERROR_CODE = "InvalidPaginationException"
-
-
-class Ipv6CidrBlockNotFoundException(RedshiftServerlessError):
-    """There are no subnets in your VPC with associated IPv6 CIDR blocks. To use dual-stack
-    mode, associate an IPv6 CIDR block with each subnet in your VPC.
-    """
-
-    _ERROR_CODE = "Ipv6CidrBlockNotFoundException"
 
 
 class ResourceNotFoundException(RedshiftServerlessError):
@@ -90,21 +74,16 @@ class TooManyTagsException(RedshiftServerlessError):
 
 
 class ValidationException(RedshiftServerlessError):
-    """The input failed to satisfy the constraints specified by an Amazon Web Services
-    service.
-    """
-
+    """The input failed to satisfy the constraints specified by an AWS service."""
     _ERROR_CODE = "ValidationException"
 
 
 EXCEPTIONS: dict[str, type[RedshiftServerlessError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
-    "DryRunException": DryRunException,
     "InsufficientCapacityException": InsufficientCapacityException,
     "InternalServerException": InternalServerException,
     "InvalidPaginationException": InvalidPaginationException,
-    "Ipv6CidrBlockNotFoundException": Ipv6CidrBlockNotFoundException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,

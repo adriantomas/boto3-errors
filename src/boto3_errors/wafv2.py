@@ -51,19 +51,6 @@ class WAFExpiredManagedRuleGroupVersionException(WAFV2Error):
     _ERROR_CODE = "WAFExpiredManagedRuleGroupVersionException"
 
 
-class WAFFeatureNotIncludedInPricingPlanException(WAFV2Error):
-    """The operation failed because the specified WAF feature isn't supported by the
-    CloudFront pricing plan associated with the web ACL.
-    """
-
-    _ERROR_CODE = "WAFFeatureNotIncludedInPricingPlanException"
-
-    @property
-    def disallowed_features(self) -> list[Any] | None:
-        """The names of the disallowed WAF features."""
-        return self.response.get("DisallowedFeatures")
-
-
 class WAFInternalErrorException(WAFV2Error):
     """Your request is valid, but WAF couldn’t perform the operation because of a system
     problem. Retry your request.
@@ -145,11 +132,6 @@ class WAFLimitsExceededException(WAFV2Error):
 
     _ERROR_CODE = "WAFLimitsExceededException"
 
-    @property
-    def source_type(self) -> str | None:
-        """Source type for the exception."""
-        return self.response.get("SourceType")
-
 
 class WAFLogDestinationPermissionIssueException(WAFV2Error):
     """The operation failed because you don't have the permissions that your logging
@@ -217,8 +199,8 @@ class WAFUnavailableEntityException(WAFV2Error):
     """WAF couldn’t retrieve a resource that you specified for this operation. If you've
     just created a resource that you're using in this operation, you might just need to
     wait a few minutes. It can take from a few seconds to a number of minutes for
-    changes to propagate. Verify the resource specifications in your request parameters
-    and then retry the operation.
+    changes to propagate. Verify the resources that you are specifying in your request
+    parameters and then retry the operation.
     """
 
     _ERROR_CODE = "WAFUnavailableEntityException"
@@ -238,7 +220,6 @@ EXCEPTIONS: dict[str, type[WAFV2Error]] = {
     "WAFConfigurationWarningException": WAFConfigurationWarningException,
     "WAFDuplicateItemException": WAFDuplicateItemException,
     "WAFExpiredManagedRuleGroupVersionException": WAFExpiredManagedRuleGroupVersionException,
-    "WAFFeatureNotIncludedInPricingPlanException": WAFFeatureNotIncludedInPricingPlanException,
     "WAFInternalErrorException": WAFInternalErrorException,
     "WAFInvalidOperationException": WAFInvalidOperationException,
     "WAFInvalidParameterException": WAFInvalidParameterException,

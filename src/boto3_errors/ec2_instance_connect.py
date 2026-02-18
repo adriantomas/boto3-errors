@@ -70,14 +70,6 @@ class SerialConsoleSessionUnavailableException(EC2InstanceConnectError):
     _ERROR_CODE = "SerialConsoleSessionUnavailableException"
 
 
-class SerialConsoleSessionUnsupportedException(EC2InstanceConnectError):
-    """Your instance's BIOS version is unsupported for serial console connection. Reboot
-    your instance to update its BIOS, and then try again to connect.
-    """
-
-    _ERROR_CODE = "SerialConsoleSessionUnsupportedException"
-
-
 class ServiceException(EC2InstanceConnectError):
     """The service encountered an error. Follow the instructions in the error message and
     try again.
@@ -104,7 +96,6 @@ EXCEPTIONS: dict[str, type[EC2InstanceConnectError]] = {
     "SerialConsoleAccessDisabledException": SerialConsoleAccessDisabledException,
     "SerialConsoleSessionLimitExceededException": SerialConsoleSessionLimitExceededException,
     "SerialConsoleSessionUnavailableException": SerialConsoleSessionUnavailableException,
-    "SerialConsoleSessionUnsupportedException": SerialConsoleSessionUnsupportedException,
     "ServiceException": ServiceException,
     "ThrottlingException": ThrottlingException,
 }

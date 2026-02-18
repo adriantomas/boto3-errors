@@ -13,11 +13,6 @@ class AccessDeniedException(ConnectError):
     _ERROR_CODE = "AccessDeniedException"
 
 
-class ConditionalOperationFailedException(ConnectError):
-    """Request processing failed because dependent condition failed."""
-    _ERROR_CODE = "ConditionalOperationFailedException"
-
-
 class ConflictException(ConnectError):
     """Operation cannot be performed at this time as there is a conflict with another
     operation or contact state.
@@ -32,7 +27,10 @@ class ContactFlowNotPublishedException(ConnectError):
 
 
 class ContactNotFoundException(ConnectError):
-    """The contact with the specified ID does not exist."""
+    """The contact with the specified ID is not active or does not exist. Applies to Voice
+    calls only, not to Chat or Task contacts.
+    """
+
     _ERROR_CODE = "ContactNotFoundException"
 
 
@@ -54,16 +52,6 @@ class IdempotencyException(ConnectError):
 class InternalServiceException(ConnectError):
     """Request processing failed because of an error or failure with the service."""
     _ERROR_CODE = "InternalServiceException"
-
-
-class InvalidActiveRegionException(ConnectError):
-    """This exception occurs when an API request is made to a non-active region in an
-    Amazon Connect instance configured with Amazon Connect Global Resiliency. For
-    example, if the active region is US West (Oregon) and a request is made to US East
-    (N. Virginia), the exception will be returned.
-    """
-
-    _ERROR_CODE = "InvalidActiveRegionException"
 
 
 class InvalidContactFlowException(ConnectError):
@@ -94,20 +82,6 @@ class InvalidRequestException(ConnectError):
     """The request is not valid."""
     _ERROR_CODE = "InvalidRequestException"
 
-    @property
-    def reason(self) -> dict[str, Any] | None:
-        return self.response.get("Reason")
-
-
-class InvalidTestCaseException(ConnectError):
-    """The test is not valid."""
-    _ERROR_CODE = "InvalidTestCaseException"
-
-    @property
-    def problems(self) -> list[Any] | None:
-        """The problems with the test. Please fix before trying again."""
-        return self.response.get("Problems")
-
 
 class LimitExceededException(ConnectError):
     """The allowed limit for the resource has been exceeded."""
@@ -130,7 +104,7 @@ class OutboundContactNotPermittedException(ConnectError):
 class OutputTypeNotFoundException(ConnectError):
     """Thrown for analyzed content when requested OutputType was not enabled for a given
     contact. For example, if an OutputType.Raw was requested for a contact that had
-    `RedactedOnly` Redaction policy set in the flow.
+    `RedactedOnly` Redaction policy set in Contact flow.
     """
 
     _ERROR_CODE = "OutputTypeNotFoundException"
@@ -151,23 +125,18 @@ class ResourceConflictException(ConnectError):
 
 
 class ResourceInUseException(ConnectError):
-    """That resource is already in use (for example, you're trying to add a record with the
-    same name as an existing record). If you are trying to delete a resource (for
-    example, DeleteHoursOfOperation or DeletePredefinedAttribute), remove its reference
-    from related resources and then try again.
-    """
-
+    """That resource is already in use. Please try another."""
     _ERROR_CODE = "ResourceInUseException"
-
-    @property
-    def resource_type(self) -> str | None:
-        """The type of resource."""
-        return self.response.get("ResourceType")
 
     @property
     def resource_id(self) -> str | None:
         """The identifier for the resource."""
         return self.response.get("ResourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The type of resource."""
+        return self.response.get("ResourceType")
 
 
 class ResourceNotFoundException(ConnectError):
@@ -183,10 +152,6 @@ class ResourceNotReadyException(ConnectError):
 class ServiceQuotaExceededException(ConnectError):
     """The service quota has been exceeded."""
     _ERROR_CODE = "ServiceQuotaExceededException"
-
-    @property
-    def reason(self) -> dict[str, Any] | None:
-        return self.response.get("Reason")
 
 
 class ThrottlingException(ConnectError):
@@ -206,7 +171,6 @@ class UserNotFoundException(ConnectError):
 
 EXCEPTIONS: dict[str, type[ConnectError]] = {
     "AccessDeniedException": AccessDeniedException,
-    "ConditionalOperationFailedException": ConditionalOperationFailedException,
     "ConflictException": ConflictException,
     "ContactFlowNotPublishedException": ContactFlowNotPublishedException,
     "ContactNotFoundException": ContactNotFoundException,
@@ -214,12 +178,10 @@ EXCEPTIONS: dict[str, type[ConnectError]] = {
     "DuplicateResourceException": DuplicateResourceException,
     "IdempotencyException": IdempotencyException,
     "InternalServiceException": InternalServiceException,
-    "InvalidActiveRegionException": InvalidActiveRegionException,
     "InvalidContactFlowException": InvalidContactFlowException,
     "InvalidContactFlowModuleException": InvalidContactFlowModuleException,
     "InvalidParameterException": InvalidParameterException,
     "InvalidRequestException": InvalidRequestException,
-    "InvalidTestCaseException": InvalidTestCaseException,
     "LimitExceededException": LimitExceededException,
     "MaximumResultReturnedException": MaximumResultReturnedException,
     "OutboundContactNotPermittedException": OutboundContactNotPermittedException,

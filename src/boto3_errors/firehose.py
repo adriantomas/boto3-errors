@@ -23,7 +23,7 @@ class InvalidArgumentException(FirehoseError):
 
 class InvalidKMSResourceException(FirehoseError):
     """Firehose throws this exception when an attempt to put records or to start or stop
-    Firehose stream encryption fails. This happens when the KMS service throws one of
+    delivery stream encryption fails. This happens when the KMS service throws one of
     the following exception types: `AccessDeniedException`, `InvalidStateException`,
     `DisabledException`, or `NotFoundException`.
     """
@@ -64,7 +64,7 @@ class ResourceNotFoundException(FirehoseError):
 
 class ServiceUnavailableException(FirehoseError):
     """The service is unavailable. Back off and retry the operation. If you continue to see
-    the exception, throughput limits for the Firehose stream may have been exceeded. For
+    the exception, throughput limits for the delivery stream may have been exceeded. For
     more information about limits and how to request an increase, see Amazon Firehose
     Limits.
     """

@@ -13,11 +13,6 @@ class ConflictException(IoTDataPlaneError):
     _ERROR_CODE = "ConflictException"
 
 
-class ForbiddenException(IoTDataPlaneError):
-    """The caller isn't authorized to make the request."""
-    _ERROR_CODE = "ForbiddenException"
-
-
 class InternalFailureException(IoTDataPlaneError):
     """An unexpected error has occurred."""
     _ERROR_CODE = "InternalFailureException"
@@ -65,7 +60,6 @@ class UnsupportedDocumentEncodingException(IoTDataPlaneError):
 
 EXCEPTIONS: dict[str, type[IoTDataPlaneError]] = {
     "ConflictException": ConflictException,
-    "ForbiddenException": ForbiddenException,
     "InternalFailureException": InternalFailureException,
     "InvalidRequestException": InvalidRequestException,
     "MethodNotAllowedException": MethodNotAllowedException,

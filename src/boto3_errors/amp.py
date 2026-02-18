@@ -58,6 +58,11 @@ class ServiceQuotaExceededException(ampError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """Service quotas code of the originating quota."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the resource affected."""
         return self.response.get("resourceId")
@@ -72,20 +77,10 @@ class ServiceQuotaExceededException(ampError):
         """Service quotas code for the originating service."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """Service quotas code of the originating quota."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(ampError):
     """The request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """Service quotas code for the originating service."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -97,6 +92,11 @@ class ThrottlingException(ampError):
         """Advice to clients on when the call can be safely retried."""
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """Service quotas code for the originating service."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(ampError):
     """The input fails to satisfy the constraints specified by an Amazon Web Services
@@ -106,14 +106,14 @@ class ValidationException(ampError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """Reason the request failed validation."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The field that caused the error, if applicable."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """Reason the request failed validation."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[ampError]] = {

@@ -83,20 +83,11 @@ class LimitExceededException(GameLiftError):
 
 
 class NotFoundException(GameLiftError):
-    """The requested resources was not found. The resource was either not created yet or
+    """THe requested resources was not found. The resource was either not created yet or
     deleted.
     """
 
     _ERROR_CODE = "NotFoundException"
-
-
-class NotReadyException(GameLiftError):
-    """The operation failed because Amazon GameLift Servers has not yet finished validating
-    this compute. We recommend attempting 8 to 10 retries over 3 to 5 minutes with
-    exponential backoffs and jitter.
-    """
-
-    _ERROR_CODE = "NotReadyException"
 
 
 class OutOfCapacityException(GameLiftError):
@@ -148,7 +139,6 @@ EXCEPTIONS: dict[str, type[GameLiftError]] = {
     "InvalidRequestException": InvalidRequestException,
     "LimitExceededException": LimitExceededException,
     "NotFoundException": NotFoundException,
-    "NotReadyException": NotReadyException,
     "OutOfCapacityException": OutOfCapacityException,
     "TaggingFailedException": TaggingFailedException,
     "TerminalRoutingStrategyException": TerminalRoutingStrategyException,

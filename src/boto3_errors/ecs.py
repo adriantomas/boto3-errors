@@ -39,17 +39,6 @@ class ClientException(ECSError):
     _ERROR_CODE = "ClientException"
 
 
-class ClusterContainsCapacityProviderException(ECSError):
-    """The cluster contains one or more capacity providers that prevent the requested
-    operation. This exception occurs when you try to delete a cluster that still has
-    active capacity providers, including Amazon ECS Managed Instances capacity
-    providers. You must first delete all capacity providers from the cluster before you
-    can delete the cluster itself.
-    """
-
-    _ERROR_CODE = "ClusterContainsCapacityProviderException"
-
-
 class ClusterContainsContainerInstancesException(ECSError):
     """You can't delete a cluster that has registered container instances. First,
     deregister the container instances before you can delete the cluster. For more
@@ -82,8 +71,15 @@ class ClusterNotFoundException(ECSError):
 
 
 class ConflictException(ECSError):
-    """The request could not be processed because of conflict in the current state of the
-    resource.
+    """The `RunTask` request could not be processed due to conflicts. The provided
+    `clientToken` is already in use with a different `RunTask` request. The
+    `resourceIds` are the existing task ARNs which are already associated with the
+    `clientToken`.
+
+    To fix this issue:
+
+    - Run `RunTask` with a unique `clientToken`.
+    - Run `RunTask` with the `clientToken` and the original set of parameters
     """
 
     _ERROR_CODE = "ConflictException"
@@ -97,9 +93,6 @@ class ConflictException(ECSError):
 class InvalidParameterException(ECSError):
     """The specified parameter isn't valid. Review the available parameters for the API
     request.
-
-    For more information about service event errors, see Amazon ECS service event
-    messages.
     """
 
     _ERROR_CODE = "InvalidParameterException"
@@ -160,14 +153,6 @@ class ResourceNotFoundException(ECSError):
 class ServerException(ECSError):
     """These errors are usually caused by a server issue."""
     _ERROR_CODE = "ServerException"
-
-
-class ServiceDeploymentNotFoundException(ECSError):
-    """The service deploy ARN that you specified in the `StopServiceDeployment` doesn't
-    exist. You can use `ListServiceDeployments` to retrieve the service deployment ARNs.
-    """
-
-    _ERROR_CODE = "ServiceDeploymentNotFoundException"
 
 
 class ServiceNotActiveException(ECSError):
@@ -240,7 +225,6 @@ EXCEPTIONS: dict[str, type[ECSError]] = {
     "AttributeLimitExceededException": AttributeLimitExceededException,
     "BlockedException": BlockedException,
     "ClientException": ClientException,
-    "ClusterContainsCapacityProviderException": ClusterContainsCapacityProviderException,
     "ClusterContainsContainerInstancesException": ClusterContainsContainerInstancesException,
     "ClusterContainsServicesException": ClusterContainsServicesException,
     "ClusterContainsTasksException": ClusterContainsTasksException,
@@ -256,7 +240,6 @@ EXCEPTIONS: dict[str, type[ECSError]] = {
     "ResourceInUseException": ResourceInUseException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServerException": ServerException,
-    "ServiceDeploymentNotFoundException": ServiceDeploymentNotFoundException,
     "ServiceNotActiveException": ServiceNotActiveException,
     "ServiceNotFoundException": ServiceNotFoundException,
     "TargetNotConnectedException": TargetNotConnectedException,

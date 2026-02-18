@@ -8,21 +8,6 @@ class FSxError(Boto3Error):
     _SERVICE = "fsx"
 
 
-class AccessPointAlreadyOwnedByYou(FSxError):
-    """An access point with that name already exists in the Amazon Web Services Region in
-    your Amazon Web Services account.
-    """
-
-    _ERROR_CODE = "AccessPointAlreadyOwnedByYou"
-
-    @property
-    def error_code(self) -> str | None:
-        """An error code indicating that an access point with that name already exists in
-        the Amazon Web Services Region in your Amazon Web Services account.
-        """
-        return self.response.get("ErrorCode")
-
-
 class ActiveDirectoryError(FSxError):
     """An Active Directory error."""
     _ERROR_CODE = "ActiveDirectoryError"
@@ -135,16 +120,6 @@ class InternalServerError(FSxError):
     _ERROR_CODE = "InternalServerError"
 
 
-class InvalidAccessPoint(FSxError):
-    """The access point specified doesn't exist."""
-    _ERROR_CODE = "InvalidAccessPoint"
-
-    @property
-    def error_code(self) -> str | None:
-        """An error code indicating that the access point specified doesn't exist."""
-        return self.response.get("ErrorCode")
-
-
 class InvalidDataRepositoryType(FSxError):
     """You have filtered the response to a data repository type that is not supported."""
     _ERROR_CODE = "InvalidDataRepositoryType"
@@ -170,9 +145,9 @@ class InvalidNetworkSettings(FSxError):
     _ERROR_CODE = "InvalidNetworkSettings"
 
     @property
-    def invalid_subnet_id(self) -> str | None:
-        """The subnet ID that is either invalid or not part of the VPC specified."""
-        return self.response.get("InvalidSubnetId")
+    def invalid_route_table_id(self) -> str | None:
+        """The route table ID is either invalid or not part of the VPC specified."""
+        return self.response.get("InvalidRouteTableId")
 
     @property
     def invalid_security_group_id(self) -> str | None:
@@ -180,9 +155,9 @@ class InvalidNetworkSettings(FSxError):
         return self.response.get("InvalidSecurityGroupId")
 
     @property
-    def invalid_route_table_id(self) -> str | None:
-        """The route table ID is either invalid or not part of the VPC specified."""
-        return self.response.get("InvalidRouteTableId")
+    def invalid_subnet_id(self) -> str | None:
+        """The subnet ID that is either invalid or not part of the VPC specified."""
+        return self.response.get("InvalidSubnetId")
 
 
 class InvalidPerUnitStorageThroughput(FSxError):
@@ -199,19 +174,6 @@ class InvalidRegion(FSxError):
     """
 
     _ERROR_CODE = "InvalidRegion"
-
-
-class InvalidRequest(FSxError):
-    """The action or operation requested is invalid. Verify that the action is typed
-    correctly.
-    """
-
-    _ERROR_CODE = "InvalidRequest"
-
-    @property
-    def error_code(self) -> str | None:
-        """An error code indicating that the action or operation requested is invalid."""
-        return self.response.get("ErrorCode")
 
 
 class InvalidSourceKmsKey(FSxError):
@@ -267,11 +229,6 @@ class ResourceNotFound(FSxError):
         return self.response.get("ResourceARN")
 
 
-class S3AccessPointAttachmentNotFound(FSxError):
-    """The access point specified was not found."""
-    _ERROR_CODE = "S3AccessPointAttachmentNotFound"
-
-
 class ServiceLimitExceeded(FSxError):
     """An error indicating that a particular service limit was exceeded. You can increase
     some service limits by contacting Amazon Web Services Support.
@@ -307,24 +264,6 @@ class StorageVirtualMachineNotFound(FSxError):
     _ERROR_CODE = "StorageVirtualMachineNotFound"
 
 
-class TooManyAccessPoints(FSxError):
-    """You have reached the maximum number of S3 access points attachments allowed for your
-    account in this Amazon Web Services Region, or for the file system. For more
-    information, or to request an increase, see Service quotas on FSx resources in the
-    FSx for OpenZFS User Guide.
-    """
-
-    _ERROR_CODE = "TooManyAccessPoints"
-
-    @property
-    def error_code(self) -> str | None:
-        """An error code indicating that you have reached the maximum number of S3 access
-        points attachments allowed for your account in this Amazon Web Services Region,
-        or for the file system.
-        """
-        return self.response.get("ErrorCode")
-
-
 class UnsupportedOperation(FSxError):
     """The requested operation is not supported for this resource or API."""
     _ERROR_CODE = "UnsupportedOperation"
@@ -336,7 +275,6 @@ class VolumeNotFound(FSxError):
 
 
 EXCEPTIONS: dict[str, type[FSxError]] = {
-    "AccessPointAlreadyOwnedByYou": AccessPointAlreadyOwnedByYou,
     "ActiveDirectoryError": ActiveDirectoryError,
     "BackupBeingCopied": BackupBeingCopied,
     "BackupInProgress": BackupInProgress,
@@ -352,7 +290,6 @@ EXCEPTIONS: dict[str, type[FSxError]] = {
     "IncompatibleParameterError": IncompatibleParameterError,
     "IncompatibleRegionForMultiAZ": IncompatibleRegionForMultiAZ,
     "InternalServerError": InternalServerError,
-    "InvalidAccessPoint": InvalidAccessPoint,
     "InvalidDataRepositoryType": InvalidDataRepositoryType,
     "InvalidDestinationKmsKey": InvalidDestinationKmsKey,
     "InvalidExportPath": InvalidExportPath,
@@ -360,7 +297,6 @@ EXCEPTIONS: dict[str, type[FSxError]] = {
     "InvalidNetworkSettings": InvalidNetworkSettings,
     "InvalidPerUnitStorageThroughput": InvalidPerUnitStorageThroughput,
     "InvalidRegion": InvalidRegion,
-    "InvalidRequest": InvalidRequest,
     "InvalidSourceKmsKey": InvalidSourceKmsKey,
     "MissingFileCacheConfiguration": MissingFileCacheConfiguration,
     "MissingFileSystemConfiguration": MissingFileSystemConfiguration,
@@ -368,12 +304,10 @@ EXCEPTIONS: dict[str, type[FSxError]] = {
     "NotServiceResourceError": NotServiceResourceError,
     "ResourceDoesNotSupportTagging": ResourceDoesNotSupportTagging,
     "ResourceNotFound": ResourceNotFound,
-    "S3AccessPointAttachmentNotFound": S3AccessPointAttachmentNotFound,
     "ServiceLimitExceeded": ServiceLimitExceeded,
     "SnapshotNotFound": SnapshotNotFound,
     "SourceBackupUnavailable": SourceBackupUnavailable,
     "StorageVirtualMachineNotFound": StorageVirtualMachineNotFound,
-    "TooManyAccessPoints": TooManyAccessPoints,
     "UnsupportedOperation": UnsupportedOperation,
     "VolumeNotFound": VolumeNotFound,
 }

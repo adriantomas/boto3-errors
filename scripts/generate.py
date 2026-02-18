@@ -241,7 +241,7 @@ def _generate_service(service: str) -> str | None:  # noqa: C901, PLR0915
         extra_members = {k: v for k, v in members.items() if k.lower() != "message"}
         if extra_members:
             lines.append("")
-        for member_name, member_info in extra_members.items():
+        for member_name, member_info in sorted(extra_members.items()):
             prop_name = _snake_case(member_name)
             member_shape_name = member_info.get("shape", "")
             py_type = _python_type(member_shape_name, shapes)

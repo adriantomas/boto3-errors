@@ -214,8 +214,8 @@ class InvalidReplicationGroupStateFault(ElastiCacheError):
 
 
 class InvalidServerlessCacheSnapshotStateFault(ElastiCacheError):
-    """The state of the serverless cache snapshot was not received. Available for Valkey,
-    Redis OSS and Serverless Memcached only.
+    """The state of the serverless cache snapshot was not received. Available for Redis
+    only.
     """
 
     _ERROR_CODE = "InvalidServerlessCacheSnapshotStateFault"
@@ -345,16 +345,13 @@ class ServerlessCacheQuotaForCustomerExceededFault(ElastiCacheError):
 
 
 class ServerlessCacheSnapshotAlreadyExistsFault(ElastiCacheError):
-    """A serverless cache snapshot with this name already exists. Available for Valkey,
-    Redis OSS and Serverless Memcached only.
-    """
-
+    """A serverless cache snapshot with this name already exists. Available for Redis only."""
     _ERROR_CODE = "ServerlessCacheSnapshotAlreadyExistsFault"
 
 
 class ServerlessCacheSnapshotNotFoundFault(ElastiCacheError):
     """This serverless cache snapshot could not be found or does not exist. Available for
-    Valkey, Redis OSS and Serverless Memcached only.
+    Redis only.
     """
 
     _ERROR_CODE = "ServerlessCacheSnapshotNotFoundFault"
@@ -362,7 +359,7 @@ class ServerlessCacheSnapshotNotFoundFault(ElastiCacheError):
 
 class ServerlessCacheSnapshotQuotaExceededFault(ElastiCacheError):
     """The number of serverless cache snapshots exceeds the customer snapshot quota.
-    Available for Valkey, Redis OSS and Serverless Memcached only.
+    Available for Redis only.
     """
 
     _ERROR_CODE = "ServerlessCacheSnapshotQuotaExceededFault"
@@ -386,10 +383,8 @@ class SnapshotAlreadyExistsFault(ElastiCacheError):
 class SnapshotFeatureNotSupportedFault(ElastiCacheError):
     """You attempted one of the following operations:
 
-    - Creating a snapshot of a Valkey or Redis OSS cluster running on a `cache.t1.micro`
-      cache node.
-    - Creating a snapshot of a cluster that is running Memcached rather than Valkey or
-      Redis OSS.
+    - Creating a snapshot of a Redis cluster running on a `cache.t1.micro` cache node.
+    - Creating a snapshot of a cluster that is running Memcached rather than Redis.
 
     Neither of these are supported by ElastiCache.
     """

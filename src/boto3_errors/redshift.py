@@ -351,46 +351,9 @@ class InsufficientS3BucketPolicyFault(RedshiftError):
     _ERROR_CODE = "InsufficientS3BucketPolicyFault"
 
 
-class IntegrationAlreadyExistsFault(RedshiftError):
-    """The integration you are trying to create already exists."""
-    _ERROR_CODE = "IntegrationAlreadyExistsFault"
-
-
-class IntegrationConflictOperationFault(RedshiftError):
-    """A conflicting conditional operation is currently in progress against this resource.
-    This typically occurs when there are multiple requests being made to the same
-    resource at the same time, and these requests conflict with each other.
-    """
-
-    _ERROR_CODE = "IntegrationConflictOperationFault"
-
-
-class IntegrationConflictStateFault(RedshiftError):
-    """The integration is in an invalid state and can't perform the requested operation."""
-    _ERROR_CODE = "IntegrationConflictStateFault"
-
-
 class IntegrationNotFoundFault(RedshiftError):
     """The integration can't be found."""
     _ERROR_CODE = "IntegrationNotFoundFault"
-
-
-class IntegrationQuotaExceededFault(RedshiftError):
-    """You can't create any more zero-ETL or S3 event integrations because the quota has
-    been reached.
-    """
-
-    _ERROR_CODE = "IntegrationQuotaExceededFault"
-
-
-class IntegrationSourceNotFoundFault(RedshiftError):
-    """The specified integration source can't be found."""
-    _ERROR_CODE = "IntegrationSourceNotFoundFault"
-
-
-class IntegrationTargetNotFoundFault(RedshiftError):
-    """The specified integration target can't be found."""
-    _ERROR_CODE = "IntegrationTargetNotFoundFault"
 
 
 class InvalidAuthenticationProfileRequestFault(RedshiftError):
@@ -631,15 +594,6 @@ class RedshiftIdcApplicationNotExistsFault(RedshiftError):
 class RedshiftIdcApplicationQuotaExceededFault(RedshiftError):
     """The maximum number of Redshift IAM Identity Center applications was exceeded."""
     _ERROR_CODE = "RedshiftIdcApplicationQuotaExceeded"
-
-
-class RedshiftInvalidParameterFault(RedshiftError):
-    """The request contains one or more invalid parameters. This error occurs when required
-    parameters are missing, parameter values are outside acceptable ranges, or parameter
-    formats are incorrect.
-    """
-
-    _ERROR_CODE = "RedshiftInvalidParameter"
 
 
 class ReservedNodeAlreadyExistsFault(RedshiftError):
@@ -944,13 +898,7 @@ EXCEPTIONS: dict[str, type[RedshiftError]] = {
     "IncompatibleOrderableOptions": IncompatibleOrderableOptions,
     "InsufficientClusterCapacity": InsufficientClusterCapacityFault,
     "InsufficientS3BucketPolicyFault": InsufficientS3BucketPolicyFault,
-    "IntegrationAlreadyExistsFault": IntegrationAlreadyExistsFault,
-    "IntegrationConflictOperationFault": IntegrationConflictOperationFault,
-    "IntegrationConflictStateFault": IntegrationConflictStateFault,
     "IntegrationNotFoundFault": IntegrationNotFoundFault,
-    "IntegrationQuotaExceededFault": IntegrationQuotaExceededFault,
-    "IntegrationSourceNotFoundFault": IntegrationSourceNotFoundFault,
-    "IntegrationTargetNotFoundFault": IntegrationTargetNotFoundFault,
     "InvalidAuthenticationProfileRequestFault": InvalidAuthenticationProfileRequestFault,
     "InvalidAuthorizationState": InvalidAuthorizationStateFault,
     "InvalidClusterParameterGroupState": InvalidClusterParameterGroupStateFault,
@@ -990,7 +938,6 @@ EXCEPTIONS: dict[str, type[RedshiftError]] = {
     "RedshiftIdcApplicationAlreadyExists": RedshiftIdcApplicationAlreadyExistsFault,
     "RedshiftIdcApplicationNotExists": RedshiftIdcApplicationNotExistsFault,
     "RedshiftIdcApplicationQuotaExceeded": RedshiftIdcApplicationQuotaExceededFault,
-    "RedshiftInvalidParameter": RedshiftInvalidParameterFault,
     "ReservedNodeAlreadyExists": ReservedNodeAlreadyExistsFault,
     "ReservedNodeAlreadyMigrated": ReservedNodeAlreadyMigratedFault,
     "ReservedNodeExchangeNotFond": ReservedNodeExchangeNotFoundFault,

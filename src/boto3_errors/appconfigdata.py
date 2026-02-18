@@ -13,14 +13,14 @@ class BadRequestException(AppConfigDataError):
     _ERROR_CODE = "BadRequestException"
 
     @property
-    def reason(self) -> str | None:
-        """Code indicating the reason the request was invalid."""
-        return self.response.get("Reason")
-
-    @property
     def details(self) -> dict[str, Any] | None:
         """Details describing why the request was invalid."""
         return self.response.get("Details")
+
+    @property
+    def reason(self) -> str | None:
+        """Code indicating the reason the request was invalid."""
+        return self.response.get("Reason")
 
 
 class InternalServerException(AppConfigDataError):
@@ -33,16 +33,16 @@ class ResourceNotFoundException(AppConfigDataError):
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
-    def resource_type(self) -> str | None:
-        """The type of resource that was not found."""
-        return self.response.get("ResourceType")
-
-    @property
     def referenced_by(self) -> dict[str, Any] | None:
         """A map indicating which parameters in the request reference the resource that was
         not found.
         """
         return self.response.get("ReferencedBy")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The type of resource that was not found."""
+        return self.response.get("ResourceType")
 
 
 class ThrottlingException(AppConfigDataError):

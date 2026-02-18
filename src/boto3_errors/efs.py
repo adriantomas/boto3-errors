@@ -16,12 +16,12 @@ class AccessPointAlreadyExists(EFSError):
     _ERROR_CODE = "AccessPointAlreadyExists"
 
     @property
-    def error_code(self) -> str | None:
-        return self.response.get("ErrorCode")
-
-    @property
     def access_point_id(self) -> str | None:
         return self.response.get("AccessPointId")
+
+    @property
+    def error_code(self) -> str | None:
+        return self.response.get("ErrorCode")
 
 
 class AccessPointLimitExceeded(EFSError):
@@ -267,7 +267,10 @@ class NoFreeAddressesInSubnet(EFSError):
 
 
 class PolicyNotFound(EFSError):
-    """Returned if `no backup` is specified for a One Zone EFS file system."""
+    """Returned if the default file system policy is in effect for the EFS file system
+    specified.
+    """
+
     _ERROR_CODE = "PolicyNotFound"
 
     @property
@@ -295,10 +298,8 @@ class ReplicationNotFound(EFSError):
 
 
 class SecurityGroupLimitExceeded(EFSError):
-    """Returned if the number of `SecurityGroups` specified in the request is greater than
-    the limit, which is based on account quota. Either delete some security groups or
-    request that the account quota be raised. For more information, see Amazon VPC
-    Quotas in the Amazon VPC User Guide (see the Security Groups table).
+    """Returned if the size of `SecurityGroups` specified in the request is greater than
+    five.
     """
 
     _ERROR_CODE = "SecurityGroupLimitExceeded"

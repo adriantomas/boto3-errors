@@ -17,27 +17,9 @@ class AccessDeniedException(SecurityHubError):
         return self.response.get("Code")
 
 
-class ConflictException(SecurityHubError):
-    """The request causes conflict with the current state of the service resource."""
-    _ERROR_CODE = "ConflictException"
-
-    @property
-    def code(self) -> str | None:
-        return self.response.get("Code")
-
-
 class InternalException(SecurityHubError):
     """Internal server error."""
     _ERROR_CODE = "InternalException"
-
-    @property
-    def code(self) -> str | None:
-        return self.response.get("Code")
-
-
-class InternalServerException(SecurityHubError):
-    """The request has failed due to an internal failure of the service."""
-    _ERROR_CODE = "InternalServerException"
 
     @property
     def code(self) -> str | None:
@@ -109,48 +91,13 @@ class ResourceNotFoundException(SecurityHubError):
         return self.response.get("Code")
 
 
-class ServiceQuotaExceededException(SecurityHubError):
-    """The request was rejected because it would exceed the service quota limit."""
-    _ERROR_CODE = "ServiceQuotaExceededException"
-
-    @property
-    def code(self) -> str | None:
-        return self.response.get("Code")
-
-
-class ThrottlingException(SecurityHubError):
-    """The limit on the number of requests per second was exceeded."""
-    _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def code(self) -> str | None:
-        return self.response.get("Code")
-
-
-class ValidationException(SecurityHubError):
-    """The request has failed validation because it's missing required fields or has
-    invalid inputs.
-    """
-
-    _ERROR_CODE = "ValidationException"
-
-    @property
-    def code(self) -> str | None:
-        return self.response.get("Code")
-
-
 EXCEPTIONS: dict[str, type[SecurityHubError]] = {
     "AccessDeniedException": AccessDeniedException,
-    "ConflictException": ConflictException,
     "InternalException": InternalException,
-    "InternalServerException": InternalServerException,
     "InvalidAccessException": InvalidAccessException,
     "InvalidInputException": InvalidInputException,
     "LimitExceededException": LimitExceededException,
     "ResourceConflictException": ResourceConflictException,
     "ResourceInUseException": ResourceInUseException,
     "ResourceNotFoundException": ResourceNotFoundException,
-    "ServiceQuotaExceededException": ServiceQuotaExceededException,
-    "ThrottlingException": ThrottlingException,
-    "ValidationException": ValidationException,
 }

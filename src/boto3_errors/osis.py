@@ -18,11 +18,6 @@ class ConflictException(OSISError):
     _ERROR_CODE = "ConflictException"
 
 
-class DisabledOperationException(OSISError):
-    """Exception is thrown when an operation has been disabled."""
-    _ERROR_CODE = "DisabledOperationException"
-
-
 class InternalException(OSISError):
     """The request failed because of an unknown error, exception, or failure (the failure
     is internal to the service).
@@ -59,7 +54,6 @@ class ValidationException(OSISError):
 EXCEPTIONS: dict[str, type[OSISError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
-    "DisabledOperationException": DisabledOperationException,
     "InternalException": InternalException,
     "InvalidPaginationTokenException": InvalidPaginationTokenException,
     "LimitExceededException": LimitExceededException,

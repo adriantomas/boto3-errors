@@ -48,20 +48,9 @@ class InternalServerErrorException(GuardDutyError):
         return self.response.get("Type")
 
 
-class ResourceNotFoundException(GuardDutyError):
-    """The requested resource can't be found."""
-    _ERROR_CODE = "ResourceNotFoundException"
-
-    @property
-    def type(self) -> str | None:
-        """The error type."""
-        return self.response.get("Type")
-
-
 EXCEPTIONS: dict[str, type[GuardDutyError]] = {
     "AccessDeniedException": AccessDeniedException,
     "BadRequestException": BadRequestException,
     "ConflictException": ConflictException,
     "InternalServerErrorException": InternalServerErrorException,
-    "ResourceNotFoundException": ResourceNotFoundException,
 }

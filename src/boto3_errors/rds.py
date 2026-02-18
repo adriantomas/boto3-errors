@@ -197,14 +197,6 @@ class DBInstanceNotFoundFault(RDSError):
     _ERROR_CODE = "DBInstanceNotFound"
 
 
-class DBInstanceNotReadyFault(RDSError):
-    """An attempt to download or examine log files didn't succeed because an Aurora
-    Serverless v2 instance was paused.
-    """
-
-    _ERROR_CODE = "DBInstanceNotReady"
-
-
 class DBInstanceRoleAlreadyExistsFault(RDSError):
     """The specified `RoleArn` or `FeatureName` value is already associated with the DB
     instance.
@@ -442,9 +434,8 @@ class ExportTaskNotFoundFault(RDSError):
 
 
 class GlobalClusterAlreadyExistsFault(RDSError):
-    """The `GlobalClusterIdentifier` already exists. Specify a new global database
-    identifier (unique name) to create a new global database cluster or to rename an
-    existing one.
+    """The `GlobalClusterIdentifier` already exists. Choose a new global database
+    identifier (unique name) to create a new global database cluster.
     """
 
     _ERROR_CODE = "GlobalClusterAlreadyExistsFault"
@@ -678,6 +669,14 @@ class InvalidIntegrationStateFault(RDSError):
     _ERROR_CODE = "InvalidIntegrationStateFault"
 
 
+class InvalidMaxAcuFault(RDSError):
+    """The maximum capacity of the DB shard group must be 48-7168 Aurora capacity units
+    (ACUs).
+    """
+
+    _ERROR_CODE = "InvalidMaxAcu"
+
+
 class InvalidOptionGroupStateFault(RDSError):
     """The option group isn't in the available state."""
     _ERROR_CODE = "InvalidOptionGroupStateFault"
@@ -902,15 +901,6 @@ class UnsupportedDBEngineVersionFault(RDSError):
     _ERROR_CODE = "UnsupportedDBEngineVersion"
 
 
-class VpcEncryptionControlViolationException(RDSError):
-    """The operation violates VPC encryption control settings. Make sure that your DB
-    instance type supports the Nitro encryption-in-transit capability, or modify your
-    VPC's encryption controls to not enforce encryption-in-transit.
-    """
-
-    _ERROR_CODE = "VpcEncryptionControlViolationException"
-
-
 EXCEPTIONS: dict[str, type[RDSError]] = {
     "AuthorizationAlreadyExists": AuthorizationAlreadyExistsFault,
     "AuthorizationNotFound": AuthorizationNotFoundFault,
@@ -943,7 +933,6 @@ EXCEPTIONS: dict[str, type[RDSError]] = {
     "DBInstanceAutomatedBackupNotFound": DBInstanceAutomatedBackupNotFoundFault,
     "DBInstanceAutomatedBackupQuotaExceeded": DBInstanceAutomatedBackupQuotaExceededFault,
     "DBInstanceNotFound": DBInstanceNotFoundFault,
-    "DBInstanceNotReady": DBInstanceNotReadyFault,
     "DBInstanceRoleAlreadyExists": DBInstanceRoleAlreadyExistsFault,
     "DBInstanceRoleNotFound": DBInstanceRoleNotFoundFault,
     "DBInstanceRoleQuotaExceeded": DBInstanceRoleQuotaExceededFault,
@@ -1019,6 +1008,7 @@ EXCEPTIONS: dict[str, type[RDSError]] = {
     "InvalidExportTaskStateFault": InvalidExportTaskStateFault,
     "InvalidGlobalClusterStateFault": InvalidGlobalClusterStateFault,
     "InvalidIntegrationStateFault": InvalidIntegrationStateFault,
+    "InvalidMaxAcu": InvalidMaxAcuFault,
     "InvalidOptionGroupStateFault": InvalidOptionGroupStateFault,
     "InvalidResourceStateFault": InvalidResourceStateFault,
     "InvalidRestoreFault": InvalidRestoreFault,
@@ -1057,5 +1047,4 @@ EXCEPTIONS: dict[str, type[RDSError]] = {
     "TenantDatabaseNotFound": TenantDatabaseNotFoundFault,
     "TenantDatabaseQuotaExceeded": TenantDatabaseQuotaExceededFault,
     "UnsupportedDBEngineVersion": UnsupportedDBEngineVersionFault,
-    "VpcEncryptionControlViolationException": VpcEncryptionControlViolationException,
 }

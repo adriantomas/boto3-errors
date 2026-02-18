@@ -8,32 +8,6 @@ class LambdaError(Boto3Error):
     _SERVICE = "lambda"
 
 
-class CallbackTimeoutException(LambdaError):
-    """The callback ID token has either expired or the callback associated with the token
-    has already been closed.
-    """
-
-    _ERROR_CODE = "CallbackTimeoutException"
-
-    @property
-    def type(self) -> str | None:
-        """The exception type."""
-        return self.response.get("Type")
-
-
-class CapacityProviderLimitExceededException(LambdaError):
-    """The maximum number of capacity providers for your account has been exceeded. For
-    more information, see Lambda quotas
-    """
-
-    _ERROR_CODE = "CapacityProviderLimitExceededException"
-
-    @property
-    def type(self) -> str | None:
-        """The exception type."""
-        return self.response.get("Type")
-
-
 class CodeSigningConfigNotFoundException(LambdaError):
     """The specified code signing configuration does not exist."""
     _ERROR_CODE = "CodeSigningConfigNotFoundException"
@@ -69,20 +43,6 @@ class CodeVerificationFailedException(LambdaError):
         return self.response.get("Type")
 
 
-class DurableExecutionAlreadyStartedException(LambdaError):
-    """The durable execution with the specified name has already been started. Each durable
-    execution name must be unique within the function. Use a different name or check the
-    status of the existing execution.
-    """
-
-    _ERROR_CODE = "DurableExecutionAlreadyStartedException"
-
-    @property
-    def type(self) -> str | None:
-        """The exception type."""
-        return self.response.get("Type")
-
-
 class EC2AccessDeniedException(LambdaError):
     """Need additional permissions to configure VPC settings."""
     _ERROR_CODE = "EC2AccessDeniedException"
@@ -112,12 +72,12 @@ class EC2UnexpectedException(LambdaError):
     _ERROR_CODE = "EC2UnexpectedException"
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("Type")
-
-    @property
     def ec2_error_code(self) -> str | None:
         return self.response.get("EC2ErrorCode")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("Type")
 
 
 class EFSIOException(LambdaError):
@@ -178,19 +138,6 @@ class ENILimitReachedException(LambdaError):
         return self.response.get("Type")
 
 
-class FunctionVersionsPerCapacityProviderLimitExceededException(LambdaError):
-    """The maximum number of function versions that can be associated with a single
-    capacity provider has been exceeded. For more information, see Lambda quotas.
-    """
-
-    _ERROR_CODE = "FunctionVersionsPerCapacityProviderLimitExceededException"
-
-    @property
-    def type(self) -> str | None:
-        """The exception type."""
-        return self.response.get("Type")
-
-
 class InvalidCodeSignatureException(LambdaError):
     """The code signature failed the integrity check. If the integrity check fails, then
     Lambda blocks deployment, even if the code signing policy is set to WARN.
@@ -214,10 +161,7 @@ class InvalidParameterValueException(LambdaError):
 
 
 class InvalidRequestContentException(LambdaError):
-    """The request body could not be parsed as JSON, or a request header is invalid. For
-    example, the 'x-amzn-RequestId' header is not a valid UUID string.
-    """
-
+    """The request body could not be parsed as JSON."""
     _ERROR_CODE = "InvalidRequestContentException"
 
     @property
@@ -313,16 +257,6 @@ class KMSNotFoundException(LambdaError):
         return self.response.get("Type")
 
 
-class NoPublishedVersionException(LambdaError):
-    """The function has no published versions available."""
-    _ERROR_CODE = "NoPublishedVersionException"
-
-    @property
-    def type(self) -> str | None:
-        """The exception type."""
-        return self.response.get("Type")
-
-
 class PolicyLengthExceededException(LambdaError):
     """The permissions policy for the resource is too large. For more information, see
     Lambda quotas.
@@ -337,12 +271,8 @@ class PolicyLengthExceededException(LambdaError):
 
 class PreconditionFailedException(LambdaError):
     """The RevisionId provided does not match the latest RevisionId for the Lambda function
-    or alias.
-
-    - For AddPermission and RemovePermission API operations: Call `GetPolicy` to
-      retrieve the latest RevisionId for your resource.
-    - For all other API operations: Call `GetFunction` or `GetAlias` to retrieve the
-      latest RevisionId for your resource.
+    or alias. Call the `GetFunction` or the `GetAlias` API operation to retrieve the
+    latest RevisionId for your resource.
     """
 
     _ERROR_CODE = "PreconditionFailedException"
@@ -432,19 +362,6 @@ class ResourceNotReadyException(LambdaError):
         return self.response.get("Type")
 
 
-class SerializedRequestEntityTooLargeException(LambdaError):
-    """The request payload exceeded the maximum allowed size for serialized request
-    entities.
-    """
-
-    _ERROR_CODE = "SerializedRequestEntityTooLargeException"
-
-    @property
-    def type(self) -> str | None:
-        """The error type."""
-        return self.response.get("Type")
-
-
 class ServiceException(LambdaError):
     """The Lambda service encountered an internal error."""
     _ERROR_CODE = "ServiceException"
@@ -504,17 +421,17 @@ class TooManyRequestsException(LambdaError):
     _ERROR_CODE = "TooManyRequestsException"
 
     @property
-    def retry_after_seconds(self) -> str | None:
-        """The number of seconds the caller should wait before retrying."""
-        return self.response.get("retryAfterSeconds")
+    def reason(self) -> str | None:
+        return self.response.get("Reason")
 
     @property
     def type(self) -> str | None:
         return self.response.get("Type")
 
     @property
-    def reason(self) -> str | None:
-        return self.response.get("Reason")
+    def retry_after_seconds(self) -> str | None:
+        """The number of seconds the caller should wait before retrying."""
+        return self.response.get("retryAfterSeconds")
 
 
 class UnsupportedMediaTypeException(LambdaError):
@@ -527,12 +444,9 @@ class UnsupportedMediaTypeException(LambdaError):
 
 
 EXCEPTIONS: dict[str, type[LambdaError]] = {
-    "CallbackTimeoutException": CallbackTimeoutException,
-    "CapacityProviderLimitExceededException": CapacityProviderLimitExceededException,
     "CodeSigningConfigNotFoundException": CodeSigningConfigNotFoundException,
     "CodeStorageExceededException": CodeStorageExceededException,
     "CodeVerificationFailedException": CodeVerificationFailedException,
-    "DurableExecutionAlreadyStartedException": DurableExecutionAlreadyStartedException,
     "EC2AccessDeniedException": EC2AccessDeniedException,
     "EC2ThrottledException": EC2ThrottledException,
     "EC2UnexpectedException": EC2UnexpectedException,
@@ -541,7 +455,6 @@ EXCEPTIONS: dict[str, type[LambdaError]] = {
     "EFSMountFailureException": EFSMountFailureException,
     "EFSMountTimeoutException": EFSMountTimeoutException,
     "ENILimitReachedException": ENILimitReachedException,
-    "FunctionVersionsPerCapacityProviderLimitExceededException": FunctionVersionsPerCapacityProviderLimitExceededException,
     "InvalidCodeSignatureException": InvalidCodeSignatureException,
     "InvalidParameterValueException": InvalidParameterValueException,
     "InvalidRequestContentException": InvalidRequestContentException,
@@ -553,7 +466,6 @@ EXCEPTIONS: dict[str, type[LambdaError]] = {
     "KMSDisabledException": KMSDisabledException,
     "KMSInvalidStateException": KMSInvalidStateException,
     "KMSNotFoundException": KMSNotFoundException,
-    "NoPublishedVersionException": NoPublishedVersionException,
     "PolicyLengthExceededException": PolicyLengthExceededException,
     "PreconditionFailedException": PreconditionFailedException,
     "ProvisionedConcurrencyConfigNotFoundException": ProvisionedConcurrencyConfigNotFoundException,
@@ -563,7 +475,6 @@ EXCEPTIONS: dict[str, type[LambdaError]] = {
     "ResourceInUseException": ResourceInUseException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ResourceNotReadyException": ResourceNotReadyException,
-    "SerializedRequestEntityTooLargeException": SerializedRequestEntityTooLargeException,
     "ServiceException": ServiceException,
     "SnapStartException": SnapStartException,
     "SnapStartNotReadyException": SnapStartNotReadyException,

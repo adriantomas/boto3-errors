@@ -12,11 +12,6 @@ class AccessDeniedException(SSOAdminError):
     """You do not have sufficient access to perform this action."""
     _ERROR_CODE = "AccessDeniedException"
 
-    @property
-    def reason(self) -> str | None:
-        """The reason for the access denied exception."""
-        return self.response.get("Reason")
-
 
 class ConflictException(SSOAdminError):
     """Occurs when a conflict with a previous successful write is detected. This generally
@@ -40,11 +35,6 @@ class ResourceNotFoundException(SSOAdminError):
     """Indicates that a requested resource is not found."""
     _ERROR_CODE = "ResourceNotFoundException"
 
-    @property
-    def reason(self) -> str | None:
-        """The reason for the resource not found exception."""
-        return self.response.get("Reason")
-
 
 class ServiceQuotaExceededException(SSOAdminError):
     """Indicates that the principal has crossed the permitted number of resources that can
@@ -61,20 +51,10 @@ class ThrottlingException(SSOAdminError):
 
     _ERROR_CODE = "ThrottlingException"
 
-    @property
-    def reason(self) -> str | None:
-        """The reason for the throttling exception."""
-        return self.response.get("Reason")
-
 
 class ValidationException(SSOAdminError):
     """The request failed because it contains a syntax error."""
     _ERROR_CODE = "ValidationException"
-
-    @property
-    def reason(self) -> str | None:
-        """The reason for the validation exception."""
-        return self.response.get("Reason")
 
 
 EXCEPTIONS: dict[str, type[SSOAdminError]] = {

@@ -131,26 +131,6 @@ class IllegalWorkflowStateException(GlueError):
     _ERROR_CODE = "IllegalWorkflowStateException"
 
 
-class IntegrationConflictOperationFault(GlueError):
-    """The requested operation conflicts with another operation."""
-    _ERROR_CODE = "IntegrationConflictOperationFault"
-
-
-class IntegrationNotFoundFault(GlueError):
-    """The specified integration could not be found."""
-    _ERROR_CODE = "IntegrationNotFoundFault"
-
-
-class IntegrationQuotaExceededFault(GlueError):
-    """The data processed through your integration exceeded your quota."""
-    _ERROR_CODE = "IntegrationQuotaExceededFault"
-
-
-class InternalServerException(GlueError):
-    """An internal server error occurred."""
-    _ERROR_CODE = "InternalServerException"
-
-
 class InternalServiceException(GlueError):
     """An internal service error occurred."""
     _ERROR_CODE = "InternalServiceException"
@@ -166,19 +146,9 @@ class InvalidInputException(GlueError):
         return self.response.get("FromFederationSource")
 
 
-class InvalidIntegrationStateFault(GlueError):
-    """The integration is in an invalid state."""
-    _ERROR_CODE = "InvalidIntegrationStateFault"
-
-
 class InvalidStateException(GlueError):
     """An error that indicates your data is in an invalid state."""
     _ERROR_CODE = "InvalidStateException"
-
-
-class KMSKeyNotAccessibleFault(GlueError):
-    """The KMS key specified is not accessible."""
-    _ERROR_CODE = "KMSKeyNotAccessibleFault"
 
 
 class MLTransformNotReadyException(GlueError):
@@ -186,29 +156,9 @@ class MLTransformNotReadyException(GlueError):
     _ERROR_CODE = "MLTransformNotReadyException"
 
 
-class MaterializedViewRefreshTaskNotRunningException(GlueError):
-    """Exception thrown when stopping a task that is not in running state."""
-    _ERROR_CODE = "MaterializedViewRefreshTaskNotRunningException"
-
-
-class MaterializedViewRefreshTaskRunningException(GlueError):
-    """Exception thrown when a task is already in running state."""
-    _ERROR_CODE = "MaterializedViewRefreshTaskRunningException"
-
-
-class MaterializedViewRefreshTaskStoppingException(GlueError):
-    """Exception thrown when a task is already in stopping state."""
-    _ERROR_CODE = "MaterializedViewRefreshTaskStoppingException"
-
-
 class NoScheduleException(GlueError):
     """There is no applicable schedule."""
     _ERROR_CODE = "NoScheduleException"
-
-
-class OperationNotSupportedException(GlueError):
-    """The operation is not available in the region."""
-    _ERROR_CODE = "OperationNotSupportedException"
 
 
 class OperationTimeoutException(GlueError):
@@ -219,11 +169,6 @@ class OperationTimeoutException(GlueError):
 class PermissionTypeMismatchException(GlueError):
     """The operation timed out."""
     _ERROR_CODE = "PermissionTypeMismatchException"
-
-
-class ResourceNotFoundException(GlueError):
-    """The resource could not be found."""
-    _ERROR_CODE = "ResourceNotFoundException"
 
 
 class ResourceNotReadyException(GlueError):
@@ -249,16 +194,6 @@ class SchedulerRunningException(GlueError):
 class SchedulerTransitioningException(GlueError):
     """The specified scheduler is transitioning."""
     _ERROR_CODE = "SchedulerTransitioningException"
-
-
-class TargetResourceNotFound(GlueError):
-    """The target resource could not be found."""
-    _ERROR_CODE = "TargetResourceNotFound"
-
-
-class ThrottlingException(GlueError):
-    """The throttling threshhold was exceeded."""
-    _ERROR_CODE = "ThrottlingException"
 
 
 class ValidationException(GlueError):
@@ -293,31 +228,18 @@ EXCEPTIONS: dict[str, type[GlueError]] = {
     "IllegalBlueprintStateException": IllegalBlueprintStateException,
     "IllegalSessionStateException": IllegalSessionStateException,
     "IllegalWorkflowStateException": IllegalWorkflowStateException,
-    "IntegrationConflictOperationFault": IntegrationConflictOperationFault,
-    "IntegrationNotFoundFault": IntegrationNotFoundFault,
-    "IntegrationQuotaExceededFault": IntegrationQuotaExceededFault,
-    "InternalServerException": InternalServerException,
     "InternalServiceException": InternalServiceException,
     "InvalidInputException": InvalidInputException,
-    "InvalidIntegrationStateFault": InvalidIntegrationStateFault,
     "InvalidStateException": InvalidStateException,
-    "KMSKeyNotAccessibleFault": KMSKeyNotAccessibleFault,
     "MLTransformNotReadyException": MLTransformNotReadyException,
-    "MaterializedViewRefreshTaskNotRunningException": MaterializedViewRefreshTaskNotRunningException,
-    "MaterializedViewRefreshTaskRunningException": MaterializedViewRefreshTaskRunningException,
-    "MaterializedViewRefreshTaskStoppingException": MaterializedViewRefreshTaskStoppingException,
     "NoScheduleException": NoScheduleException,
-    "OperationNotSupportedException": OperationNotSupportedException,
     "OperationTimeoutException": OperationTimeoutException,
     "PermissionTypeMismatchException": PermissionTypeMismatchException,
-    "ResourceNotFoundException": ResourceNotFoundException,
     "ResourceNotReadyException": ResourceNotReadyException,
     "ResourceNumberLimitExceededException": ResourceNumberLimitExceededException,
     "SchedulerNotRunningException": SchedulerNotRunningException,
     "SchedulerRunningException": SchedulerRunningException,
     "SchedulerTransitioningException": SchedulerTransitioningException,
-    "TargetResourceNotFound": TargetResourceNotFound,
-    "ThrottlingException": ThrottlingException,
     "ValidationException": ValidationException,
     "VersionMismatchException": VersionMismatchException,
 }

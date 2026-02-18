@@ -8,30 +8,9 @@ class CostExplorerError(Boto3Error):
     _SERVICE = "ce"
 
 
-class AnalysisNotFoundException(CostExplorerError):
-    """The requested analysis can't be found."""
-    _ERROR_CODE = "AnalysisNotFoundException"
-
-
-class BackfillLimitExceededException(CostExplorerError):
-    """A request to backfill is already in progress. Once the previous request is complete,
-    you can create another request.
-    """
-
-    _ERROR_CODE = "BackfillLimitExceededException"
-
-
 class BillExpirationException(CostExplorerError):
     """The requested report expired. Update the date interval and try again."""
     _ERROR_CODE = "BillExpirationException"
-
-
-class BillingViewHealthStatusException(CostExplorerError):
-    """The billing view status must be `HEALTHY` to perform this action. Try again when the
-    status is `HEALTHY`.
-    """
-
-    _ERROR_CODE = "BillingViewHealthStatusException"
 
 
 class DataUnavailableException(CostExplorerError):
@@ -40,7 +19,7 @@ class DataUnavailableException(CostExplorerError):
 
 
 class GenerationExistsException(CostExplorerError):
-    """A request to generate a recommendation or analysis is already in progress."""
+    """A request to generate a recommendation is already in progress."""
     _ERROR_CODE = "GenerationExistsException"
 
 
@@ -111,10 +90,7 @@ class UnresolvableUsageUnitException(CostExplorerError):
 
 
 EXCEPTIONS: dict[str, type[CostExplorerError]] = {
-    "AnalysisNotFoundException": AnalysisNotFoundException,
-    "BackfillLimitExceededException": BackfillLimitExceededException,
     "BillExpirationException": BillExpirationException,
-    "BillingViewHealthStatusException": BillingViewHealthStatusException,
     "DataUnavailableException": DataUnavailableException,
     "GenerationExistsException": GenerationExistsException,
     "InvalidNextTokenException": InvalidNextTokenException,

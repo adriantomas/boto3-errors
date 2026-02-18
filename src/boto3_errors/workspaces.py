@@ -23,24 +23,9 @@ class ComputeNotCompatibleException(WorkSpacesError):
     _ERROR_CODE = "ComputeNotCompatibleException"
 
 
-class ConflictException(WorkSpacesError):
-    """The `TargetAccountId` is already linked or invited."""
-    _ERROR_CODE = "ConflictException"
-
-
 class IncompatibleApplicationsException(WorkSpacesError):
     """The specified application is not compatible with the resource."""
     _ERROR_CODE = "IncompatibleApplicationsException"
-
-
-class InternalServerException(WorkSpacesError):
-    """Unexpected server error occured."""
-    _ERROR_CODE = "InternalServerException"
-
-
-class InvalidParameterCombinationException(WorkSpacesError):
-    """Two or more of the selected parameter values cannot be used together."""
-    _ERROR_CODE = "InvalidParameterCombinationException"
 
 
 class InvalidParameterValuesException(WorkSpacesError):
@@ -143,14 +128,6 @@ class UnsupportedWorkspaceConfigurationException(WorkSpacesError):
     _ERROR_CODE = "UnsupportedWorkspaceConfigurationException"
 
 
-class ValidationException(WorkSpacesError):
-    """You either haven't provided a `TargetAccountId` or are using the same value for
-    `TargetAccountId` and `SourceAccountId`.
-    """
-
-    _ERROR_CODE = "ValidationException"
-
-
 class WorkspacesDefaultRoleNotFoundException(WorkSpacesError):
     """The workspaces_DefaultRole role could not be found. If this is the first time you
     are registering a directory, you will need to create the workspaces_DefaultRole role
@@ -165,10 +142,7 @@ EXCEPTIONS: dict[str, type[WorkSpacesError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ApplicationNotSupportedException": ApplicationNotSupportedException,
     "ComputeNotCompatibleException": ComputeNotCompatibleException,
-    "ConflictException": ConflictException,
     "IncompatibleApplicationsException": IncompatibleApplicationsException,
-    "InternalServerException": InternalServerException,
-    "InvalidParameterCombinationException": InvalidParameterCombinationException,
     "InvalidParameterValuesException": InvalidParameterValuesException,
     "InvalidResourceStateException": InvalidResourceStateException,
     "OperatingSystemNotCompatibleException": OperatingSystemNotCompatibleException,
@@ -183,6 +157,5 @@ EXCEPTIONS: dict[str, type[WorkSpacesError]] = {
     "ResourceUnavailableException": ResourceUnavailableException,
     "UnsupportedNetworkConfigurationException": UnsupportedNetworkConfigurationException,
     "UnsupportedWorkspaceConfigurationException": UnsupportedWorkspaceConfigurationException,
-    "ValidationException": ValidationException,
     "WorkspacesDefaultRoleNotFoundException": WorkspacesDefaultRoleNotFoundException,
 }

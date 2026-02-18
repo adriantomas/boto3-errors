@@ -76,12 +76,12 @@ class ResourceInUseException(LexModelBuildingServiceError):
     _ERROR_CODE = "ResourceInUseException"
 
     @property
-    def reference_type(self) -> str | None:
-        return self.response.get("referenceType")
-
-    @property
     def example_reference(self) -> dict[str, Any] | None:
         return self.response.get("exampleReference")
+
+    @property
+    def reference_type(self) -> str | None:
+        return self.response.get("referenceType")
 
 
 EXCEPTIONS: dict[str, type[LexModelBuildingServiceError]] = {

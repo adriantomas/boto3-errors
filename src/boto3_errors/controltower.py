@@ -29,18 +29,16 @@ class ResourceNotFoundException(ControlTowerError):
 
 
 class ServiceQuotaExceededException(ControlTowerError):
-    """The request would cause a service quota to be exceeded. See Service quotas."""
+    """The request would cause a service quota to be exceeded. The limit is 10 concurrent
+    operations.
+    """
+
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 
 class ThrottlingException(ControlTowerError):
     """The request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The ID of the service that is associated with the error."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -51,6 +49,11 @@ class ThrottlingException(ControlTowerError):
     def retry_after_seconds(self) -> int | None:
         """The number of seconds the caller should wait before retrying."""
         return self.response.get("retryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """The ID of the service that is associated with the error."""
+        return self.response.get("serviceCode")
 
 
 class ValidationException(ControlTowerError):

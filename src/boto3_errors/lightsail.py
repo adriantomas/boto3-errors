@@ -108,30 +108,6 @@ class OperationFailureException(LightsailError):
         return self.response.get("tip")
 
 
-class RegionSetupInProgressException(LightsailError):
-    """Lightsail throws this exception when an operation is performed on resources in an
-    opt-in Region that is currently being set up.
-    """
-
-    _ERROR_CODE = "RegionSetupInProgressException"
-
-    @property
-    def code(self) -> str | None:
-        return self.response.get("code")
-
-    @property
-    def docs(self) -> str | None:
-        """Regions and Availability Zones for Lightsail"""
-        return self.response.get("docs")
-
-    @property
-    def tip(self) -> str | None:
-        """Opt-in Regions typically take a few minutes to finish setting up before you can
-        work with them. Wait a few minutes and try again.
-        """
-        return self.response.get("tip")
-
-
 class ServiceException(LightsailError):
     """A general service exception."""
     _ERROR_CODE = "ServiceException"
@@ -172,7 +148,6 @@ EXCEPTIONS: dict[str, type[LightsailError]] = {
     "InvalidInputException": InvalidInputException,
     "NotFoundException": NotFoundException,
     "OperationFailureException": OperationFailureException,
-    "RegionSetupInProgressException": RegionSetupInProgressException,
     "ServiceException": ServiceException,
     "UnauthenticatedException": UnauthenticatedException,
 }

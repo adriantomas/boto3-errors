@@ -9,91 +9,64 @@ class BedrockAgentRuntimeError(Boto3Error):
 
 
 class AccessDeniedException(BedrockAgentRuntimeError):
-    """The request is denied because of missing access permissions. Check your permissions
-    and retry your request.
-    """
-
+    """This exception is thrown when a request is denied per access permissions"""
     _ERROR_CODE = "AccessDeniedException"
 
 
 class BadGatewayException(BedrockAgentRuntimeError):
-    """There was an issue with a dependency due to a server issue. Retry your request."""
+    """This exception is thrown when a request fails due to dependency like Lambda,
+    Bedrock, STS resource
+    """
+
     _ERROR_CODE = "BadGatewayException"
 
     @property
     def resource_name(self) -> str | None:
-        """The name of the dependency that caused the issue, such as Amazon Bedrock,
-        Lambda, or STS.
-        """
         return self.response.get("resourceName")
 
 
 class ConflictException(BedrockAgentRuntimeError):
-    """There was a conflict performing an operation. Resolve the conflict and retry your
-    request.
-    """
-
+    """This exception is thrown when there is a conflict performing an operation"""
     _ERROR_CODE = "ConflictException"
 
 
 class DependencyFailedException(BedrockAgentRuntimeError):
-    """There was an issue with a dependency. Check the resource configurations and retry
-    the request.
+    """This exception is thrown when a request fails due to dependency like Lambda,
+    Bedrock, STS resource due to a customer fault (i.e. bad configuration)
     """
 
     _ERROR_CODE = "DependencyFailedException"
 
     @property
     def resource_name(self) -> str | None:
-        """The name of the dependency that caused the issue, such as Amazon Bedrock,
-        Lambda, or STS.
-        """
         return self.response.get("resourceName")
 
 
 class InternalServerException(BedrockAgentRuntimeError):
-    """An internal server error occurred. Retry your request."""
-    _ERROR_CODE = "InternalServerException"
-
-    @property
-    def reason(self) -> str | None:
-        """The reason for the exception. If the reason is
-        `BEDROCK_MODEL_INVOCATION_SERVICE_UNAVAILABLE`, the model invocation service is
-        unavailable. Retry your request.
-        """
-        return self.response.get("reason")
-
-
-class ModelNotReadyException(BedrockAgentRuntimeError):
-    """The model specified in the request is not ready to serve inference requests. The AWS
-    SDK will automatically retry the operation up to 5 times. For information about
-    configuring automatic retries, see Retry behavior in the AWS SDKs and Tools
-    reference guide.
+    """This exception is thrown if there was an unexpected error during processing of
+    request
     """
 
-    _ERROR_CODE = "ModelNotReadyException"
+    _ERROR_CODE = "InternalServerException"
 
 
 class ResourceNotFoundException(BedrockAgentRuntimeError):
-    """The specified resource Amazon Resource Name (ARN) was not found. Check the Amazon
-    Resource Name (ARN) and try your request again.
-    """
-
+    """This exception is thrown when a resource referenced by the operation does not exist"""
     _ERROR_CODE = "ResourceNotFoundException"
 
 
 class ServiceQuotaExceededException(BedrockAgentRuntimeError):
-    """The number of requests exceeds the service quota. Resubmit your request later."""
+    """This exception is thrown when a request is made beyond the service quota"""
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 
 class ThrottlingException(BedrockAgentRuntimeError):
-    """The number of requests exceeds the limit. Resubmit your request later."""
+    """This exception is thrown when the number of requests exceeds the limit"""
     _ERROR_CODE = "ThrottlingException"
 
 
 class ValidationException(BedrockAgentRuntimeError):
-    """Input validation failed. Check your request parameters and retry the request."""
+    """This exception is thrown when the request's input validation fails"""
     _ERROR_CODE = "ValidationException"
 
 
@@ -103,7 +76,6 @@ EXCEPTIONS: dict[str, type[BedrockAgentRuntimeError]] = {
     "ConflictException": ConflictException,
     "DependencyFailedException": DependencyFailedException,
     "InternalServerException": InternalServerException,
-    "ModelNotReadyException": ModelNotReadyException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,

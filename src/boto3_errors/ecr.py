@@ -8,27 +8,9 @@ class ECRError(Boto3Error):
     _SERVICE = "ecr"
 
 
-class BlockedByOrganizationPolicyException(ECRError):
-    """The operation did not succeed because the account is managed by a organization
-    policy.
-    """
-
-    _ERROR_CODE = "BlockedByOrganizationPolicyException"
-
-
 class EmptyUploadException(ECRError):
     """The specified layer upload does not contain any layer parts."""
     _ERROR_CODE = "EmptyUploadException"
-
-
-class ExclusionAlreadyExistsException(ECRError):
-    """The specified pull time update exclusion already exists for the registry."""
-    _ERROR_CODE = "ExclusionAlreadyExistsException"
-
-
-class ExclusionNotFoundException(ECRError):
-    """The specified pull time update exclusion was not found."""
-    _ERROR_CODE = "ExclusionNotFoundException"
 
 
 class ImageAlreadyExistsException(ECRError):
@@ -37,11 +19,6 @@ class ImageAlreadyExistsException(ECRError):
     """
 
     _ERROR_CODE = "ImageAlreadyExistsException"
-
-
-class ImageArchivedException(ECRError):
-    """The specified image is archived and cannot be scanned."""
-    _ERROR_CODE = "ImageArchivedException"
 
 
 class ImageDigestDoesNotMatchException(ECRError):
@@ -55,11 +32,6 @@ class ImageDigestDoesNotMatchException(ECRError):
 class ImageNotFoundException(ECRError):
     """The image requested does not exist in the specified repository."""
     _ERROR_CODE = "ImageNotFoundException"
-
-
-class ImageStorageClassUpdateNotSupportedException(ECRError):
-    """The requested image storage class update is not supported."""
-    _ERROR_CODE = "ImageStorageClassUpdateNotSupportedException"
 
 
 class ImageTagAlreadyExistsException(ECRError):
@@ -86,6 +58,13 @@ class InvalidLayerPartException(ECRError):
     _ERROR_CODE = "InvalidLayerPartException"
 
     @property
+    def last_valid_byte_received(self) -> int | None:
+        """The last valid byte received from the layer part upload that is associated with
+        the exception.
+        """
+        return self.response.get("lastValidByteReceived")
+
+    @property
     def registry_id(self) -> str | None:
         """The registry ID associated with the exception."""
         return self.response.get("registryId")
@@ -99,13 +78,6 @@ class InvalidLayerPartException(ECRError):
     def upload_id(self) -> str | None:
         """The upload ID associated with the exception."""
         return self.response.get("uploadId")
-
-    @property
-    def last_valid_byte_received(self) -> int | None:
-        """The last valid byte received from the layer part upload that is associated with
-        the exception.
-        """
-        return self.response.get("lastValidByteReceived")
 
 
 class InvalidParameterException(ECRError):
@@ -261,30 +233,6 @@ class ServerException(ECRError):
     _ERROR_CODE = "ServerException"
 
 
-class SigningConfigurationNotFoundException(ECRError):
-    """The specified signing configuration was not found. This occurs when attempting to
-    retrieve or delete a signing configuration that does not exist.
-    """
-
-    _ERROR_CODE = "SigningConfigurationNotFoundException"
-
-
-class TemplateAlreadyExistsException(ECRError):
-    """The repository creation template already exists. Specify a unique prefix and try
-    again.
-    """
-
-    _ERROR_CODE = "TemplateAlreadyExistsException"
-
-
-class TemplateNotFoundException(ECRError):
-    """The specified repository creation template can't be found. Verify the registry ID
-    and prefix and try again.
-    """
-
-    _ERROR_CODE = "TemplateNotFoundException"
-
-
 class TooManyTagsException(ECRError):
     """The list of tags on the repository is over the limit. The maximum number of tags
     that can be applied to a repository is 50.
@@ -347,15 +295,10 @@ class ValidationException(ECRError):
 
 
 EXCEPTIONS: dict[str, type[ECRError]] = {
-    "BlockedByOrganizationPolicyException": BlockedByOrganizationPolicyException,
     "EmptyUploadException": EmptyUploadException,
-    "ExclusionAlreadyExistsException": ExclusionAlreadyExistsException,
-    "ExclusionNotFoundException": ExclusionNotFoundException,
     "ImageAlreadyExistsException": ImageAlreadyExistsException,
-    "ImageArchivedException": ImageArchivedException,
     "ImageDigestDoesNotMatchException": ImageDigestDoesNotMatchException,
     "ImageNotFoundException": ImageNotFoundException,
-    "ImageStorageClassUpdateNotSupportedException": ImageStorageClassUpdateNotSupportedException,
     "ImageTagAlreadyExistsException": ImageTagAlreadyExistsException,
     "InvalidLayerException": InvalidLayerException,
     "InvalidLayerPartException": InvalidLayerPartException,
@@ -381,9 +324,6 @@ EXCEPTIONS: dict[str, type[ECRError]] = {
     "ScanNotFoundException": ScanNotFoundException,
     "SecretNotFoundException": SecretNotFoundException,
     "ServerException": ServerException,
-    "SigningConfigurationNotFoundException": SigningConfigurationNotFoundException,
-    "TemplateAlreadyExistsException": TemplateAlreadyExistsException,
-    "TemplateNotFoundException": TemplateNotFoundException,
     "TooManyTagsException": TooManyTagsException,
     "UnableToAccessSecretException": UnableToAccessSecretException,
     "UnableToDecryptSecretValueException": UnableToDecryptSecretValueException,

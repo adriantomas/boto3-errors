@@ -23,11 +23,6 @@ class ConflictException(QConnectError):
     _ERROR_CODE = "ConflictException"
 
 
-class DependencyFailedException(QConnectError):
-    """The request failed because it depends on another request that failed."""
-    _ERROR_CODE = "DependencyFailedException"
-
-
 class PreconditionFailedException(QConnectError):
     """The provided `revisionId` does not match, indicating the content has been modified
     since it was last read.
@@ -64,11 +59,6 @@ class ServiceQuotaExceededException(QConnectError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 
-class ThrottlingException(QConnectError):
-    """The throttling limit has been exceeded."""
-    _ERROR_CODE = "ThrottlingException"
-
-
 class TooManyTagsException(QConnectError):
     """Amazon Q in Connect throws this exception if you have too many tags in your tag set."""
     _ERROR_CODE = "TooManyTagsException"
@@ -79,16 +69,6 @@ class TooManyTagsException(QConnectError):
         return self.response.get("resourceName")
 
 
-class UnauthorizedException(QConnectError):
-    """You do not have permission to perform this action."""
-    _ERROR_CODE = "UnauthorizedException"
-
-
-class UnprocessableContentException(QConnectError):
-    """The server has a failure of processing the message"""
-    _ERROR_CODE = "UnprocessableContentException"
-
-
 class ValidationException(QConnectError):
     """The input fails to satisfy the constraints specified by a service."""
     _ERROR_CODE = "ValidationException"
@@ -97,14 +77,10 @@ class ValidationException(QConnectError):
 EXCEPTIONS: dict[str, type[QConnectError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
-    "DependencyFailedException": DependencyFailedException,
     "PreconditionFailedException": PreconditionFailedException,
     "RequestTimeoutException": RequestTimeoutException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
-    "ThrottlingException": ThrottlingException,
     "TooManyTagsException": TooManyTagsException,
-    "UnauthorizedException": UnauthorizedException,
-    "UnprocessableContentException": UnprocessableContentException,
     "ValidationException": ValidationException,
 }

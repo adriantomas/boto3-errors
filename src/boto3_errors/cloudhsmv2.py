@@ -17,8 +17,8 @@ class CloudHsmAccessDeniedException(CloudHSMV2Error):
 
 
 class CloudHsmInternalFailureException(CloudHSMV2Error):
-    """The request was rejected because of an CloudHSM internal failure. The request can be
-    retried.
+    """The request was rejected because of an AWS CloudHSM internal failure. The request
+    can be retried.
     """
 
     _ERROR_CODE = "CloudHsmInternalFailureException"
@@ -27,11 +27,6 @@ class CloudHsmInternalFailureException(CloudHSMV2Error):
 class CloudHsmInvalidRequestException(CloudHSMV2Error):
     """The request was rejected because it is not a valid request."""
     _ERROR_CODE = "CloudHsmInvalidRequestException"
-
-
-class CloudHsmResourceLimitExceededException(CloudHSMV2Error):
-    """The request was rejected because it exceeds an CloudHSM limit."""
-    _ERROR_CODE = "CloudHsmResourceLimitExceededException"
 
 
 class CloudHsmResourceNotFoundException(CloudHSMV2Error):
@@ -56,7 +51,6 @@ EXCEPTIONS: dict[str, type[CloudHSMV2Error]] = {
     "CloudHsmAccessDeniedException": CloudHsmAccessDeniedException,
     "CloudHsmInternalFailureException": CloudHsmInternalFailureException,
     "CloudHsmInvalidRequestException": CloudHsmInvalidRequestException,
-    "CloudHsmResourceLimitExceededException": CloudHsmResourceLimitExceededException,
     "CloudHsmResourceNotFoundException": CloudHsmResourceNotFoundException,
     "CloudHsmServiceException": CloudHsmServiceException,
     "CloudHsmTagException": CloudHsmTagException,

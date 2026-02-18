@@ -263,14 +263,6 @@ class KMSKeyNotAccessibleFault(DocDBError):
     _ERROR_CODE = "KMSKeyNotAccessibleFault"
 
 
-class NetworkTypeNotSupported(DocDBError):
-    """The network type is not supported by either `DBSubnetGroup` or the DB engine
-    version.
-    """
-
-    _ERROR_CODE = "NetworkTypeNotSupported"
-
-
 class ResourceNotFoundFault(DocDBError):
     """The specified resource ID was not found."""
     _ERROR_CODE = "ResourceNotFoundFault"
@@ -387,7 +379,6 @@ EXCEPTIONS: dict[str, type[DocDBError]] = {
     "InvalidSubnet": InvalidSubnet,
     "InvalidVPCNetworkStateFault": InvalidVPCNetworkStateFault,
     "KMSKeyNotAccessibleFault": KMSKeyNotAccessibleFault,
-    "NetworkTypeNotSupported": NetworkTypeNotSupported,
     "ResourceNotFoundFault": ResourceNotFoundFault,
     "SNSInvalidTopic": SNSInvalidTopicFault,
     "SNSNoAuthorization": SNSNoAuthorizationFault,

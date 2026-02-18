@@ -58,6 +58,11 @@ class ServiceQuotaExceededException(grafanaError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The ID of the service quota that was exceeded."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The ID of the resource that is associated with the error."""
         return self.response.get("resourceId")
@@ -72,20 +77,10 @@ class ServiceQuotaExceededException(grafanaError):
         """The value of a parameter in the request caused an error."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The ID of the service quota that was exceeded."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(grafanaError):
     """The request was denied because of request throttling. Retry the request."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The ID of the service that is associated with the error."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -97,20 +92,25 @@ class ThrottlingException(grafanaError):
         """The value of a parameter in the request caused an error."""
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """The ID of the service that is associated with the error."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(grafanaError):
     """The value of a parameter in the request caused an error."""
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason that the operation failed."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """A list of fields that might be associated with the error."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason that the operation failed."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[grafanaError]] = {

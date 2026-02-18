@@ -39,14 +39,6 @@ class NotFoundException(MediaConvertError):
     _ERROR_CODE = "NotFoundException"
 
 
-class ServiceQuotaExceededException(MediaConvertError):
-    """You attempted to create more resources than the service allows based on service
-    quotas.
-    """
-
-    _ERROR_CODE = "ServiceQuotaExceededException"
-
-
 class TooManyRequestsException(MediaConvertError):
     """Too many requests have been sent in too short of a time. The service limits the rate
     at which it will accept requests.
@@ -61,6 +53,5 @@ EXCEPTIONS: dict[str, type[MediaConvertError]] = {
     "ForbiddenException": ForbiddenException,
     "InternalServerErrorException": InternalServerErrorException,
     "NotFoundException": NotFoundException,
-    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "TooManyRequestsException": TooManyRequestsException,
 }

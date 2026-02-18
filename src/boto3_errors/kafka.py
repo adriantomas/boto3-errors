@@ -18,29 +18,9 @@ class BadRequestException(KafkaError):
         return self.response.get("InvalidParameter")
 
 
-class ClusterConnectivityException(KafkaError):
-    """Returns information about an error."""
-    _ERROR_CODE = "ClusterConnectivityException"
-
-    @property
-    def invalid_parameter(self) -> str | None:
-        """The parameter that caused the error."""
-        return self.response.get("InvalidParameter")
-
-
 class ConflictException(KafkaError):
     """Returns information about an error."""
     _ERROR_CODE = "ConflictException"
-
-    @property
-    def invalid_parameter(self) -> str | None:
-        """The parameter that caused the error."""
-        return self.response.get("InvalidParameter")
-
-
-class ControllerMovedException(KafkaError):
-    """Returns information about an error."""
-    _ERROR_CODE = "ControllerMovedException"
 
     @property
     def invalid_parameter(self) -> str | None:
@@ -58,16 +38,6 @@ class ForbiddenException(KafkaError):
         return self.response.get("InvalidParameter")
 
 
-class GroupSubscribedToTopicException(KafkaError):
-    """Returns information about an error."""
-    _ERROR_CODE = "GroupSubscribedToTopicException"
-
-    @property
-    def invalid_parameter(self) -> str | None:
-        """The parameter that caused the error."""
-        return self.response.get("InvalidParameter")
-
-
 class InternalServerErrorException(KafkaError):
     """Returns information about an error."""
     _ERROR_CODE = "InternalServerErrorException"
@@ -78,49 +48,9 @@ class InternalServerErrorException(KafkaError):
         return self.response.get("InvalidParameter")
 
 
-class KafkaRequestException(KafkaError):
-    """Returns information about an error."""
-    _ERROR_CODE = "KafkaRequestException"
-
-    @property
-    def invalid_parameter(self) -> str | None:
-        """The parameter that caused the error."""
-        return self.response.get("InvalidParameter")
-
-
-class KafkaTimeoutException(KafkaError):
-    """Returns information about an error."""
-    _ERROR_CODE = "KafkaTimeoutException"
-
-    @property
-    def invalid_parameter(self) -> str | None:
-        """The parameter that caused the error."""
-        return self.response.get("InvalidParameter")
-
-
-class NotControllerException(KafkaError):
-    """Returns information about an error."""
-    _ERROR_CODE = "NotControllerException"
-
-    @property
-    def invalid_parameter(self) -> str | None:
-        """The parameter that caused the error."""
-        return self.response.get("InvalidParameter")
-
-
 class NotFoundException(KafkaError):
     """Returns information about an error."""
     _ERROR_CODE = "NotFoundException"
-
-    @property
-    def invalid_parameter(self) -> str | None:
-        """The parameter that caused the error."""
-        return self.response.get("InvalidParameter")
-
-
-class ReassignmentInProgressException(KafkaError):
-    """Returns information about an error."""
-    _ERROR_CODE = "ReassignmentInProgressException"
 
     @property
     def invalid_parameter(self) -> str | None:
@@ -148,16 +78,6 @@ class TooManyRequestsException(KafkaError):
         return self.response.get("InvalidParameter")
 
 
-class TopicExistsException(KafkaError):
-    """Returns information about an error."""
-    _ERROR_CODE = "TopicExistsException"
-
-    @property
-    def invalid_parameter(self) -> str | None:
-        """The parameter that caused the error."""
-        return self.response.get("InvalidParameter")
-
-
 class UnauthorizedException(KafkaError):
     """Returns information about an error."""
     _ERROR_CODE = "UnauthorizedException"
@@ -168,32 +88,13 @@ class UnauthorizedException(KafkaError):
         return self.response.get("InvalidParameter")
 
 
-class UnknownTopicOrPartitionException(KafkaError):
-    """Returns information about an error."""
-    _ERROR_CODE = "UnknownTopicOrPartitionException"
-
-    @property
-    def invalid_parameter(self) -> str | None:
-        """The parameter that caused the error."""
-        return self.response.get("InvalidParameter")
-
-
 EXCEPTIONS: dict[str, type[KafkaError]] = {
     "BadRequestException": BadRequestException,
-    "ClusterConnectivityException": ClusterConnectivityException,
     "ConflictException": ConflictException,
-    "ControllerMovedException": ControllerMovedException,
     "ForbiddenException": ForbiddenException,
-    "GroupSubscribedToTopicException": GroupSubscribedToTopicException,
     "InternalServerErrorException": InternalServerErrorException,
-    "KafkaRequestException": KafkaRequestException,
-    "KafkaTimeoutException": KafkaTimeoutException,
-    "NotControllerException": NotControllerException,
     "NotFoundException": NotFoundException,
-    "ReassignmentInProgressException": ReassignmentInProgressException,
     "ServiceUnavailableException": ServiceUnavailableException,
     "TooManyRequestsException": TooManyRequestsException,
-    "TopicExistsException": TopicExistsException,
     "UnauthorizedException": UnauthorizedException,
-    "UnknownTopicOrPartitionException": UnknownTopicOrPartitionException,
 }

@@ -28,7 +28,7 @@ class CertificateValidationException(IoTError):
 
 
 class ConflictException(IoTError):
-    """The request conflicts with the current state of the resource."""
+    """A resource with the same name already exists."""
     _ERROR_CODE = "ConflictException"
 
     @property
@@ -126,14 +126,14 @@ class ResourceAlreadyExistsException(IoTError):
     _ERROR_CODE = "ResourceAlreadyExistsException"
 
     @property
-    def resource_id(self) -> str | None:
-        """The ID of the resource that caused the exception."""
-        return self.response.get("resourceId")
-
-    @property
     def resource_arn(self) -> str | None:
         """The ARN of the resource that caused the exception."""
         return self.response.get("resourceArn")
+
+    @property
+    def resource_id(self) -> str | None:
+        """The ID of the resource that caused the exception."""
+        return self.response.get("resourceId")
 
 
 class ResourceNotFoundException(IoTError):
@@ -147,7 +147,7 @@ class ResourceRegistrationFailureException(IoTError):
 
 
 class ServiceQuotaExceededException(IoTError):
-    """Service quota has been exceeded."""
+    """A limit has been exceeded."""
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 

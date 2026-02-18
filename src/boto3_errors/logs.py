@@ -33,24 +33,6 @@ class DataAlreadyAcceptedException(CloudWatchLogsError):
         return self.response.get("expectedSequenceToken")
 
 
-class InternalServerException(CloudWatchLogsError):
-    """An internal server error occurred while processing the request. This exception is
-    returned when the service encounters an unexpected condition that prevents it from
-    fulfilling the request.
-    """
-
-    _ERROR_CODE = "InternalServerException"
-
-
-class InternalStreamingException(CloudWatchLogsError):
-    """An internal error occurred during the streaming of log data. This exception is
-    thrown when there's an issue with the internal streaming mechanism used by the
-    GetLogObject operation.
-    """
-
-    _ERROR_CODE = "InternalStreamingException"
-
-
 class InvalidOperationException(CloudWatchLogsError):
     """The operation is not valid on the specified resource."""
     _ERROR_CODE = "InvalidOperationException"
@@ -122,7 +104,7 @@ class ServiceUnavailableException(CloudWatchLogsError):
 
 
 class SessionStreamingException(CloudWatchLogsError):
-    """This exception is returned if an unknown error occurs during a Live Tail session."""
+    """his exception is returned if an unknown error occurs during a Live Tail session."""
     _ERROR_CODE = "SessionStreamingException"
 
 
@@ -166,8 +148,6 @@ EXCEPTIONS: dict[str, type[CloudWatchLogsError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
     "DataAlreadyAcceptedException": DataAlreadyAcceptedException,
-    "InternalServerException": InternalServerException,
-    "InternalStreamingException": InternalStreamingException,
     "InvalidOperationException": InvalidOperationException,
     "InvalidParameterException": InvalidParameterException,
     "InvalidSequenceTokenException": InvalidSequenceTokenException,

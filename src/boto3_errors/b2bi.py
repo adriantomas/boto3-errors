@@ -52,6 +52,11 @@ class ServiceQuotaExceededException(b2biError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The quota that was exceeded, which caused the exception."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The ID for the resource that exceeded the quota, which caused the exception."""
         return self.response.get("resourceId")
@@ -68,11 +73,6 @@ class ServiceQuotaExceededException(b2biError):
         """The code responsible for exceeding the quota, which caused the exception."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The quota that was exceeded, which caused the exception."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(b2biError):
     """The request was denied due to throttling: the data speed and rendering may be
@@ -88,13 +88,7 @@ class ThrottlingException(b2biError):
 
 
 class ValidationException(b2biError):
-    """Occurs when a B2BI object cannot be validated against a request from another object.
-    This exception can be thrown during standard EDI validation or when custom
-    validation rules fail, such as when element length constraints are violated, invalid
-    codes are used in code list validations, or required elements are missing based on
-    configured element requirement rules.
-    """
-
+    """Occurs when a B2BI object cannot be validated against a request from another object."""
     _ERROR_CODE = "ValidationException"
 
 

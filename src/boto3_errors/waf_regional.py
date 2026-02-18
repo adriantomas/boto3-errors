@@ -38,12 +38,12 @@ class WAFEntityMigrationException(WAFRegionalError):
     _ERROR_CODE = "WAFEntityMigrationException"
 
     @property
-    def migration_error_type(self) -> str | None:
-        return self.response.get("MigrationErrorType")
-
-    @property
     def migration_error_reason(self) -> str | None:
         return self.response.get("MigrationErrorReason")
+
+    @property
+    def migration_error_type(self) -> str | None:
+        return self.response.get("MigrationErrorType")
 
 
 class WAFInternalErrorException(WAFRegionalError):

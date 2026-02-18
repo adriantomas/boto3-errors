@@ -8,14 +8,6 @@ class RedshiftDataError(Boto3Error):
     _SERVICE = "redshift-data"
 
 
-class ActiveSessionsExceededException(RedshiftDataError):
-    """The Amazon Redshift Data API operation failed because the maximum number of active
-    sessions exceeded.
-    """
-
-    _ERROR_CODE = "ActiveSessionsExceededException"
-
-
 class ActiveStatementsExceededException(RedshiftDataError):
     """The number of active statements exceeds the limit."""
     _ERROR_CODE = "ActiveStatementsExceededException"
@@ -51,11 +43,6 @@ class InternalServerException(RedshiftDataError):
     _ERROR_CODE = "InternalServerException"
 
 
-class QueryTimeoutException(RedshiftDataError):
-    """The Amazon Redshift Data API operation failed due to timeout."""
-    _ERROR_CODE = "QueryTimeoutException"
-
-
 class ResourceNotFoundException(RedshiftDataError):
     """The Amazon Redshift Data API operation failed due to a missing resource."""
     _ERROR_CODE = "ResourceNotFoundException"
@@ -72,13 +59,11 @@ class ValidationException(RedshiftDataError):
 
 
 EXCEPTIONS: dict[str, type[RedshiftDataError]] = {
-    "ActiveSessionsExceededException": ActiveSessionsExceededException,
     "ActiveStatementsExceededException": ActiveStatementsExceededException,
     "BatchExecuteStatementException": BatchExecuteStatementException,
     "DatabaseConnectionException": DatabaseConnectionException,
     "ExecuteStatementException": ExecuteStatementException,
     "InternalServerException": InternalServerException,
-    "QueryTimeoutException": QueryTimeoutException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ValidationException": ValidationException,
 }

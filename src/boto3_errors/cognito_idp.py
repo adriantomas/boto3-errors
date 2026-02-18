@@ -37,14 +37,6 @@ class ConcurrentModificationException(CognitoIdentityProviderError):
     _ERROR_CODE = "ConcurrentModificationException"
 
 
-class DeviceKeyExistsException(CognitoIdentityProviderError):
-    """This exception is thrown when a user attempts to confirm a device with a device key
-    that already exists.
-    """
-
-    _ERROR_CODE = "DeviceKeyExistsException"
-
-
 class DuplicateProviderException(CognitoIdentityProviderError):
     """This exception is thrown when the provider is already supported by the user pool."""
     _ERROR_CODE = "DuplicateProviderException"
@@ -61,14 +53,6 @@ class EnableSoftwareTokenMFAException(CognitoIdentityProviderError):
 class ExpiredCodeException(CognitoIdentityProviderError):
     """This exception is thrown if a code has expired."""
     _ERROR_CODE = "ExpiredCodeException"
-
-
-class FeatureUnavailableInTierException(CognitoIdentityProviderError):
-    """This exception is thrown when a feature you attempted to configure isn't available
-    in your current feature plan.
-    """
-
-    _ERROR_CODE = "FeatureUnavailableInTierException"
 
 
 class ForbiddenException(CognitoIdentityProviderError):
@@ -117,11 +101,6 @@ class InvalidParameterException(CognitoIdentityProviderError):
 
     _ERROR_CODE = "InvalidParameterException"
 
-    @property
-    def reason_code(self) -> str | None:
-        """The reason code of the exception."""
-        return self.response.get("reasonCode")
-
 
 class InvalidPasswordException(CognitoIdentityProviderError):
     """This exception is thrown when Amazon Cognito encounters an invalid password."""
@@ -167,25 +146,9 @@ class MFAMethodNotFoundException(CognitoIdentityProviderError):
     _ERROR_CODE = "MFAMethodNotFoundException"
 
 
-class ManagedLoginBrandingExistsException(CognitoIdentityProviderError):
-    """This exception is thrown when you attempt to apply a managed login branding style to
-    an app client that already has an assigned style.
-    """
-
-    _ERROR_CODE = "ManagedLoginBrandingExistsException"
-
-
 class NotAuthorizedException(CognitoIdentityProviderError):
     """This exception is thrown when a user isn't authorized."""
     _ERROR_CODE = "NotAuthorizedException"
-
-
-class PasswordHistoryPolicyViolationException(CognitoIdentityProviderError):
-    """The message returned when a user's new password matches a previous password and
-    doesn't comply with the password-history policy.
-    """
-
-    _ERROR_CODE = "PasswordHistoryPolicyViolationException"
 
 
 class PasswordResetRequiredException(CognitoIdentityProviderError):
@@ -196,14 +159,6 @@ class PasswordResetRequiredException(CognitoIdentityProviderError):
 class PreconditionNotMetException(CognitoIdentityProviderError):
     """This exception is thrown when a precondition is not met."""
     _ERROR_CODE = "PreconditionNotMetException"
-
-
-class RefreshTokenReuseException(CognitoIdentityProviderError):
-    """This exception is throw when your application requests token refresh with a refresh
-    token that has been invalidated by refresh-token rotation.
-    """
-
-    _ERROR_CODE = "RefreshTokenReuseException"
 
 
 class ResourceNotFoundException(CognitoIdentityProviderError):
@@ -225,22 +180,6 @@ class SoftwareTokenMFANotFoundException(CognitoIdentityProviderError):
     """
 
     _ERROR_CODE = "SoftwareTokenMFANotFoundException"
-
-
-class TermsExistsException(CognitoIdentityProviderError):
-    """Terms document names must be unique to the app client. This exception is thrown when
-    you attempt to create terms documents with a duplicate `TermsName`.
-    """
-
-    _ERROR_CODE = "TermsExistsException"
-
-
-class TierChangeNotAllowedException(CognitoIdentityProviderError):
-    """This exception is thrown when you've attempted to change your feature plan but the
-    operation isn't permitted.
-    """
-
-    _ERROR_CODE = "TierChangeNotAllowedException"
 
 
 class TooManyFailedAttemptsException(CognitoIdentityProviderError):
@@ -342,69 +281,14 @@ class UsernameExistsException(CognitoIdentityProviderError):
     _ERROR_CODE = "UsernameExistsException"
 
 
-class WebAuthnChallengeNotFoundException(CognitoIdentityProviderError):
-    """This exception is thrown when the challenge from `StartWebAuthn` registration has
-    expired.
-    """
-
-    _ERROR_CODE = "WebAuthnChallengeNotFoundException"
-
-
-class WebAuthnClientMismatchException(CognitoIdentityProviderError):
-    """This exception is thrown when the access token is for a different client than the
-    one in the original `StartWebAuthnRegistration` request.
-    """
-
-    _ERROR_CODE = "WebAuthnClientMismatchException"
-
-
-class WebAuthnConfigurationMissingException(CognitoIdentityProviderError):
-    """This exception is thrown when a user pool doesn't have a configured relying party id
-    or a user pool domain.
-    """
-
-    _ERROR_CODE = "WebAuthnConfigurationMissingException"
-
-
-class WebAuthnCredentialNotSupportedException(CognitoIdentityProviderError):
-    """This exception is thrown when a user presents passkey credentials from an
-    unsupported device or provider.
-    """
-
-    _ERROR_CODE = "WebAuthnCredentialNotSupportedException"
-
-
-class WebAuthnNotEnabledException(CognitoIdentityProviderError):
-    """This exception is thrown when the passkey feature isn't enabled for the user pool."""
-    _ERROR_CODE = "WebAuthnNotEnabledException"
-
-
-class WebAuthnOriginNotAllowedException(CognitoIdentityProviderError):
-    """This exception is thrown when the passkey credential's registration origin does not
-    align with the user pool relying party id.
-    """
-
-    _ERROR_CODE = "WebAuthnOriginNotAllowedException"
-
-
-class WebAuthnRelyingPartyMismatchException(CognitoIdentityProviderError):
-    """This exception is thrown when the given passkey credential is associated with a
-    different relying party ID than the user pool relying party ID.
-    """
-
-    _ERROR_CODE = "WebAuthnRelyingPartyMismatchException"
-
-
 EXCEPTIONS: dict[str, type[CognitoIdentityProviderError]] = {
     "AliasExistsException": AliasExistsException,
     "CodeDeliveryFailureException": CodeDeliveryFailureException,
     "CodeMismatchException": CodeMismatchException,
     "ConcurrentModificationException": ConcurrentModificationException,
-    "DeviceKeyExistsException": DeviceKeyExistsException,
     "DuplicateProviderException": DuplicateProviderException,
     "EnableSoftwareTokenMFAException": EnableSoftwareTokenMFAException,
     "ExpiredCodeException": ExpiredCodeException,
-    "FeatureUnavailableInTierException": FeatureUnavailableInTierException,
     "ForbiddenException": ForbiddenException,
     "GroupExistsException": GroupExistsException,
     "InternalErrorException": InternalErrorException,
@@ -418,17 +302,12 @@ EXCEPTIONS: dict[str, type[CognitoIdentityProviderError]] = {
     "InvalidUserPoolConfigurationException": InvalidUserPoolConfigurationException,
     "LimitExceededException": LimitExceededException,
     "MFAMethodNotFoundException": MFAMethodNotFoundException,
-    "ManagedLoginBrandingExistsException": ManagedLoginBrandingExistsException,
     "NotAuthorizedException": NotAuthorizedException,
-    "PasswordHistoryPolicyViolationException": PasswordHistoryPolicyViolationException,
     "PasswordResetRequiredException": PasswordResetRequiredException,
     "PreconditionNotMetException": PreconditionNotMetException,
-    "RefreshTokenReuseException": RefreshTokenReuseException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ScopeDoesNotExistException": ScopeDoesNotExistException,
     "SoftwareTokenMFANotFoundException": SoftwareTokenMFANotFoundException,
-    "TermsExistsException": TermsExistsException,
-    "TierChangeNotAllowedException": TierChangeNotAllowedException,
     "TooManyFailedAttemptsException": TooManyFailedAttemptsException,
     "TooManyRequestsException": TooManyRequestsException,
     "UnauthorizedException": UnauthorizedException,
@@ -444,11 +323,4 @@ EXCEPTIONS: dict[str, type[CognitoIdentityProviderError]] = {
     "UserPoolAddOnNotEnabledException": UserPoolAddOnNotEnabledException,
     "UserPoolTaggingException": UserPoolTaggingException,
     "UsernameExistsException": UsernameExistsException,
-    "WebAuthnChallengeNotFoundException": WebAuthnChallengeNotFoundException,
-    "WebAuthnClientMismatchException": WebAuthnClientMismatchException,
-    "WebAuthnConfigurationMissingException": WebAuthnConfigurationMissingException,
-    "WebAuthnCredentialNotSupportedException": WebAuthnCredentialNotSupportedException,
-    "WebAuthnNotEnabledException": WebAuthnNotEnabledException,
-    "WebAuthnOriginNotAllowedException": WebAuthnOriginNotAllowedException,
-    "WebAuthnRelyingPartyMismatchException": WebAuthnRelyingPartyMismatchException,
 }

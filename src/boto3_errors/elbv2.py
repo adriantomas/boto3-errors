@@ -28,29 +28,9 @@ class CaCertificatesBundleNotFoundException(ElasticLoadBalancingv2Error):
     _ERROR_CODE = "CaCertificatesBundleNotFound"
 
 
-class CapacityDecreaseRequestsLimitExceededException(ElasticLoadBalancingv2Error):
-    """You've exceeded the daily capacity decrease limit for this reservation."""
-    _ERROR_CODE = "CapacityDecreaseRequestLimitExceeded"
-
-
-class CapacityReservationPendingException(ElasticLoadBalancingv2Error):
-    """There is a pending capacity reservation."""
-    _ERROR_CODE = "CapacityReservationPending"
-
-
-class CapacityUnitsLimitExceededException(ElasticLoadBalancingv2Error):
-    """You've exceeded the capacity units limit."""
-    _ERROR_CODE = "CapacityUnitsLimitExceeded"
-
-
 class CertificateNotFoundException(ElasticLoadBalancingv2Error):
     """The specified certificate does not exist."""
     _ERROR_CODE = "CertificateNotFound"
-
-
-class DeleteAssociationSameAccountException(ElasticLoadBalancingv2Error):
-    """The specified association can't be within the same account."""
-    _ERROR_CODE = "DeleteAssociationSameAccount"
 
 
 class DuplicateListenerException(ElasticLoadBalancingv2Error):
@@ -86,11 +66,6 @@ class HealthUnavailableException(ElasticLoadBalancingv2Error):
 class IncompatibleProtocolsException(ElasticLoadBalancingv2Error):
     """The specified configuration is not valid with this protocol."""
     _ERROR_CODE = "IncompatibleProtocols"
-
-
-class InsufficientCapacityException(ElasticLoadBalancingv2Error):
-    """There is insufficient capacity to reserve."""
-    _ERROR_CODE = "InsufficientCapacity"
 
 
 class InvalidCaCertificatesBundleException(ElasticLoadBalancingv2Error):
@@ -151,11 +126,6 @@ class OperationNotPermittedException(ElasticLoadBalancingv2Error):
     _ERROR_CODE = "OperationNotPermitted"
 
 
-class PriorRequestNotCompleteException(ElasticLoadBalancingv2Error):
-    """This operation is not allowed while a prior request has not been completed."""
-    _ERROR_CODE = "PriorRequestNotComplete"
-
-
 class PriorityInUseException(ElasticLoadBalancingv2Error):
     """The specified priority is in use."""
     _ERROR_CODE = "PriorityInUse"
@@ -164,11 +134,6 @@ class PriorityInUseException(ElasticLoadBalancingv2Error):
 class ResourceInUseException(ElasticLoadBalancingv2Error):
     """A specified resource is in use."""
     _ERROR_CODE = "ResourceInUse"
-
-
-class ResourceNotFoundException(ElasticLoadBalancingv2Error):
-    """The specified resource does not exist."""
-    _ERROR_CODE = "ResourceNotFound"
 
 
 class RevocationContentNotFoundException(ElasticLoadBalancingv2Error):
@@ -282,11 +247,6 @@ class TooManyUniqueTargetGroupsPerLoadBalancerException(ElasticLoadBalancingv2Er
     _ERROR_CODE = "TooManyUniqueTargetGroupsPerLoadBalancer"
 
 
-class TrustStoreAssociationNotFoundException(ElasticLoadBalancingv2Error):
-    """The specified association does not exist."""
-    _ERROR_CODE = "AssociationNotFound"
-
-
 class TrustStoreInUseException(ElasticLoadBalancingv2Error):
     """The specified trust store is currently in use."""
     _ERROR_CODE = "TrustStoreInUse"
@@ -312,11 +272,7 @@ EXCEPTIONS: dict[str, type[ElasticLoadBalancingv2Error]] = {
     "AllocationIdNotFound": AllocationIdNotFoundException,
     "AvailabilityZoneNotSupported": AvailabilityZoneNotSupportedException,
     "CaCertificatesBundleNotFound": CaCertificatesBundleNotFoundException,
-    "CapacityDecreaseRequestLimitExceeded": CapacityDecreaseRequestsLimitExceededException,
-    "CapacityReservationPending": CapacityReservationPendingException,
-    "CapacityUnitsLimitExceeded": CapacityUnitsLimitExceededException,
     "CertificateNotFound": CertificateNotFoundException,
-    "DeleteAssociationSameAccount": DeleteAssociationSameAccountException,
     "DuplicateListener": DuplicateListenerException,
     "DuplicateLoadBalancerName": DuplicateLoadBalancerNameException,
     "DuplicateTagKeys": DuplicateTagKeysException,
@@ -324,7 +280,6 @@ EXCEPTIONS: dict[str, type[ElasticLoadBalancingv2Error]] = {
     "DuplicateTrustStoreName": DuplicateTrustStoreNameException,
     "HealthUnavailable": HealthUnavailableException,
     "IncompatibleProtocols": IncompatibleProtocolsException,
-    "InsufficientCapacity": InsufficientCapacityException,
     "InvalidCaCertificatesBundle": InvalidCaCertificatesBundleException,
     "InvalidConfigurationRequest": InvalidConfigurationRequestException,
     "InvalidLoadBalancerAction": InvalidLoadBalancerActionException,
@@ -336,10 +291,8 @@ EXCEPTIONS: dict[str, type[ElasticLoadBalancingv2Error]] = {
     "ListenerNotFound": ListenerNotFoundException,
     "LoadBalancerNotFound": LoadBalancerNotFoundException,
     "OperationNotPermitted": OperationNotPermittedException,
-    "PriorRequestNotComplete": PriorRequestNotCompleteException,
     "PriorityInUse": PriorityInUseException,
     "ResourceInUse": ResourceInUseException,
-    "ResourceNotFound": ResourceNotFoundException,
     "RevocationContentNotFound": RevocationContentNotFoundException,
     "RevocationIdNotFound": RevocationIdNotFoundException,
     "RuleNotFound": RuleNotFoundException,
@@ -359,7 +312,6 @@ EXCEPTIONS: dict[str, type[ElasticLoadBalancingv2Error]] = {
     "TooManyTrustStoreRevocationEntries": TooManyTrustStoreRevocationEntriesException,
     "TooManyTrustStores": TooManyTrustStoresException,
     "TooManyUniqueTargetGroupsPerLoadBalancer": TooManyUniqueTargetGroupsPerLoadBalancerException,
-    "AssociationNotFound": TrustStoreAssociationNotFoundException,
     "TrustStoreInUse": TrustStoreInUseException,
     "TrustStoreNotFound": TrustStoreNotFoundException,
     "TrustStoreNotReady": TrustStoreNotReadyException,

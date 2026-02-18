@@ -19,7 +19,7 @@ class InternalServerException(ManagedBlockchainQueryError):
 
     @property
     def retry_after_seconds(self) -> int | None:
-        """Specifies the `retryAfterSeconds` value."""
+        """The container of the `retryAfterSeconds` value."""
         return self.response.get("retryAfterSeconds")
 
 
@@ -43,6 +43,11 @@ class ServiceQuotaExceededException(ManagedBlockchainQueryError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The container for the `quotaCode`."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The `resourceId` of the resource that caused the exception."""
         return self.response.get("resourceId")
@@ -57,11 +62,6 @@ class ServiceQuotaExceededException(ManagedBlockchainQueryError):
         """The container for the `serviceCode`."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The container for the `quotaCode`."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(ManagedBlockchainQueryError):
     """The request or operation couldn't be performed because a service is throttling
@@ -73,11 +73,6 @@ class ThrottlingException(ManagedBlockchainQueryError):
     _ERROR_CODE = "ThrottlingException"
 
     @property
-    def service_code(self) -> str | None:
-        """The container for the `serviceCode`."""
-        return self.response.get("serviceCode")
-
-    @property
     def quota_code(self) -> str | None:
         """The container for the `quotaCode`."""
         return self.response.get("quotaCode")
@@ -87,20 +82,25 @@ class ThrottlingException(ManagedBlockchainQueryError):
         """The container of the `retryAfterSeconds` value."""
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """The container for the `serviceCode`."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(ManagedBlockchainQueryError):
     """The resource passed is invalid."""
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The container for the reason for the exception"""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The container for the `fieldList` of the exception."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The container for the reason for the exception"""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[ManagedBlockchainQueryError]] = {

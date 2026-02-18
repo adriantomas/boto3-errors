@@ -21,14 +21,14 @@ class ConflictingOperationException(IoTSiteWiseError):
     _ERROR_CODE = "ConflictingOperationException"
 
     @property
-    def resource_id(self) -> str | None:
-        """The ID of the resource that conflicts with this operation."""
-        return self.response.get("resourceId")
-
-    @property
     def resource_arn(self) -> str | None:
         """The ARN of the resource that conflicts with this operation."""
         return self.response.get("resourceArn")
+
+    @property
+    def resource_id(self) -> str | None:
+        """The ID of the resource that conflicts with this operation."""
+        return self.response.get("resourceId")
 
 
 class InternalFailureException(IoTSiteWiseError):
@@ -45,7 +45,7 @@ class InvalidRequestException(IoTSiteWiseError):
 
 
 class LimitExceededException(IoTSiteWiseError):
-    """You've reached the quota for a resource. For example, this can occur if you're
+    """You've reached the limit for a resource. For example, this can occur if you're
     trying to associate more than the allowed number of child assets or attempting to
     create more than the allowed number of properties for an asset model.
 
@@ -53,21 +53,6 @@ class LimitExceededException(IoTSiteWiseError):
     """
 
     _ERROR_CODE = "LimitExceededException"
-
-
-class PreconditionFailedException(IoTSiteWiseError):
-    """The precondition in one or more of the request-header fields evaluated to `FALSE`."""
-    _ERROR_CODE = "PreconditionFailedException"
-
-    @property
-    def resource_id(self) -> str | None:
-        """The ID of the resource on which precondition failed with this operation."""
-        return self.response.get("resourceId")
-
-    @property
-    def resource_arn(self) -> str | None:
-        """The ARN of the resource on which precondition failed with this operation."""
-        return self.response.get("resourceArn")
 
 
 class QueryTimeoutException(IoTSiteWiseError):
@@ -80,14 +65,14 @@ class ResourceAlreadyExistsException(IoTSiteWiseError):
     _ERROR_CODE = "ResourceAlreadyExistsException"
 
     @property
-    def resource_id(self) -> str | None:
-        """The ID of the resource that already exists."""
-        return self.response.get("resourceId")
-
-    @property
     def resource_arn(self) -> str | None:
         """The ARN of the resource that already exists."""
         return self.response.get("resourceArn")
+
+    @property
+    def resource_id(self) -> str | None:
+        """The ID of the resource that already exists."""
+        return self.response.get("resourceId")
 
 
 class ResourceNotFoundException(IoTSiteWiseError):
@@ -112,7 +97,7 @@ class ThrottlingException(IoTSiteWiseError):
 
 
 class TooManyTagsException(IoTSiteWiseError):
-    """You've reached the quota for the number of tags allowed for a resource. For more
+    """You've reached the limit for the number of tags allowed for a resource. For more
     information, see Tag naming limits and requirements in the Amazon Web Services
     General Reference.
     """
@@ -141,7 +126,6 @@ EXCEPTIONS: dict[str, type[IoTSiteWiseError]] = {
     "InternalFailureException": InternalFailureException,
     "InvalidRequestException": InvalidRequestException,
     "LimitExceededException": LimitExceededException,
-    "PreconditionFailedException": PreconditionFailedException,
     "QueryTimeoutException": QueryTimeoutException,
     "ResourceAlreadyExistsException": ResourceAlreadyExistsException,
     "ResourceNotFoundException": ResourceNotFoundException,

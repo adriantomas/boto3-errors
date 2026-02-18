@@ -10,22 +10,17 @@ class SQSError(Boto3Error):
 
 class BatchEntryIdsNotDistinct(SQSError):
     """Two or more batch entries in the request have the same `Id`."""
-    _ERROR_CODE = "BatchEntryIdsNotDistinct"
+    _ERROR_CODE = "AWS.SimpleQueueService.BatchEntryIdsNotDistinct"
 
 
 class BatchRequestTooLong(SQSError):
     """The length of all the messages put together is more than the limit."""
-    _ERROR_CODE = "BatchRequestTooLong"
+    _ERROR_CODE = "AWS.SimpleQueueService.BatchRequestTooLong"
 
 
 class EmptyBatchRequest(SQSError):
     """The batch request doesn't contain any entries."""
-    _ERROR_CODE = "EmptyBatchRequest"
-
-
-class InvalidAddress(SQSError):
-    """The specified ID is invalid."""
-    _ERROR_CODE = "InvalidAddress"
+    _ERROR_CODE = "AWS.SimpleQueueService.EmptyBatchRequest"
 
 
 class InvalidAttributeName(SQSError):
@@ -33,14 +28,9 @@ class InvalidAttributeName(SQSError):
     _ERROR_CODE = "InvalidAttributeName"
 
 
-class InvalidAttributeValue(SQSError):
-    """A queue attribute value is invalid."""
-    _ERROR_CODE = "InvalidAttributeValue"
-
-
 class InvalidBatchEntryId(SQSError):
     """The `Id` of a batch entry in a batch request doesn't abide by the specification."""
-    _ERROR_CODE = "InvalidBatchEntryId"
+    _ERROR_CODE = "AWS.SimpleQueueService.InvalidBatchEntryId"
 
 
 class InvalidIdFormat(SQSError):
@@ -53,64 +43,9 @@ class InvalidMessageContents(SQSError):
     _ERROR_CODE = "InvalidMessageContents"
 
 
-class InvalidSecurity(SQSError):
-    """The request was not made over HTTPS or did not use SigV4 for signing."""
-    _ERROR_CODE = "InvalidSecurity"
-
-
-class KmsAccessDenied(SQSError):
-    """The caller doesn't have the required KMS access."""
-    _ERROR_CODE = "KmsAccessDenied"
-
-
-class KmsDisabled(SQSError):
-    """The request was denied due to request throttling."""
-    _ERROR_CODE = "KmsDisabled"
-
-
-class KmsInvalidKeyUsage(SQSError):
-    """The request was rejected for one of the following reasons:
-
-    - The KeyUsage value of the KMS key is incompatible with the API operation.
-    - The encryption algorithm or signing algorithm specified for the operation is
-      incompatible with the type of key material in the KMS key (KeySpec).
-    """
-
-    _ERROR_CODE = "KmsInvalidKeyUsage"
-
-
-class KmsInvalidState(SQSError):
-    """The request was rejected because the state of the specified resource is not valid
-    for this request.
-    """
-
-    _ERROR_CODE = "KmsInvalidState"
-
-
-class KmsNotFound(SQSError):
-    """The request was rejected because the specified entity or resource could not be
-    found.
-    """
-
-    _ERROR_CODE = "KmsNotFound"
-
-
-class KmsOptInRequired(SQSError):
-    """The request was rejected because the specified key policy isn't syntactically or
-    semantically correct.
-    """
-
-    _ERROR_CODE = "KmsOptInRequired"
-
-
-class KmsThrottled(SQSError):
-    """Amazon Web Services KMS throttles requests for the following conditions."""
-    _ERROR_CODE = "KmsThrottled"
-
-
 class MessageNotInflight(SQSError):
     """The specified message isn't in flight."""
-    _ERROR_CODE = "MessageNotInflight"
+    _ERROR_CODE = "AWS.SimpleQueueService.MessageNotInflight"
 
 
 class OverLimit(SQSError):
@@ -127,7 +62,7 @@ class PurgeQueueInProgress(SQSError):
     the last 60 seconds (the time it can take to delete the messages in the queue).
     """
 
-    _ERROR_CODE = "PurgeQueueInProgress"
+    _ERROR_CODE = "AWS.SimpleQueueService.PurgeQueueInProgress"
 
 
 class QueueDeletedRecently(SQSError):
@@ -135,12 +70,12 @@ class QueueDeletedRecently(SQSError):
     with the same name.
     """
 
-    _ERROR_CODE = "QueueDeletedRecently"
+    _ERROR_CODE = "AWS.SimpleQueueService.QueueDeletedRecently"
 
 
 class QueueDoesNotExist(SQSError):
-    """Ensure that the `QueueUrl` is correct and that the queue has not been deleted."""
-    _ERROR_CODE = "QueueDoesNotExist"
+    """The specified queue doesn't exist."""
+    _ERROR_CODE = "AWS.SimpleQueueService.NonExistentQueue"
 
 
 class QueueNameExists(SQSError):
@@ -148,24 +83,12 @@ class QueueNameExists(SQSError):
     request includes attributes whose values differ from those of the existing queue.
     """
 
-    _ERROR_CODE = "QueueNameExists"
+    _ERROR_CODE = "QueueAlreadyExists"
 
 
 class ReceiptHandleIsInvalid(SQSError):
     """The specified receipt handle isn't valid."""
     _ERROR_CODE = "ReceiptHandleIsInvalid"
-
-
-class RequestThrottled(SQSError):
-    """The request was denied due to request throttling.
-
-    - Exceeds the permitted request rate for the queue or for the recipient of the
-      request.
-    - Ensure that the request rate is within the Amazon SQS limits for sending messages.
-      For more information, see Amazon SQS quotas in the Amazon SQS Developer Guide.
-    """
-
-    _ERROR_CODE = "RequestThrottled"
 
 
 class ResourceNotFoundException(SQSError):
@@ -174,46 +97,31 @@ class ResourceNotFoundException(SQSError):
 
 
 class TooManyEntriesInBatchRequest(SQSError):
-    """The batch request contains more entries than permissible. For Amazon SQS, the
-    maximum number of entries you can include in a single SendMessageBatch,
-    DeleteMessageBatch, or ChangeMessageVisibilityBatch request is 10.
-    """
-
-    _ERROR_CODE = "TooManyEntriesInBatchRequest"
+    """The batch request contains more entries than permissible."""
+    _ERROR_CODE = "AWS.SimpleQueueService.TooManyEntriesInBatchRequest"
 
 
 class UnsupportedOperation(SQSError):
     """Error code 400. Unsupported operation."""
-    _ERROR_CODE = "UnsupportedOperation"
+    _ERROR_CODE = "AWS.SimpleQueueService.UnsupportedOperation"
 
 
 EXCEPTIONS: dict[str, type[SQSError]] = {
-    "BatchEntryIdsNotDistinct": BatchEntryIdsNotDistinct,
-    "BatchRequestTooLong": BatchRequestTooLong,
-    "EmptyBatchRequest": EmptyBatchRequest,
-    "InvalidAddress": InvalidAddress,
+    "AWS.SimpleQueueService.BatchEntryIdsNotDistinct": BatchEntryIdsNotDistinct,
+    "AWS.SimpleQueueService.BatchRequestTooLong": BatchRequestTooLong,
+    "AWS.SimpleQueueService.EmptyBatchRequest": EmptyBatchRequest,
     "InvalidAttributeName": InvalidAttributeName,
-    "InvalidAttributeValue": InvalidAttributeValue,
-    "InvalidBatchEntryId": InvalidBatchEntryId,
+    "AWS.SimpleQueueService.InvalidBatchEntryId": InvalidBatchEntryId,
     "InvalidIdFormat": InvalidIdFormat,
     "InvalidMessageContents": InvalidMessageContents,
-    "InvalidSecurity": InvalidSecurity,
-    "KmsAccessDenied": KmsAccessDenied,
-    "KmsDisabled": KmsDisabled,
-    "KmsInvalidKeyUsage": KmsInvalidKeyUsage,
-    "KmsInvalidState": KmsInvalidState,
-    "KmsNotFound": KmsNotFound,
-    "KmsOptInRequired": KmsOptInRequired,
-    "KmsThrottled": KmsThrottled,
-    "MessageNotInflight": MessageNotInflight,
+    "AWS.SimpleQueueService.MessageNotInflight": MessageNotInflight,
     "OverLimit": OverLimit,
-    "PurgeQueueInProgress": PurgeQueueInProgress,
-    "QueueDeletedRecently": QueueDeletedRecently,
-    "QueueDoesNotExist": QueueDoesNotExist,
-    "QueueNameExists": QueueNameExists,
+    "AWS.SimpleQueueService.PurgeQueueInProgress": PurgeQueueInProgress,
+    "AWS.SimpleQueueService.QueueDeletedRecently": QueueDeletedRecently,
+    "AWS.SimpleQueueService.NonExistentQueue": QueueDoesNotExist,
+    "QueueAlreadyExists": QueueNameExists,
     "ReceiptHandleIsInvalid": ReceiptHandleIsInvalid,
-    "RequestThrottled": RequestThrottled,
     "ResourceNotFoundException": ResourceNotFoundException,
-    "TooManyEntriesInBatchRequest": TooManyEntriesInBatchRequest,
-    "UnsupportedOperation": UnsupportedOperation,
+    "AWS.SimpleQueueService.TooManyEntriesInBatchRequest": TooManyEntriesInBatchRequest,
+    "AWS.SimpleQueueService.UnsupportedOperation": UnsupportedOperation,
 }

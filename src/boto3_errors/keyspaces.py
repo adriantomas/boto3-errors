@@ -31,16 +31,16 @@ class InternalServerException(KeyspacesError):
 
 
 class ResourceNotFoundException(KeyspacesError):
-    """The operation tried to access a keyspace, table, or type that doesn't exist. The
-    resource might not be specified correctly, or its status might not be `ACTIVE`.
+    """The operation tried to access a keyspace or table that doesn't exist. The resource
+    might not be specified correctly, or its status might not be `ACTIVE`.
     """
 
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
     def resource_arn(self) -> str | None:
-        """The unique identifier in the format of Amazon Resource Name (ARN) for the
-        resource couldn't be found.
+        """The unique identifier in the format of Amazon Resource Name (ARN), for the
+        resource not found.
         """
         return self.response.get("resourceArn")
 

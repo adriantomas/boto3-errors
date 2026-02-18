@@ -16,12 +16,12 @@ class InsufficientCapacityException(GlacierError):
     _ERROR_CODE = "InsufficientCapacityException"
 
     @property
-    def type(self) -> str | None:
-        return self.response.get("type")
-
-    @property
     def code(self) -> str | None:
         return self.response.get("code")
+
+    @property
+    def type(self) -> str | None:
+        return self.response.get("type")
 
 
 class InvalidParameterValueException(GlacierError):
@@ -29,14 +29,14 @@ class InvalidParameterValueException(GlacierError):
     _ERROR_CODE = "InvalidParameterValueException"
 
     @property
-    def type(self) -> str | None:
-        """Client"""
-        return self.response.get("type")
-
-    @property
     def code(self) -> str | None:
         """400 Bad Request"""
         return self.response.get("code")
+
+    @property
+    def type(self) -> str | None:
+        """Client"""
+        return self.response.get("type")
 
 
 class LimitExceededException(GlacierError):
@@ -44,14 +44,14 @@ class LimitExceededException(GlacierError):
     _ERROR_CODE = "LimitExceededException"
 
     @property
-    def type(self) -> str | None:
-        """Client"""
-        return self.response.get("type")
-
-    @property
     def code(self) -> str | None:
         """400 Bad Request"""
         return self.response.get("code")
+
+    @property
+    def type(self) -> str | None:
+        """Client"""
+        return self.response.get("type")
 
 
 class MissingParameterValueException(GlacierError):
@@ -59,33 +59,14 @@ class MissingParameterValueException(GlacierError):
     _ERROR_CODE = "MissingParameterValueException"
 
     @property
+    def code(self) -> str | None:
+        """400 Bad Request"""
+        return self.response.get("code")
+
+    @property
     def type(self) -> str | None:
         """Client."""
         return self.response.get("type")
-
-    @property
-    def code(self) -> str | None:
-        """400 Bad Request"""
-        return self.response.get("code")
-
-
-class NoLongerSupportedException(GlacierError):
-    """Returned if the request was made by a customer with no Amazon Glacier storage. The
-    request is denied as the API is no longer supported for new customers. Please use
-    Amazon S3 Glacier storage classes instead.
-    """
-
-    _ERROR_CODE = "NoLongerSupportedException"
-
-    @property
-    def type(self) -> str | None:
-        """Client"""
-        return self.response.get("type")
-
-    @property
-    def code(self) -> str | None:
-        """400 Bad Request"""
-        return self.response.get("code")
 
 
 class PolicyEnforcedException(GlacierError):
@@ -96,32 +77,32 @@ class PolicyEnforcedException(GlacierError):
     _ERROR_CODE = "PolicyEnforcedException"
 
     @property
-    def type(self) -> str | None:
-        """Client"""
-        return self.response.get("type")
-
-    @property
     def code(self) -> str | None:
         """PolicyEnforcedException"""
         return self.response.get("code")
 
+    @property
+    def type(self) -> str | None:
+        """Client"""
+        return self.response.get("type")
+
 
 class RequestTimeoutException(GlacierError):
-    """Returned if, when uploading an archive, Amazon Glacier times out while receiving the
-    upload.
+    """Returned if, when uploading an archive, Amazon S3 Glacier times out while receiving
+    the upload.
     """
 
     _ERROR_CODE = "RequestTimeoutException"
 
     @property
-    def type(self) -> str | None:
-        """Client"""
-        return self.response.get("type")
-
-    @property
     def code(self) -> str | None:
         """408 Request Timeout"""
         return self.response.get("code")
+
+    @property
+    def type(self) -> str | None:
+        """Client"""
+        return self.response.get("type")
 
 
 class ResourceNotFoundException(GlacierError):
@@ -132,14 +113,14 @@ class ResourceNotFoundException(GlacierError):
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
-    def type(self) -> str | None:
-        """Client"""
-        return self.response.get("type")
-
-    @property
     def code(self) -> str | None:
         """404 Not Found"""
         return self.response.get("code")
+
+    @property
+    def type(self) -> str | None:
+        """Client"""
+        return self.response.get("type")
 
 
 class ServiceUnavailableException(GlacierError):
@@ -147,14 +128,14 @@ class ServiceUnavailableException(GlacierError):
     _ERROR_CODE = "ServiceUnavailableException"
 
     @property
-    def type(self) -> str | None:
-        """Server"""
-        return self.response.get("type")
-
-    @property
     def code(self) -> str | None:
         """500 Internal Server Error"""
         return self.response.get("code")
+
+    @property
+    def type(self) -> str | None:
+        """Server"""
+        return self.response.get("type")
 
 
 EXCEPTIONS: dict[str, type[GlacierError]] = {
@@ -162,7 +143,6 @@ EXCEPTIONS: dict[str, type[GlacierError]] = {
     "InvalidParameterValueException": InvalidParameterValueException,
     "LimitExceededException": LimitExceededException,
     "MissingParameterValueException": MissingParameterValueException,
-    "NoLongerSupportedException": NoLongerSupportedException,
     "PolicyEnforcedException": PolicyEnforcedException,
     "RequestTimeoutException": RequestTimeoutException,
     "ResourceNotFoundException": ResourceNotFoundException,

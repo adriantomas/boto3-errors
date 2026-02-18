@@ -9,12 +9,7 @@ class Inspector2Error(Boto3Error):
 
 
 class AccessDeniedException(Inspector2Error):
-    """You do not have sufficient access to perform this action.
-
-     For `Enable`, you receive this error if you attempt to use a feature in an
-    unsupported Amazon Web Services Region.
-    """
-
+    """You do not have sufficient access to perform this action."""
     _ERROR_CODE = "AccessDeniedException"
 
 
@@ -24,10 +19,7 @@ class BadRequestException(Inspector2Error):
 
 
 class ConflictException(Inspector2Error):
-    """A conflict occurred. This exception occurs when the same resource is being modified
-    by concurrent requests.
-    """
-
+    """A conflict occurred."""
     _ERROR_CODE = "ConflictException"
 
     @property
@@ -91,14 +83,14 @@ class ValidationException(Inspector2Error):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the validation failure."""
-        return self.response.get("reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         """The fields that failed validation."""
         return self.response.get("fields")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the validation failure."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[Inspector2Error]] = {

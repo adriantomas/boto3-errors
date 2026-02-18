@@ -8,11 +8,6 @@ class CodePipelineError(Boto3Error):
     _SERVICE = "codepipeline"
 
 
-class ActionExecutionNotFoundException(CodePipelineError):
-    """The action execution was not found."""
-    _ERROR_CODE = "ActionExecutionNotFoundException"
-
-
 class ActionNotFoundException(CodePipelineError):
     """The specified action cannot be found."""
     _ERROR_CODE = "ActionNotFoundException"
@@ -41,11 +36,6 @@ class ConcurrentModificationException(CodePipelineError):
 class ConcurrentPipelineExecutionsLimitExceededException(CodePipelineError):
     """The pipeline has reached the limit for concurrent pipeline executions."""
     _ERROR_CODE = "ConcurrentPipelineExecutionsLimitExceededException"
-
-
-class ConditionNotOverridableException(CodePipelineError):
-    """Unable to override because the condition does not allow overrides."""
-    _ERROR_CODE = "ConditionNotOverridableException"
 
 
 class ConflictException(CodePipelineError):
@@ -182,14 +172,6 @@ class PipelineExecutionNotStoppableException(CodePipelineError):
     _ERROR_CODE = "PipelineExecutionNotStoppableException"
 
 
-class PipelineExecutionOutdatedException(CodePipelineError):
-    """The specified pipeline execution is outdated and cannot be used as a target pipeline
-    execution for rollback.
-    """
-
-    _ERROR_CODE = "PipelineExecutionOutdatedException"
-
-
 class PipelineNameInUseException(CodePipelineError):
     """The specified pipeline name is already in use."""
     _ERROR_CODE = "PipelineNameInUseException"
@@ -233,15 +215,6 @@ class TooManyTagsException(CodePipelineError):
     _ERROR_CODE = "TooManyTagsException"
 
 
-class UnableToRollbackStageException(CodePipelineError):
-    """Unable to roll back the stage. The cause might be if the pipeline version has
-    changed since the target pipeline execution was deployed, the stage is currently
-    running, or an incorrect target pipeline execution ID was provided.
-    """
-
-    _ERROR_CODE = "UnableToRollbackStageException"
-
-
 class ValidationException(CodePipelineError):
     """The validation was specified in an invalid format."""
     _ERROR_CODE = "ValidationException"
@@ -253,14 +226,12 @@ class WebhookNotFoundException(CodePipelineError):
 
 
 EXCEPTIONS: dict[str, type[CodePipelineError]] = {
-    "ActionExecutionNotFoundException": ActionExecutionNotFoundException,
     "ActionNotFoundException": ActionNotFoundException,
     "ActionTypeAlreadyExistsException": ActionTypeAlreadyExistsException,
     "ActionTypeNotFoundException": ActionTypeNotFoundException,
     "ApprovalAlreadyCompletedException": ApprovalAlreadyCompletedException,
     "ConcurrentModificationException": ConcurrentModificationException,
     "ConcurrentPipelineExecutionsLimitExceededException": ConcurrentPipelineExecutionsLimitExceededException,
-    "ConditionNotOverridableException": ConditionNotOverridableException,
     "ConflictException": ConflictException,
     "DuplicatedStopRequestException": DuplicatedStopRequestException,
     "InvalidActionDeclarationException": InvalidActionDeclarationException,
@@ -283,7 +254,6 @@ EXCEPTIONS: dict[str, type[CodePipelineError]] = {
     "OutputVariablesSizeExceededException": OutputVariablesSizeExceededException,
     "PipelineExecutionNotFoundException": PipelineExecutionNotFoundException,
     "PipelineExecutionNotStoppableException": PipelineExecutionNotStoppableException,
-    "PipelineExecutionOutdatedException": PipelineExecutionOutdatedException,
     "PipelineNameInUseException": PipelineNameInUseException,
     "PipelineNotFoundException": PipelineNotFoundException,
     "PipelineVersionNotFoundException": PipelineVersionNotFoundException,
@@ -292,7 +262,6 @@ EXCEPTIONS: dict[str, type[CodePipelineError]] = {
     "StageNotFoundException": StageNotFoundException,
     "StageNotRetryableException": StageNotRetryableException,
     "TooManyTagsException": TooManyTagsException,
-    "UnableToRollbackStageException": UnableToRollbackStageException,
     "ValidationException": ValidationException,
     "WebhookNotFoundException": WebhookNotFoundException,
 }

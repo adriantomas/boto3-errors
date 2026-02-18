@@ -41,11 +41,6 @@ class NotFoundException(PricingError):
     _ERROR_CODE = "NotFoundException"
 
 
-class ResourceNotFoundException(PricingError):
-    """The requested resource can't be found."""
-    _ERROR_CODE = "ResourceNotFoundException"
-
-
 class ThrottlingException(PricingError):
     """You've made too many requests exceeding service quotas."""
     _ERROR_CODE = "ThrottlingException"
@@ -58,6 +53,5 @@ EXCEPTIONS: dict[str, type[PricingError]] = {
     "InvalidNextTokenException": InvalidNextTokenException,
     "InvalidParameterException": InvalidParameterException,
     "NotFoundException": NotFoundException,
-    "ResourceNotFoundException": ResourceNotFoundException,
     "ThrottlingException": ThrottlingException,
 }

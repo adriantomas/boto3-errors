@@ -44,14 +44,14 @@ class ValidationException(CostOptimizationHubError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the validation exception."""
-        return self.response.get("reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         """The list of fields that are invalid."""
         return self.response.get("fields")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the validation exception."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[CostOptimizationHubError]] = {

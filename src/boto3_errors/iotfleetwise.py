@@ -39,16 +39,16 @@ class DecoderManifestValidationException(IoTFleetWiseError):
     _ERROR_CODE = "DecoderManifestValidationException"
 
     @property
-    def invalid_signals(self) -> list[Any] | None:
-        """The request couldn't be completed because of invalid signals in the request."""
-        return self.response.get("invalidSignals")
-
-    @property
     def invalid_network_interfaces(self) -> list[Any] | None:
         """The request couldn't be completed because of invalid network interfaces in the
         request.
         """
         return self.response.get("invalidNetworkInterfaces")
+
+    @property
+    def invalid_signals(self) -> list[Any] | None:
+        """The request couldn't be completed because of invalid signals in the request."""
+        return self.response.get("invalidSignals")
 
 
 class InternalServerException(IoTFleetWiseError):
@@ -129,14 +129,14 @@ class ThrottlingException(IoTFleetWiseError):
         return self.response.get("quotaCode")
 
     @property
-    def service_code(self) -> str | None:
-        """The code for the service that couldn't be completed due to throttling."""
-        return self.response.get("serviceCode")
-
-    @property
     def retry_after_seconds(self) -> int | None:
         """The number of seconds to wait before retrying the command."""
         return self.response.get("retryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """The code for the service that couldn't be completed due to throttling."""
+        return self.response.get("serviceCode")
 
 
 class ValidationException(IoTFleetWiseError):
@@ -147,18 +147,18 @@ class ValidationException(IoTFleetWiseError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason the input failed to satisfy the constraints specified by an Amazon
-        Web Services service.
-        """
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The list of fields that fail to satisfy the constraints specified by an Amazon
         Web Services service.
         """
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason the input failed to satisfy the constraints specified by an Amazon
+        Web Services service.
+        """
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[IoTFleetWiseError]] = {

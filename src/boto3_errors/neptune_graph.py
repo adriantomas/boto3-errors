@@ -38,6 +38,11 @@ class ServiceQuotaExceededException(NeptuneGraphError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """Service quota code of the resource for which quota was exceeded."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The identifier of the resource that exceeded quota."""
         return self.response.get("resourceId")
@@ -51,11 +56,6 @@ class ServiceQuotaExceededException(NeptuneGraphError):
     def service_code(self) -> str | None:
         """The service code that exceeded quota."""
         return self.response.get("serviceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """Service quota code of the resource for which quota was exceeded."""
-        return self.response.get("quotaCode")
 
 
 class ThrottlingException(NeptuneGraphError):

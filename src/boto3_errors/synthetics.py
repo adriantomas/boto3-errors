@@ -8,11 +8,6 @@ class syntheticsError(Boto3Error):
     _SERVICE = "synthetics"
 
 
-class AccessDeniedException(syntheticsError):
-    """You don't have permission to perform this operation on this resource."""
-    _ERROR_CODE = "AccessDeniedException"
-
-
 class BadRequestException(syntheticsError):
     """The request was not valid."""
     _ERROR_CODE = "BadRequestException"
@@ -64,7 +59,6 @@ class ValidationException(syntheticsError):
 
 
 EXCEPTIONS: dict[str, type[syntheticsError]] = {
-    "AccessDeniedException": AccessDeniedException,
     "BadRequestException": BadRequestException,
     "ConflictException": ConflictException,
     "InternalFailureException": InternalFailureException,

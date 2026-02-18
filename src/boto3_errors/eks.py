@@ -35,6 +35,11 @@ class ClientException(EKSError):
     _ERROR_CODE = "ClientException"
 
     @property
+    def addon_name(self) -> str | None:
+        """The Amazon EKS add-on name associated with the exception."""
+        return self.response.get("addonName")
+
+    @property
     def cluster_name(self) -> str | None:
         """The Amazon EKS cluster associated with the exception."""
         return self.response.get("clusterName")
@@ -43,11 +48,6 @@ class ClientException(EKSError):
     def nodegroup_name(self) -> str | None:
         """The Amazon EKS managed node group associated with the exception."""
         return self.response.get("nodegroupName")
-
-    @property
-    def addon_name(self) -> str | None:
-        """The Amazon EKS add-on name associated with the exception."""
-        return self.response.get("addonName")
 
     @property
     def subscription_id(self) -> str | None:
@@ -63,14 +63,16 @@ class InvalidParameterException(EKSError):
     _ERROR_CODE = "InvalidParameterException"
 
     @property
+    def addon_name(self) -> str | None:
+        """The specified parameter for the add-on name is invalid. Review the available
+        parameters for the API request
+        """
+        return self.response.get("addonName")
+
+    @property
     def cluster_name(self) -> str | None:
         """The Amazon EKS cluster associated with the exception."""
         return self.response.get("clusterName")
-
-    @property
-    def nodegroup_name(self) -> str | None:
-        """The Amazon EKS managed node group associated with the exception."""
-        return self.response.get("nodegroupName")
 
     @property
     def fargate_profile_name(self) -> str | None:
@@ -78,11 +80,9 @@ class InvalidParameterException(EKSError):
         return self.response.get("fargateProfileName")
 
     @property
-    def addon_name(self) -> str | None:
-        """The specified parameter for the add-on name is invalid. Review the available
-        parameters for the API request
-        """
-        return self.response.get("addonName")
+    def nodegroup_name(self) -> str | None:
+        """The Amazon EKS managed node group associated with the exception."""
+        return self.response.get("nodegroupName")
 
     @property
     def subscription_id(self) -> str | None:
@@ -98,6 +98,13 @@ class InvalidRequestException(EKSError):
     _ERROR_CODE = "InvalidRequestException"
 
     @property
+    def addon_name(self) -> str | None:
+        """The request is invalid given the state of the add-on name. Check the state of
+        the cluster and the associated operations.
+        """
+        return self.response.get("addonName")
+
+    @property
     def cluster_name(self) -> str | None:
         """The Amazon EKS cluster associated with the exception."""
         return self.response.get("clusterName")
@@ -108,30 +115,9 @@ class InvalidRequestException(EKSError):
         return self.response.get("nodegroupName")
 
     @property
-    def addon_name(self) -> str | None:
-        """The request is invalid given the state of the add-on name. Check the state of
-        the cluster and the associated operations.
-        """
-        return self.response.get("addonName")
-
-    @property
     def subscription_id(self) -> str | None:
         """The Amazon EKS subscription ID with the exception."""
         return self.response.get("subscriptionId")
-
-
-class InvalidStateException(EKSError):
-    """Amazon EKS detected upgrade readiness issues. Call the `ListInsights` API to view
-    detected upgrade blocking issues. Pass the `force` flag when updating to override
-    upgrade readiness errors.
-    """
-
-    _ERROR_CODE = "InvalidStateException"
-
-    @property
-    def cluster_name(self) -> str | None:
-        """The Amazon EKS cluster associated with the exception."""
-        return self.response.get("clusterName")
 
 
 class NotFoundException(EKSError):
@@ -147,6 +133,11 @@ class ResourceInUseException(EKSError):
     _ERROR_CODE = "ResourceInUseException"
 
     @property
+    def addon_name(self) -> str | None:
+        """The specified add-on name is in use."""
+        return self.response.get("addonName")
+
+    @property
     def cluster_name(self) -> str | None:
         """The Amazon EKS cluster associated with the exception."""
         return self.response.get("clusterName")
@@ -155,11 +146,6 @@ class ResourceInUseException(EKSError):
     def nodegroup_name(self) -> str | None:
         """The Amazon EKS managed node group associated with the exception."""
         return self.response.get("nodegroupName")
-
-    @property
-    def addon_name(self) -> str | None:
-        """The specified add-on name is in use."""
-        return self.response.get("addonName")
 
 
 class ResourceLimitExceededException(EKSError):
@@ -192,14 +178,14 @@ class ResourceNotFoundException(EKSError):
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
+    def addon_name(self) -> str | None:
+        """The Amazon EKS add-on name associated with the exception."""
+        return self.response.get("addonName")
+
+    @property
     def cluster_name(self) -> str | None:
         """The Amazon EKS cluster associated with the exception."""
         return self.response.get("clusterName")
-
-    @property
-    def nodegroup_name(self) -> str | None:
-        """The Amazon EKS managed node group associated with the exception."""
-        return self.response.get("nodegroupName")
 
     @property
     def fargate_profile_name(self) -> str | None:
@@ -207,9 +193,9 @@ class ResourceNotFoundException(EKSError):
         return self.response.get("fargateProfileName")
 
     @property
-    def addon_name(self) -> str | None:
-        """The Amazon EKS add-on name associated with the exception."""
-        return self.response.get("addonName")
+    def nodegroup_name(self) -> str | None:
+        """The Amazon EKS managed node group associated with the exception."""
+        return self.response.get("nodegroupName")
 
     @property
     def subscription_id(self) -> str | None:
@@ -230,6 +216,11 @@ class ServerException(EKSError):
     _ERROR_CODE = "ServerException"
 
     @property
+    def addon_name(self) -> str | None:
+        """The Amazon EKS add-on name associated with the exception."""
+        return self.response.get("addonName")
+
+    @property
     def cluster_name(self) -> str | None:
         """The Amazon EKS cluster associated with the exception."""
         return self.response.get("clusterName")
@@ -240,11 +231,6 @@ class ServerException(EKSError):
         return self.response.get("nodegroupName")
 
     @property
-    def addon_name(self) -> str | None:
-        """The Amazon EKS add-on name associated with the exception."""
-        return self.response.get("addonName")
-
-    @property
     def subscription_id(self) -> str | None:
         """The Amazon EKS subscription ID with the exception."""
         return self.response.get("subscriptionId")
@@ -253,19 +239,6 @@ class ServerException(EKSError):
 class ServiceUnavailableException(EKSError):
     """The service is unavailable. Back off and retry the operation."""
     _ERROR_CODE = "ServiceUnavailableException"
-
-
-class ThrottlingException(EKSError):
-    """The request or operation couldn't be performed because a service is throttling
-    requests.
-    """
-
-    _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def cluster_name(self) -> str | None:
-        """The Amazon EKS cluster associated with the exception."""
-        return self.response.get("clusterName")
 
 
 class UnsupportedAvailabilityZoneException(EKSError):
@@ -300,7 +273,6 @@ EXCEPTIONS: dict[str, type[EKSError]] = {
     "ClientException": ClientException,
     "InvalidParameterException": InvalidParameterException,
     "InvalidRequestException": InvalidRequestException,
-    "InvalidStateException": InvalidStateException,
     "NotFoundException": NotFoundException,
     "ResourceInUseException": ResourceInUseException,
     "ResourceLimitExceededException": ResourceLimitExceededException,
@@ -308,6 +280,5 @@ EXCEPTIONS: dict[str, type[EKSError]] = {
     "ResourcePropagationDelayException": ResourcePropagationDelayException,
     "ServerException": ServerException,
     "ServiceUnavailableException": ServiceUnavailableException,
-    "ThrottlingException": ThrottlingException,
     "UnsupportedAvailabilityZoneException": UnsupportedAvailabilityZoneException,
 }

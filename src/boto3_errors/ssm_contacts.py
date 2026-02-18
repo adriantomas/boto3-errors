@@ -18,6 +18,13 @@ class ConflictException(SSMContactsError):
     _ERROR_CODE = "ConflictException"
 
     @property
+    def dependent_entities(self) -> list[Any] | None:
+        """List of dependent entities containing information on relation type and
+        resourceArns linked to the resource in use
+        """
+        return self.response.get("DependentEntities")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the resource in use"""
         return self.response.get("ResourceId")
@@ -26,13 +33,6 @@ class ConflictException(SSMContactsError):
     def resource_type(self) -> str | None:
         """Type of the resource in use"""
         return self.response.get("ResourceType")
-
-    @property
-    def dependent_entities(self) -> list[Any] | None:
-        """List of dependent entities containing information on relation type and
-        resourceArns linked to the resource in use
-        """
-        return self.response.get("DependentEntities")
 
 
 class DataEncryptionException(SSMContactsError):
@@ -70,6 +70,11 @@ class ServiceQuotaExceededException(SSMContactsError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """Service Quotas requirement to identify originating service"""
+        return self.response.get("QuotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the resource affected"""
         return self.response.get("ResourceId")
@@ -78,11 +83,6 @@ class ServiceQuotaExceededException(SSMContactsError):
     def resource_type(self) -> str | None:
         """Type of the resource affected"""
         return self.response.get("ResourceType")
-
-    @property
-    def quota_code(self) -> str | None:
-        """Service Quotas requirement to identify originating service"""
-        return self.response.get("QuotaCode")
 
     @property
     def service_code(self) -> str | None:
@@ -100,14 +100,14 @@ class ThrottlingException(SSMContactsError):
         return self.response.get("QuotaCode")
 
     @property
-    def service_code(self) -> str | None:
-        """Service Quotas requirement to identify originating quota"""
-        return self.response.get("ServiceCode")
-
-    @property
     def retry_after_seconds(self) -> int | None:
         """Advice to clients on when the call can be safely retried"""
         return self.response.get("RetryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """Service Quotas requirement to identify originating quota"""
+        return self.response.get("ServiceCode")
 
 
 class ValidationException(SSMContactsError):
@@ -118,14 +118,14 @@ class ValidationException(SSMContactsError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """Reason the request failed validation"""
-        return self.response.get("Reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         """The fields that caused the error"""
         return self.response.get("Fields")
+
+    @property
+    def reason(self) -> str | None:
+        """Reason the request failed validation"""
+        return self.response.get("Reason")
 
 
 EXCEPTIONS: dict[str, type[SSMContactsError]] = {
