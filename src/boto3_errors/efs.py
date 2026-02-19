@@ -16,12 +16,12 @@ class AccessPointAlreadyExists(EFSError):
     _ERROR_CODE = "AccessPointAlreadyExists"
 
     @property
-    def error_code(self) -> str | None:
-        return self.response.get("ErrorCode")
-
-    @property
     def access_point_id(self) -> str | None:
         return self.response.get("AccessPointId")
+
+    @property
+    def error_code(self) -> str | None:
+        return self.response.get("ErrorCode")
 
 
 class AccessPointLimitExceeded(EFSError):

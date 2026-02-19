@@ -23,6 +23,11 @@ class ConflictException(CleanRoomsError):
     _ERROR_CODE = "ConflictException"
 
     @property
+    def reason(self) -> str | None:
+        """A reason code for the exception."""
+        return self.response.get("reason")
+
+    @property
     def resource_id(self) -> str | None:
         """The ID of the conflicting resource."""
         return self.response.get("resourceId")
@@ -31,11 +36,6 @@ class ConflictException(CleanRoomsError):
     def resource_type(self) -> str | None:
         """The type of the conflicting resource."""
         return self.response.get("resourceType")
-
-    @property
-    def reason(self) -> str | None:
-        """A reason code for the exception."""
-        return self.response.get("reason")
 
 
 class InternalServerException(CleanRoomsError):
@@ -83,14 +83,14 @@ class ValidationException(CleanRoomsError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """A reason code for the exception."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """Validation errors for specific input parameters."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """A reason code for the exception."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[CleanRoomsError]] = {

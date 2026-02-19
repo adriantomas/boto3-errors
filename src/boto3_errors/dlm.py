@@ -26,14 +26,14 @@ class InvalidRequestException(DLMError):
         return self.response.get("Code")
 
     @property
-    def required_parameters(self) -> list[Any] | None:
-        """The request omitted one or more required parameters."""
-        return self.response.get("RequiredParameters")
-
-    @property
     def mutually_exclusive_parameters(self) -> list[Any] | None:
         """The request included parameters that cannot be provided together."""
         return self.response.get("MutuallyExclusiveParameters")
+
+    @property
+    def required_parameters(self) -> list[Any] | None:
+        """The request omitted one or more required parameters."""
+        return self.response.get("RequiredParameters")
 
 
 class LimitExceededException(DLMError):
@@ -59,14 +59,14 @@ class ResourceNotFoundException(DLMError):
         return self.response.get("Code")
 
     @property
-    def resource_type(self) -> str | None:
-        """Value is the type of resource that was not found."""
-        return self.response.get("ResourceType")
-
-    @property
     def resource_ids(self) -> list[Any] | None:
         """Value is a list of resource IDs that were not found."""
         return self.response.get("ResourceIds")
+
+    @property
+    def resource_type(self) -> str | None:
+        """Value is the type of resource that was not found."""
+        return self.response.get("ResourceType")
 
 
 EXCEPTIONS: dict[str, type[DLMError]] = {

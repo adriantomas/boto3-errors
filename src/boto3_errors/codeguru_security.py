@@ -92,14 +92,14 @@ class ThrottlingException(CodeGuruSecurityError):
         return self.response.get("errorCode")
 
     @property
-    def service_code(self) -> str | None:
-        """The identifier for the originating service."""
-        return self.response.get("serviceCode")
-
-    @property
     def quota_code(self) -> str | None:
         """The identifier for the originating quota."""
         return self.response.get("quotaCode")
+
+    @property
+    def service_code(self) -> str | None:
+        """The identifier for the originating service."""
+        return self.response.get("serviceCode")
 
 
 class ValidationException(CodeGuruSecurityError):
@@ -112,14 +112,14 @@ class ValidationException(CodeGuruSecurityError):
         return self.response.get("errorCode")
 
     @property
-    def reason(self) -> str | None:
-        """The reason the request failed validation."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The field that caused the error, if applicable."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason the request failed validation."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[CodeGuruSecurityError]] = {

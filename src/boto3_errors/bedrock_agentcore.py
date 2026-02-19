@@ -128,12 +128,12 @@ class ValidationException(BedrockAgentCoreError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[BedrockAgentCoreError]] = {

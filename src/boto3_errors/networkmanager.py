@@ -56,6 +56,11 @@ class ResourceNotFoundException(NetworkManagerError):
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
+    def context(self) -> dict[str, Any] | None:
+        """The specified resource could not be found."""
+        return self.response.get("Context")
+
+    @property
     def resource_id(self) -> str | None:
         """The ID of the resource."""
         return self.response.get("ResourceId")
@@ -64,11 +69,6 @@ class ResourceNotFoundException(NetworkManagerError):
     def resource_type(self) -> str | None:
         """The resource type."""
         return self.response.get("ResourceType")
-
-    @property
-    def context(self) -> dict[str, Any] | None:
-        """The specified resource could not be found."""
-        return self.response.get("Context")
 
 
 class ServiceQuotaExceededException(NetworkManagerError):
@@ -76,6 +76,11 @@ class ServiceQuotaExceededException(NetworkManagerError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def limit_code(self) -> str | None:
+        """The limit code."""
+        return self.response.get("LimitCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The ID of the resource."""
         return self.response.get("ResourceId")
@@ -84,11 +89,6 @@ class ServiceQuotaExceededException(NetworkManagerError):
     def resource_type(self) -> str | None:
         """The resource type."""
         return self.response.get("ResourceType")
-
-    @property
-    def limit_code(self) -> str | None:
-        """The limit code."""
-        return self.response.get("LimitCode")
 
     @property
     def service_code(self) -> str | None:
@@ -111,14 +111,14 @@ class ValidationException(NetworkManagerError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the error."""
-        return self.response.get("Reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         """The fields that caused the error, if applicable."""
         return self.response.get("Fields")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the error."""
+        return self.response.get("Reason")
 
 
 EXCEPTIONS: dict[str, type[NetworkManagerError]] = {

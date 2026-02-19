@@ -53,14 +53,14 @@ class ValidationException(BraketError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for validation failure."""
-        return self.response.get("reason")
-
-    @property
     def program_set_validation_failures(self) -> list[Any] | None:
         """The validation failures in the program set submitted in the request."""
         return self.response.get("programSetValidationFailures")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for validation failure."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[BraketError]] = {

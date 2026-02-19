@@ -82,6 +82,11 @@ class ServiceQuotaExceededException(QAppsError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The code of the quota that was exceeded"""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The unique identifier of the resource"""
         return self.response.get("resourceId")
@@ -96,11 +101,6 @@ class ServiceQuotaExceededException(QAppsError):
         """The code for the service where the quota was exceeded"""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The code of the quota that was exceeded"""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(QAppsError):
     """The requested operation could not be completed because too many requests were sent
@@ -108,11 +108,6 @@ class ThrottlingException(QAppsError):
     """
 
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The code for the service where the quota was exceeded"""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -123,6 +118,11 @@ class ThrottlingException(QAppsError):
     def retry_after_seconds(self) -> int | None:
         """The number of seconds to wait before retrying the operation"""
         return self.response.get("retryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """The code for the service where the quota was exceeded"""
+        return self.response.get("serviceCode")
 
 
 class UnauthorizedException(QAppsError):

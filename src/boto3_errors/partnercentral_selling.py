@@ -91,6 +91,13 @@ class ValidationException(PartnerCentralSellingError):
     _ERROR_CODE = "ValidationException"
 
     @property
+    def error_list(self) -> list[Any] | None:
+        """A list of issues that were discovered in the submitted request or the resource
+        state.
+        """
+        return self.response.get("ErrorList")
+
+    @property
     def reason(self) -> str | None:
         """The primary reason for this validation exception to occur.
 
@@ -102,13 +109,6 @@ class ValidationException(PartnerCentralSellingError):
           defined by AWS Partner Central.
         """
         return self.response.get("Reason")
-
-    @property
-    def error_list(self) -> list[Any] | None:
-        """A list of issues that were discovered in the submitted request or the resource
-        state.
-        """
-        return self.response.get("ErrorList")
 
 
 EXCEPTIONS: dict[str, type[PartnerCentralSellingError]] = {

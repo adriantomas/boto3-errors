@@ -34,9 +34,9 @@ class ModelError(SageMakerRuntimeError):
     _ERROR_CODE = "ModelError"
 
     @property
-    def original_status_code(self) -> int | None:
-        """Original status code."""
-        return self.response.get("OriginalStatusCode")
+    def log_stream_arn(self) -> str | None:
+        """The Amazon Resource Name (ARN) of the log stream."""
+        return self.response.get("LogStreamArn")
 
     @property
     def original_message(self) -> str | None:
@@ -44,9 +44,9 @@ class ModelError(SageMakerRuntimeError):
         return self.response.get("OriginalMessage")
 
     @property
-    def log_stream_arn(self) -> str | None:
-        """The Amazon Resource Name (ARN) of the log stream."""
-        return self.response.get("LogStreamArn")
+    def original_status_code(self) -> int | None:
+        """Original status code."""
+        return self.response.get("OriginalStatusCode")
 
 
 class ModelNotReadyException(SageMakerRuntimeError):

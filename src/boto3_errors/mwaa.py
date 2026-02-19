@@ -34,16 +34,16 @@ class RestApiClientException(MWAAError):
     _ERROR_CODE = "RestApiClientException"
 
     @property
-    def rest_api_status_code(self) -> int | None:
-        """The HTTP status code returned by the Apache Airflow REST API call."""
-        return self.response.get("RestApiStatusCode")
-
-    @property
     def rest_api_response(self) -> dict[str, Any] | None:
         """The error response data from the Apache Airflow REST API call, provided as a
         JSON object.
         """
         return self.response.get("RestApiResponse")
+
+    @property
+    def rest_api_status_code(self) -> int | None:
+        """The HTTP status code returned by the Apache Airflow REST API call."""
+        return self.response.get("RestApiStatusCode")
 
 
 class RestApiServerException(MWAAError):
@@ -54,16 +54,16 @@ class RestApiServerException(MWAAError):
     _ERROR_CODE = "RestApiServerException"
 
     @property
-    def rest_api_status_code(self) -> int | None:
-        """The HTTP status code returned by the Apache Airflow REST API call."""
-        return self.response.get("RestApiStatusCode")
-
-    @property
     def rest_api_response(self) -> dict[str, Any] | None:
         """The error response data from the Apache Airflow REST API call, provided as a
         JSON object.
         """
         return self.response.get("RestApiResponse")
+
+    @property
+    def rest_api_status_code(self) -> int | None:
+        """The HTTP status code returned by the Apache Airflow REST API call."""
+        return self.response.get("RestApiStatusCode")
 
 
 class ValidationException(MWAAError):

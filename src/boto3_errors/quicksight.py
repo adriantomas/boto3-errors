@@ -160,14 +160,14 @@ class LimitExceededException(QuickSightError):
     _ERROR_CODE = "LimitExceededException"
 
     @property
-    def resource_type(self) -> str | None:
-        """Limit exceeded."""
-        return self.response.get("ResourceType")
-
-    @property
     def request_id(self) -> str | None:
         """The Amazon Web Services request ID for this request."""
         return self.response.get("RequestId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """Limit exceeded."""
+        return self.response.get("ResourceType")
 
 
 class PreconditionNotMetException(QuickSightError):
@@ -199,14 +199,14 @@ class ResourceExistsException(QuickSightError):
     _ERROR_CODE = "ResourceExistsException"
 
     @property
-    def resource_type(self) -> str | None:
-        """The resource type for this request."""
-        return self.response.get("ResourceType")
-
-    @property
     def request_id(self) -> str | None:
         """The Amazon Web Services request ID for this request."""
         return self.response.get("RequestId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The resource type for this request."""
+        return self.response.get("ResourceType")
 
 
 class ResourceNotFoundException(QuickSightError):
@@ -214,14 +214,14 @@ class ResourceNotFoundException(QuickSightError):
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
-    def resource_type(self) -> str | None:
-        """The resource type for this request."""
-        return self.response.get("ResourceType")
-
-    @property
     def request_id(self) -> str | None:
         """The Amazon Web Services request ID for this request."""
         return self.response.get("RequestId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The resource type for this request."""
+        return self.response.get("ResourceType")
 
 
 class ResourceUnavailableException(QuickSightError):
@@ -229,14 +229,14 @@ class ResourceUnavailableException(QuickSightError):
     _ERROR_CODE = "ResourceUnavailableException"
 
     @property
-    def resource_type(self) -> str | None:
-        """The resource type for this request."""
-        return self.response.get("ResourceType")
-
-    @property
     def request_id(self) -> str | None:
         """The Amazon Web Services request ID for this request."""
         return self.response.get("RequestId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The resource type for this request."""
+        return self.response.get("ResourceType")
 
 
 class SessionLifetimeInMinutesInvalidException(QuickSightError):

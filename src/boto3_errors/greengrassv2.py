@@ -73,6 +73,11 @@ class ServiceQuotaExceededException(GreengrassV2Error):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The code for the quota in Service Quotas."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The ID of the resource that exceeds the service quota."""
         return self.response.get("resourceId")
@@ -81,11 +86,6 @@ class ServiceQuotaExceededException(GreengrassV2Error):
     def resource_type(self) -> str | None:
         """The type of the resource that exceeds the service quota."""
         return self.response.get("resourceType")
-
-    @property
-    def quota_code(self) -> str | None:
-        """The code for the quota in Service Quotas."""
-        return self.response.get("quotaCode")
 
     @property
     def service_code(self) -> str | None:
@@ -106,14 +106,14 @@ class ThrottlingException(GreengrassV2Error):
         return self.response.get("quotaCode")
 
     @property
-    def service_code(self) -> str | None:
-        """The code for the service in Service Quotas."""
-        return self.response.get("serviceCode")
-
-    @property
     def retry_after_seconds(self) -> int | None:
         """The amount of time to wait before you retry the request."""
         return self.response.get("retryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """The code for the service in Service Quotas."""
+        return self.response.get("serviceCode")
 
 
 class ValidationException(GreengrassV2Error):
@@ -124,14 +124,14 @@ class ValidationException(GreengrassV2Error):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the validation exception."""
-        return self.response.get("reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         """The list of fields that failed to validate."""
         return self.response.get("fields")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the validation exception."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[GreengrassV2Error]] = {

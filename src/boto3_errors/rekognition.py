@@ -26,14 +26,14 @@ class HumanLoopQuotaExceededException(RekognitionError):
     _ERROR_CODE = "HumanLoopQuotaExceededException"
 
     @property
-    def resource_type(self) -> str | None:
-        """The resource type."""
-        return self.response.get("ResourceType")
-
-    @property
     def quota_code(self) -> str | None:
         """The quota code."""
         return self.response.get("QuotaCode")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The resource type."""
+        return self.response.get("ResourceType")
 
     @property
     def service_code(self) -> str | None:

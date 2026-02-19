@@ -170,9 +170,9 @@ class InvalidNetworkSettings(FSxError):
     _ERROR_CODE = "InvalidNetworkSettings"
 
     @property
-    def invalid_subnet_id(self) -> str | None:
-        """The subnet ID that is either invalid or not part of the VPC specified."""
-        return self.response.get("InvalidSubnetId")
+    def invalid_route_table_id(self) -> str | None:
+        """The route table ID is either invalid or not part of the VPC specified."""
+        return self.response.get("InvalidRouteTableId")
 
     @property
     def invalid_security_group_id(self) -> str | None:
@@ -180,9 +180,9 @@ class InvalidNetworkSettings(FSxError):
         return self.response.get("InvalidSecurityGroupId")
 
     @property
-    def invalid_route_table_id(self) -> str | None:
-        """The route table ID is either invalid or not part of the VPC specified."""
-        return self.response.get("InvalidRouteTableId")
+    def invalid_subnet_id(self) -> str | None:
+        """The subnet ID that is either invalid or not part of the VPC specified."""
+        return self.response.get("InvalidSubnetId")
 
 
 class InvalidPerUnitStorageThroughput(FSxError):

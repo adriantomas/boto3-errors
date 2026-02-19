@@ -75,16 +75,16 @@ class ThrottlingException(DevOpsGuruError):
         return self.response.get("QuotaCode")
 
     @property
-    def service_code(self) -> str | None:
-        """The code of the service that caused the throttling exception."""
-        return self.response.get("ServiceCode")
-
-    @property
     def retry_after_seconds(self) -> int | None:
         """The number of seconds after which the action that caused the throttling
         exception can be retried.
         """
         return self.response.get("RetryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """The code of the service that caused the throttling exception."""
+        return self.response.get("ServiceCode")
 
 
 class ValidationException(DevOpsGuruError):
@@ -95,13 +95,13 @@ class ValidationException(DevOpsGuruError):
     _ERROR_CODE = "ValidationException"
 
     @property
+    def fields(self) -> list[Any] | None:
+        return self.response.get("Fields")
+
+    @property
     def reason(self) -> str | None:
         """The reason the validation exception was thrown."""
         return self.response.get("Reason")
-
-    @property
-    def fields(self) -> list[Any] | None:
-        return self.response.get("Fields")
 
 
 EXCEPTIONS: dict[str, type[DevOpsGuruError]] = {

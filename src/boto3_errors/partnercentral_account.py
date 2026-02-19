@@ -77,14 +77,14 @@ class ThrottlingException(PartnerCentralAccountError):
     _ERROR_CODE = "ThrottlingException"
 
     @property
-    def service_code(self) -> str | None:
-        """The service code associated with the throttling error."""
-        return self.response.get("ServiceCode")
-
-    @property
     def quota_code(self) -> str | None:
         """The quota code associated with the throttling error."""
         return self.response.get("QuotaCode")
+
+    @property
+    def service_code(self) -> str | None:
+        """The service code associated with the throttling error."""
+        return self.response.get("ServiceCode")
 
 
 class ValidationException(PartnerCentralAccountError):
@@ -95,14 +95,14 @@ class ValidationException(PartnerCentralAccountError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the validation failure."""
-        return self.response.get("Reason")
-
-    @property
     def error_details(self) -> list[Any] | None:
         """A list of detailed validation errors that occurred during request processing."""
         return self.response.get("ErrorDetails")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the validation failure."""
+        return self.response.get("Reason")
 
 
 EXCEPTIONS: dict[str, type[PartnerCentralAccountError]] = {

@@ -39,12 +39,12 @@ class InvalidRequestException(ComprehendError):
     _ERROR_CODE = "InvalidRequestException"
 
     @property
-    def reason(self) -> str | None:
-        return self.response.get("Reason")
-
-    @property
     def detail(self) -> dict[str, Any] | None:
         return self.response.get("Detail")
+
+    @property
+    def reason(self) -> str | None:
+        return self.response.get("Reason")
 
 
 class JobNotFoundException(ComprehendError):

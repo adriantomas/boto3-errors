@@ -58,6 +58,11 @@ class InvalidLayerPartException(ECRPUBLICError):
     _ERROR_CODE = "InvalidLayerPartException"
 
     @property
+    def last_valid_byte_received(self) -> int | None:
+        """The position of the last byte of the layer part."""
+        return self.response.get("lastValidByteReceived")
+
+    @property
     def registry_id(self) -> str | None:
         """The Amazon Web Services account ID that's associated with the layer part."""
         return self.response.get("registryId")
@@ -71,11 +76,6 @@ class InvalidLayerPartException(ECRPUBLICError):
     def upload_id(self) -> str | None:
         """The upload ID that's associated with the layer part."""
         return self.response.get("uploadId")
-
-    @property
-    def last_valid_byte_received(self) -> int | None:
-        """The position of the last byte of the layer part."""
-        return self.response.get("lastValidByteReceived")
 
 
 class InvalidParameterException(ECRPUBLICError):

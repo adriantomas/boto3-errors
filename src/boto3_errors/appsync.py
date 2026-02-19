@@ -39,12 +39,12 @@ class BadRequestException(AppSyncError):
     _ERROR_CODE = "BadRequestException"
 
     @property
-    def reason(self) -> str | None:
-        return self.response.get("reason")
-
-    @property
     def detail(self) -> dict[str, Any] | None:
         return self.response.get("detail")
+
+    @property
+    def reason(self) -> str | None:
+        return self.response.get("reason")
 
 
 class ConcurrentModificationException(AppSyncError):

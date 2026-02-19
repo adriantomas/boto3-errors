@@ -77,6 +77,11 @@ class ServiceQuotaExceededException(MWAAServerlessError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The code of the quota."""
+        return self.response.get("QuotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The unique identifier of the resource."""
         return self.response.get("ResourceId")
@@ -90,11 +95,6 @@ class ServiceQuotaExceededException(MWAAServerlessError):
     def service_code(self) -> str | None:
         """The code for the service."""
         return self.response.get("ServiceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """The code of the quota."""
-        return self.response.get("QuotaCode")
 
 
 class ThrottlingException(MWAAServerlessError):
@@ -110,11 +110,6 @@ class ThrottlingException(MWAAServerlessError):
     _ERROR_CODE = "ThrottlingException"
 
     @property
-    def service_code(self) -> str | None:
-        """The code for the service."""
-        return self.response.get("ServiceCode")
-
-    @property
     def quota_code(self) -> str | None:
         """The code of the quota."""
         return self.response.get("QuotaCode")
@@ -123,6 +118,11 @@ class ThrottlingException(MWAAServerlessError):
     def retry_after_seconds(self) -> int | None:
         """The number of seconds to wait before retrying the operation."""
         return self.response.get("RetryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """The code for the service."""
+        return self.response.get("ServiceCode")
 
 
 class ValidationException(MWAAServerlessError):
@@ -138,14 +138,14 @@ class ValidationException(MWAAServerlessError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason the request failed validation."""
-        return self.response.get("Reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The fields that failed validation."""
         return self.response.get("FieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason the request failed validation."""
+        return self.response.get("Reason")
 
 
 EXCEPTIONS: dict[str, type[MWAAServerlessError]] = {

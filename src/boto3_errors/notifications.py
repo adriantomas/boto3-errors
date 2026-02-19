@@ -43,9 +43,9 @@ class ServiceQuotaExceededException(NotificationsError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
-    def resource_type(self) -> str | None:
-        """The type of the resource that exceeds the service quota."""
-        return self.response.get("resourceType")
+    def quota_code(self) -> str | None:
+        """The code for the service quota in Service Quotas."""
+        return self.response.get("quotaCode")
 
     @property
     def resource_id(self) -> str | None:
@@ -53,24 +53,19 @@ class ServiceQuotaExceededException(NotificationsError):
         return self.response.get("resourceId")
 
     @property
+    def resource_type(self) -> str | None:
+        """The type of the resource that exceeds the service quota."""
+        return self.response.get("resourceType")
+
+    @property
     def service_code(self) -> str | None:
         """The code for the service quota exceeded in Service Quotas."""
         return self.response.get("serviceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """The code for the service quota in Service Quotas."""
-        return self.response.get("quotaCode")
 
 
 class ThrottlingException(NotificationsError):
     """Request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """Identifies the service being throttled."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -82,20 +77,25 @@ class ThrottlingException(NotificationsError):
         """The number of seconds a client should wait before retrying the request."""
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """Identifies the service being throttled."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(NotificationsError):
     """This exception is thrown when the notification event fails validation."""
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason why your input is considered invalid."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The list of input fields that are invalid."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason why your input is considered invalid."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[NotificationsError]] = {

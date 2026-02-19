@@ -92,6 +92,11 @@ class ServiceQuotaExceededException(ObservabilityAdminError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The code for the exceeded service quota."""
+        return self.response.get("QuotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The identifier of the resource which exceeds the service quota."""
         return self.response.get("ResourceId")
@@ -105,11 +110,6 @@ class ServiceQuotaExceededException(ObservabilityAdminError):
     def service_code(self) -> str | None:
         """The code for the service of the exceeded quota."""
         return self.response.get("ServiceCode")
-
-    @property
-    def quota_code(self) -> str | None:
-        """The code for the exceeded service quota."""
-        return self.response.get("QuotaCode")
 
     @property
     def amzn_error_type(self) -> str | None:

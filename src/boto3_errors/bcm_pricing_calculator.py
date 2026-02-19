@@ -71,6 +71,11 @@ class ServiceQuotaExceededException(BCMPricingCalculatorError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The quota code that was exceeded."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The identifier of the resource that exceeded quota."""
         return self.response.get("resourceId")
@@ -85,20 +90,10 @@ class ServiceQuotaExceededException(BCMPricingCalculatorError):
         """The service code that exceeded quota."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The quota code that was exceeded."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(BCMPricingCalculatorError):
     """The request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The service code that exceeded the throttling limit."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -112,6 +107,11 @@ class ThrottlingException(BCMPricingCalculatorError):
         """
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """The service code that exceeded the throttling limit."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(BCMPricingCalculatorError):
     """The input provided fails to satisfy the constraints specified by an Amazon Web
@@ -121,14 +121,14 @@ class ValidationException(BCMPricingCalculatorError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the validation exception."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The list of fields that are invalid."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the validation exception."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[BCMPricingCalculatorError]] = {

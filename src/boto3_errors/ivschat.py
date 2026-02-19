@@ -48,22 +48,26 @@ class ServiceQuotaExceededException(ivschatError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def limit(self) -> int | None:
+        return self.response.get("limit")
+
+    @property
     def resource_id(self) -> str | None:
         return self.response.get("resourceId")
 
     @property
     def resource_type(self) -> str | None:
         return self.response.get("resourceType")
-
-    @property
-    def limit(self) -> int | None:
-        return self.response.get("limit")
 
 
 class ThrottlingException(ivschatError):
     _ERROR_CODE = "ThrottlingException"
 
     @property
+    def limit(self) -> int | None:
+        return self.response.get("limit")
+
+    @property
     def resource_id(self) -> str | None:
         return self.response.get("resourceId")
 
@@ -71,21 +75,17 @@ class ThrottlingException(ivschatError):
     def resource_type(self) -> str | None:
         return self.response.get("resourceType")
 
-    @property
-    def limit(self) -> int | None:
-        return self.response.get("limit")
-
 
 class ValidationException(ivschatError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[ivschatError]] = {

@@ -58,6 +58,11 @@ class ServiceQuotaExceededException(WorkSpacesWebError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The originating quota."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """Identifier of the resource affected."""
         return self.response.get("resourceId")
@@ -72,20 +77,10 @@ class ServiceQuotaExceededException(WorkSpacesWebError):
         """The originating service."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The originating quota."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(WorkSpacesWebError):
     """There is a throttling error."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The originating service."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -96,6 +91,11 @@ class ThrottlingException(WorkSpacesWebError):
     def retry_after_seconds(self) -> int | None:
         """Advice to clients on when the call can be safely retried."""
         return self.response.get("retryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """The originating service."""
+        return self.response.get("serviceCode")
 
 
 class TooManyTagsException(WorkSpacesWebError):
@@ -113,14 +113,14 @@ class ValidationException(WorkSpacesWebError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """Reason the request failed validation"""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The field that caused the error."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """Reason the request failed validation"""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[WorkSpacesWebError]] = {

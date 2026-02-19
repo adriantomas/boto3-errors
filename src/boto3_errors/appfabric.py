@@ -61,6 +61,11 @@ class ServiceQuotaExceededException(AppFabricError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The code for the quota exceeded."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The resource ID."""
         return self.response.get("resourceId")
@@ -75,20 +80,10 @@ class ServiceQuotaExceededException(AppFabricError):
         """The code of the service."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The code for the quota exceeded."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(AppFabricError):
     """The request rate exceeds the limit."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The code of the service."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -100,20 +95,25 @@ class ThrottlingException(AppFabricError):
         """The period of time after which you should retry your request."""
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """The code of the service."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(AppFabricError):
     """The request has invalid or missing parameters."""
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason for the exception."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The field list."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason for the exception."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[AppFabricError]] = {

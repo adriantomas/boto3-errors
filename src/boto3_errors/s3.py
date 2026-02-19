@@ -75,12 +75,12 @@ class InvalidObjectState(S3Error):
     _ERROR_CODE = "InvalidObjectState"
 
     @property
-    def storage_class(self) -> str | None:
-        return self.response.get("StorageClass")
-
-    @property
     def access_tier(self) -> str | None:
         return self.response.get("AccessTier")
+
+    @property
+    def storage_class(self) -> str | None:
+        return self.response.get("StorageClass")
 
 
 class InvalidRequest(S3Error):

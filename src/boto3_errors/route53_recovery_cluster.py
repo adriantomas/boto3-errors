@@ -65,6 +65,11 @@ class ServiceLimitExceededException(Route53RecoveryClusterError):
     _ERROR_CODE = "ServiceLimitExceededException"
 
     @property
+    def limit_code(self) -> str | None:
+        """The code of the limit that was exceeded."""
+        return self.response.get("limitCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The resource identifier of the limit that was exceeded."""
         return self.response.get("resourceId")
@@ -73,11 +78,6 @@ class ServiceLimitExceededException(Route53RecoveryClusterError):
     def resource_type(self) -> str | None:
         """The resource type of the limit that was exceeded."""
         return self.response.get("resourceType")
-
-    @property
-    def limit_code(self) -> str | None:
-        """The code of the limit that was exceeded."""
-        return self.response.get("limitCode")
 
     @property
     def service_code(self) -> str | None:
@@ -99,12 +99,12 @@ class ValidationException(Route53RecoveryClusterError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        return self.response.get("reason")
-
-    @property
     def fields(self) -> list[Any] | None:
         return self.response.get("fields")
+
+    @property
+    def reason(self) -> str | None:
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[Route53RecoveryClusterError]] = {

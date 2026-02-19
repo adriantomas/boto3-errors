@@ -61,6 +61,11 @@ class ServiceQuotaExceededException(VPCLatticeError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
+    def quota_code(self) -> str | None:
+        """The ID of the service quota that was exceeded."""
+        return self.response.get("quotaCode")
+
+    @property
     def resource_id(self) -> str | None:
         """The resource ID."""
         return self.response.get("resourceId")
@@ -75,20 +80,10 @@ class ServiceQuotaExceededException(VPCLatticeError):
         """The service code."""
         return self.response.get("serviceCode")
 
-    @property
-    def quota_code(self) -> str | None:
-        """The ID of the service quota that was exceeded."""
-        return self.response.get("quotaCode")
-
 
 class ThrottlingException(VPCLatticeError):
     """The limit on the number of requests per second was exceeded."""
     _ERROR_CODE = "ThrottlingException"
-
-    @property
-    def service_code(self) -> str | None:
-        """The service code."""
-        return self.response.get("serviceCode")
 
     @property
     def quota_code(self) -> str | None:
@@ -100,6 +95,11 @@ class ThrottlingException(VPCLatticeError):
         """The number of seconds to wait before retrying."""
         return self.response.get("retryAfterSeconds")
 
+    @property
+    def service_code(self) -> str | None:
+        """The service code."""
+        return self.response.get("serviceCode")
+
 
 class ValidationException(VPCLatticeError):
     """The input does not satisfy the constraints specified by an Amazon Web Services
@@ -109,14 +109,14 @@ class ValidationException(VPCLatticeError):
     _ERROR_CODE = "ValidationException"
 
     @property
-    def reason(self) -> str | None:
-        """The reason."""
-        return self.response.get("reason")
-
-    @property
     def field_list(self) -> list[Any] | None:
         """The fields that failed validation."""
         return self.response.get("fieldList")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[VPCLatticeError]] = {

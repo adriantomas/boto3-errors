@@ -86,11 +86,6 @@ class ThrottlingException(RUMError):
     _ERROR_CODE = "ThrottlingException"
 
     @property
-    def service_code(self) -> str | None:
-        """The ID of the service that is associated with the error."""
-        return self.response.get("serviceCode")
-
-    @property
     def quota_code(self) -> str | None:
         """The ID of the service quota that was exceeded."""
         return self.response.get("quotaCode")
@@ -99,6 +94,11 @@ class ThrottlingException(RUMError):
     def retry_after_seconds(self) -> int | None:
         """The value of a parameter in the request caused an error."""
         return self.response.get("retryAfterSeconds")
+
+    @property
+    def service_code(self) -> str | None:
+        """The ID of the service that is associated with the error."""
+        return self.response.get("serviceCode")
 
 
 class ValidationException(RUMError):
