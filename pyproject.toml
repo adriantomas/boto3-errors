@@ -1,6 +1,6 @@
 [project]
 name = "boto3-errors"
-version = "0.1.2"
+version = "0.2.0"
 description = "Typed, statically-importable exception classes for every AWS service"
 readme = "README.md"
 license = "MIT"
@@ -32,7 +32,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "botocore>=1.42.46",
+    "botocore>=1.42.52",
 ]
 
 [project.urls]
