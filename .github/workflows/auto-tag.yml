@@ -39,7 +39,14 @@ jobs:
             NOTES=$(git log --pretty=format:"- %s" --no-merges)
           fi
 
+          # Push the tag via git (uses deploy key) so that the tag-push
+          # event triggers the Publish to PyPI workflow.  Tags created
+          # solely through the GitHub API with GITHUB_TOKEN do not
+          # trigger downstream workflows.
+          git tag "$TAG"
+          git push origin "$TAG"
+
           gh release create "$TAG" \
             --title "$TAG" \
             --notes "$NOTES" \
-            --target main
+            --verify-tag
