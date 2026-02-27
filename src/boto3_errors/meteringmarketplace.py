@@ -68,6 +68,14 @@ class InvalidEndpointRegionException(MarketplaceMeteringError):
     _ERROR_CODE = "InvalidEndpointRegionException"
 
 
+class InvalidLicenseException(MarketplaceMeteringError):
+    """Ensure the `LicenseArn` is valid, matches the customer, and usage is within the
+    license activation period.
+    """
+
+    _ERROR_CODE = "InvalidLicenseException"
+
+
 class InvalidProductCodeException(MarketplaceMeteringError):
     """The product code passed does not match the product code used for publishing the
     product.
@@ -145,6 +153,7 @@ EXCEPTIONS: dict[str, type[MarketplaceMeteringError]] = {
     "InternalServiceErrorException": InternalServiceErrorException,
     "InvalidCustomerIdentifierException": InvalidCustomerIdentifierException,
     "InvalidEndpointRegionException": InvalidEndpointRegionException,
+    "InvalidLicenseException": InvalidLicenseException,
     "InvalidProductCodeException": InvalidProductCodeException,
     "InvalidPublicKeyVersionException": InvalidPublicKeyVersionException,
     "InvalidRegionException": InvalidRegionException,
