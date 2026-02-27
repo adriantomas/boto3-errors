@@ -31,13 +31,63 @@ jobs:
           VERSION=$(grep '^version' pyproject.toml | head -1 | sed 's/.*"\(.*\)"/\1/')
           TAG="${VERSION}"
 
+          # Extract botocore version from the merged PR branch
+          BOTOCORE_VERSION="${{ github.event.pull_request.head.ref }}"
+          BOTOCORE_VERSION="${BOTOCORE_VERSION#auto/botocore-}"
+
           # Get the previous tag to build a changelog
           PREV_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
-          if [ -n "$PREV_TAG" ]; then
-            NOTES=$(git log "${PREV_TAG}..HEAD" --pretty=format:"- %s" --no-merges)
-          else
-            NOTES=$(git log --pretty=format:"- %s" --no-merges)
-          fi
+
+          # --- Build release notes ---
+          {
+            echo "Updated exception definitions to match **botocore ${BOTOCORE_VERSION}**."
+            echo ""
+
+            if [ -n "$PREV_TAG" ]; then
+              # Summarise service-module changes
+              DIFF=$(git diff --name-status "${PREV_TAG}..HEAD" -- 'src/boto3_errors/[!_]*.py')
+              ADDED=$(echo "$DIFF"   | { grep '^A' || true; } | awk '{print $2}' | sed 's|src/boto3_errors/||;s|\.py$||' | sort)
+              MODIFIED=$(echo "$DIFF" | { grep '^M' || true; } | awk '{print $2}' | sed 's|src/boto3_errors/||;s|\.py$||' | sort)
+              REMOVED=$(echo "$DIFF"  | { grep '^D' || true; } | awk '{print $2}' | sed 's|src/boto3_errors/||;s|\.py$||' | sort)
+
+              if [ -n "$ADDED" ]; then
+                echo "### New service modules"
+                echo ""
+                echo "$ADDED" | while IFS= read -r m; do echo "- \`${m}\`"; done
+                echo ""
+              fi
+              if [ -n "$MODIFIED" ]; then
+                echo "### Updated service modules"
+                echo ""
+                echo "$MODIFIED" | while IFS= read -r m; do echo "- \`${m}\`"; done
+                echo ""
+              fi
+              if [ -n "$REMOVED" ]; then
+                echo "### Removed service modules"
+                echo ""
+                echo "$REMOVED" | while IFS= read -r m; do echo "- \`${m}\`"; done
+                echo ""
+              fi
+
+              # Meaningful commits only (exclude automated "checked botocore" noise)
+              COMMITS=$(git log "${PREV_TAG}..HEAD" --pretty=format:"- %s" --no-merges \
+                | { grep -v "^- chore: checked botocore" || true; })
+              if [ -n "$COMMITS" ]; then
+                echo "### Commits"
+                echo ""
+                echo "$COMMITS"
+                echo ""
+              fi
+
+              echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${PREV_TAG}...${TAG}"
+            else
+              COMMITS=$(git log --pretty=format:"- %s" --no-merges \
+                | { grep -v "^- chore: checked botocore" || true; })
+              if [ -n "$COMMITS" ]; then
+                echo "$COMMITS"
+              fi
+            fi
+          } > /tmp/release-notes.md
 
           # Push the tag via git (uses deploy key) so that the tag-push
           # event triggers the Publish to PyPI workflow.  Tags created
@@ -48,5 +98,5 @@ jobs:
 
           gh release create "$TAG" \
             --title "$TAG" \
-            --notes "$NOTES" \
+            --notes-file /tmp/release-notes.md \
             --verify-tag
