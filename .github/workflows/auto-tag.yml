@@ -36,7 +36,7 @@ jobs:
           BOTOCORE_VERSION="${BOTOCORE_VERSION#auto/botocore-}"
 
           # Get the previous tag to build a changelog
-          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          PREV_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
 
           # --- Build release notes ---
           {
