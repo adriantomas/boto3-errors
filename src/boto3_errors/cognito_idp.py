@@ -8,6 +8,14 @@ class CognitoIdentityProviderError(Boto3Error):
     _SERVICE = "cognito-idp"
 
 
+class AccessDeniedException(CognitoIdentityProviderError):
+    """This exception is thrown when you don't have sufficient permissions to perform the
+    requested operation.
+    """
+
+    _ERROR_CODE = "AccessDeniedException"
+
+
 class AliasExistsException(CognitoIdentityProviderError):
     """This exception is thrown when a user tries to confirm the account with an email
     address or phone number that has already been supplied as an alias for a different
@@ -90,6 +98,11 @@ class GroupExistsException(CognitoIdentityProviderError):
 class InternalErrorException(CognitoIdentityProviderError):
     """This exception is thrown when Amazon Cognito encounters an internal error."""
     _ERROR_CODE = "InternalErrorException"
+
+
+class InternalServerException(CognitoIdentityProviderError):
+    """This exception is thrown when Amazon Cognito encounters an internal server error."""
+    _ERROR_CODE = "InternalServerException"
 
 
 class InvalidEmailRoleAccessPolicyException(CognitoIdentityProviderError):
@@ -396,6 +409,7 @@ class WebAuthnRelyingPartyMismatchException(CognitoIdentityProviderError):
 
 
 EXCEPTIONS: dict[str, type[CognitoIdentityProviderError]] = {
+    "AccessDeniedException": AccessDeniedException,
     "AliasExistsException": AliasExistsException,
     "CodeDeliveryFailureException": CodeDeliveryFailureException,
     "CodeMismatchException": CodeMismatchException,
@@ -408,6 +422,7 @@ EXCEPTIONS: dict[str, type[CognitoIdentityProviderError]] = {
     "ForbiddenException": ForbiddenException,
     "GroupExistsException": GroupExistsException,
     "InternalErrorException": InternalErrorException,
+    "InternalServerException": InternalServerException,
     "InvalidEmailRoleAccessPolicyException": InvalidEmailRoleAccessPolicyException,
     "InvalidLambdaResponseException": InvalidLambdaResponseException,
     "InvalidOAuthFlowException": InvalidOAuthFlowException,
