@@ -8,6 +8,11 @@ class BCMDataExportsError(Boto3Error):
     _SERVICE = "bcm-data-exports"
 
 
+class AccessDeniedException(BCMDataExportsError):
+    """You don't have sufficient access to perform this action."""
+    _ERROR_CODE = "AccessDeniedException"
+
+
 class InternalServerException(BCMDataExportsError):
     """An error on the server occurred during the processing of your request. Try again
     later.
@@ -97,6 +102,7 @@ class ValidationException(BCMDataExportsError):
 
 
 EXCEPTIONS: dict[str, type[BCMDataExportsError]] = {
+    "AccessDeniedException": AccessDeniedException,
     "InternalServerException": InternalServerException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
