@@ -69,7 +69,7 @@ class ServiceQuotaExceededException(Route53GlobalResolverError):
 
     @property
     def quota_code(self) -> str | None:
-        """The quota code recognized by the AWS Service Quotas service."""
+        """The quota code recognized by the Amazon Web Services Service Quotas service."""
         return self.response.get("quotaCode")
 
     @property
@@ -84,7 +84,7 @@ class ServiceQuotaExceededException(Route53GlobalResolverError):
 
     @property
     def service_code(self) -> str | None:
-        """The code for the AWS service that owns the quota."""
+        """The code for the Amazon Web Services service that owns the quota."""
         return self.response.get("serviceCode")
 
 
@@ -94,7 +94,7 @@ class ThrottlingException(Route53GlobalResolverError):
 
     @property
     def quota_code(self) -> str | None:
-        """The quota code recognized by the AWS Service Quotas service."""
+        """The quota code recognized by the Amazon Web Services Service Quotas service."""
         return self.response.get("quotaCode")
 
     @property
@@ -104,7 +104,7 @@ class ThrottlingException(Route53GlobalResolverError):
 
     @property
     def service_code(self) -> str | None:
-        """The code for the AWS service that owns the quota."""
+        """The code for the Amazon Web Services service that owns the quota."""
         return self.response.get("serviceCode")
 
 
