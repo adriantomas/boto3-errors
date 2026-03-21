@@ -14,8 +14,8 @@ class AccessDeniedException(VerifiedPermissionsError):
 
 
 class ConflictException(VerifiedPermissionsError):
-    """The request failed because another request to modify a resource occurred at the
-    same.
+    """The request failed because another request to modify a resource occurred at the same
+    time.
     """
 
     _ERROR_CODE = "ConflictException"
