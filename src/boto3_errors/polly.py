@@ -117,6 +117,21 @@ class ServiceFailureException(PollyError):
     _ERROR_CODE = "ServiceFailureException"
 
 
+class ServiceQuotaExceededException(PollyError):
+    """The request would cause a service quota to be exceeded."""
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+    @property
+    def quota_code(self) -> str | None:
+        """The quota code identifying the specific quota."""
+        return self.response.get("quotaCode")
+
+    @property
+    def service_code(self) -> str | None:
+        """The service code identifying the originating service."""
+        return self.response.get("serviceCode")
+
+
 class SsmlMarksNotSupportedForTextTypeException(PollyError):
     """SSML speech marks are not supported for plain text-type input."""
     _ERROR_CODE = "SsmlMarksNotSupportedForTextTypeException"
@@ -139,6 +154,16 @@ class TextLengthExceededException(PollyError):
     _ERROR_CODE = "TextLengthExceededException"
 
 
+class ThrottlingException(PollyError):
+    """The request was denied because of request throttling."""
+    _ERROR_CODE = "ThrottlingException"
+
+    @property
+    def throttling_reasons(self) -> list[Any] | None:
+        """A list of reasons explaining why the request was throttled."""
+        return self.response.get("throttlingReasons")
+
+
 class UnsupportedPlsAlphabetException(PollyError):
     """The alphabet specified by the lexicon is not a supported alphabet. Valid values are
     `x-sampa` and `ipa`.
@@ -153,6 +178,21 @@ class UnsupportedPlsLanguageException(PollyError):
     """
 
     _ERROR_CODE = "UnsupportedPlsLanguageException"
+
+
+class ValidationException(PollyError):
+    """The input fails to satisfy the constraints specified by the service."""
+    _ERROR_CODE = "ValidationException"
+
+    @property
+    def fields(self) -> list[Any] | None:
+        """The fields that caused the validation error."""
+        return self.response.get("fields")
+
+    @property
+    def reason(self) -> str | None:
+        """The reason the request failed validation."""
+        return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[PollyError]] = {
@@ -172,9 +212,12 @@ EXCEPTIONS: dict[str, type[PollyError]] = {
     "MaxLexemeLengthExceededException": MaxLexemeLengthExceededException,
     "MaxLexiconsNumberExceededException": MaxLexiconsNumberExceededException,
     "ServiceFailureException": ServiceFailureException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "SsmlMarksNotSupportedForTextTypeException": SsmlMarksNotSupportedForTextTypeException,
     "SynthesisTaskNotFoundException": SynthesisTaskNotFoundException,
     "TextLengthExceededException": TextLengthExceededException,
+    "ThrottlingException": ThrottlingException,
     "UnsupportedPlsAlphabetException": UnsupportedPlsAlphabetException,
     "UnsupportedPlsLanguageException": UnsupportedPlsLanguageException,
+    "ValidationException": ValidationException,
 }
