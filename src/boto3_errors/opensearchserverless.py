@@ -10,7 +10,8 @@ class OpenSearchServerlessError(Boto3Error):
 
 class ConflictException(OpenSearchServerlessError):
     """When creating a resource, thrown when a resource with the same name already exists
-    or is being created.
+    or is being created. When deleting a resource, thrown when the resource is not in
+    the ACTIVE, FAILED, or UPDATE_FAILED state.
     """
 
     _ERROR_CODE = "ConflictException"
