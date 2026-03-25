@@ -18,7 +18,7 @@ def patch_client(client: BaseClient) -> None:
     if getattr(client, "_boto3_errors_patched", False):
         return
 
-    service: str = client._service_model.service_name  # type: ignore[attr-defined]
+    service: str = client._service_model.service_name  # ty: ignore[unresolved-attribute]
     module_name = _service_to_module(service)
 
     try:
@@ -28,7 +28,7 @@ def patch_client(client: BaseClient) -> None:
         return
 
     exceptions: dict[str, type] = getattr(mod, "EXCEPTIONS", {})
-    original = client._make_api_call  # type: ignore[attr-defined]
+    original = client._make_api_call  # ty: ignore[unresolved-attribute]
 
     @functools.wraps(original)
     def _patched_make_api_call(
@@ -43,8 +43,8 @@ def patch_client(client: BaseClient) -> None:
                 raise exc_cls(e.response, e.operation_name) from e
             raise
 
-    client._make_api_call = _patched_make_api_call  # type: ignore[attr-defined]
-    client._boto3_errors_patched = True  # type: ignore[attr-defined]
+    client._make_api_call = _patched_make_api_call  # ty: ignore[unresolved-attribute]
+    client._boto3_errors_patched = True  # ty: ignore[unresolved-attribute]
 
 
 def _service_to_module(service: str) -> str:
