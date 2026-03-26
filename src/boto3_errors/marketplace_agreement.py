@@ -18,6 +18,29 @@ class AccessDeniedException(MarketplaceAgreementError):
         return self.response.get("requestId")
 
 
+class ConflictException(MarketplaceAgreementError):
+    """The request could not be completed due to a conflict with the current state of the
+    resource.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+    @property
+    def request_id(self) -> str | None:
+        """The unique identifier for the error."""
+        return self.response.get("requestId")
+
+    @property
+    def resource_id(self) -> str | None:
+        """The unique identifier for the resource."""
+        return self.response.get("resourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The type of resource."""
+        return self.response.get("resourceType")
+
+
 class InternalServerException(MarketplaceAgreementError):
     """Unexpected error during processing of request."""
     _ERROR_CODE = "InternalServerException"
@@ -80,6 +103,7 @@ class ValidationException(MarketplaceAgreementError):
 
 EXCEPTIONS: dict[str, type[MarketplaceAgreementError]] = {
     "AccessDeniedException": AccessDeniedException,
+    "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ThrottlingException": ThrottlingException,
