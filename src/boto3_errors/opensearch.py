@@ -78,6 +78,11 @@ class ResourceNotFoundException(OpenSearchError):
     _ERROR_CODE = "ResourceNotFoundException"
 
 
+class ServiceQuotaExceededException(OpenSearchError):
+    """An exception for when a request would cause a service quota to be exceeded."""
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+
 class SlotNotAvailableException(OpenSearchError):
     """An exception for attempting to schedule a domain action during an unavailable time
     slot.
@@ -118,6 +123,7 @@ EXCEPTIONS: dict[str, type[OpenSearchError]] = {
     "LimitExceededException": LimitExceededException,
     "ResourceAlreadyExistsException": ResourceAlreadyExistsException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "SlotNotAvailableException": SlotNotAvailableException,
     "ThrottlingException": ThrottlingException,
     "ValidationException": ValidationException,

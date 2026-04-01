@@ -92,6 +92,11 @@ class ThrottlingException(ACMError):
     """The request was denied because it exceeded a quota."""
     _ERROR_CODE = "ThrottlingException"
 
+    @property
+    def throttling_reasons(self) -> list[Any] | None:
+        """One or more reasons why the request was throttled."""
+        return self.response.get("throttlingReasons")
+
 
 class TooManyTagsException(ACMError):
     """The request contains too many tags. Try the request again with fewer tags."""
