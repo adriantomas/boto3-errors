@@ -13,6 +13,11 @@ class AccessDeniedException(MedicalImagingError):
     _ERROR_CODE = "AccessDeniedException"
 
 
+class BadRequestException(MedicalImagingError):
+    """The request is invalid or malformed."""
+    _ERROR_CODE = "BadRequestException"
+
+
 class ConflictException(MedicalImagingError):
     """Updating or deleting a resource can cause an inconsistent state."""
     _ERROR_CODE = "ConflictException"
@@ -21,6 +26,11 @@ class ConflictException(MedicalImagingError):
 class InternalServerException(MedicalImagingError):
     """An unexpected error occurred during processing of the request."""
     _ERROR_CODE = "InternalServerException"
+
+
+class NotAcceptableException(MedicalImagingError):
+    """The request content type or accept header is not supported."""
+    _ERROR_CODE = "NotAcceptableException"
 
 
 class ResourceNotFoundException(MedicalImagingError):
@@ -45,8 +55,10 @@ class ValidationException(MedicalImagingError):
 
 EXCEPTIONS: dict[str, type[MedicalImagingError]] = {
     "AccessDeniedException": AccessDeniedException,
+    "BadRequestException": BadRequestException,
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
+    "NotAcceptableException": NotAcceptableException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,

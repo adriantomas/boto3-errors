@@ -94,6 +94,22 @@ class ConflictException(ECSError):
         return self.response.get("resourceIds")
 
 
+class DaemonNotActiveException(ECSError):
+    """The specified daemon isn't active. You can't update a daemon that's inactive. If you
+    have previously deleted a daemon, you can re-create it with CreateDaemon.
+    """
+
+    _ERROR_CODE = "DaemonNotActiveException"
+
+
+class DaemonNotFoundException(ECSError):
+    """The specified daemon wasn't found. You can view your available daemons with
+    ListDaemons. Amazon ECS daemons are cluster specific and Region specific.
+    """
+
+    _ERROR_CODE = "DaemonNotFoundException"
+
+
 class InvalidParameterException(ECSError):
     """The specified parameter isn't valid. Review the available parameters for the API
     request.
@@ -246,6 +262,8 @@ EXCEPTIONS: dict[str, type[ECSError]] = {
     "ClusterContainsTasksException": ClusterContainsTasksException,
     "ClusterNotFoundException": ClusterNotFoundException,
     "ConflictException": ConflictException,
+    "DaemonNotActiveException": DaemonNotActiveException,
+    "DaemonNotFoundException": DaemonNotFoundException,
     "InvalidParameterException": InvalidParameterException,
     "LimitExceededException": LimitExceededException,
     "MissingVersionException": MissingVersionException,
