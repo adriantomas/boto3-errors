@@ -432,6 +432,45 @@ class ResourceNotReadyException(LambdaError):
         return self.response.get("Type")
 
 
+class S3FilesMountConnectivityException(LambdaError):
+    """The Lambda function couldn't make a network connection to the configured S3 Files
+    access point.
+    """
+
+    _ERROR_CODE = "S3FilesMountConnectivityException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
+class S3FilesMountFailureException(LambdaError):
+    """The Lambda function couldn't mount the configured S3 Files access point due to a
+    permission or configuration issue.
+    """
+
+    _ERROR_CODE = "S3FilesMountFailureException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
+class S3FilesMountTimeoutException(LambdaError):
+    """The Lambda function made a network connection to the configured S3 Files access
+    point, but the mount operation timed out.
+    """
+
+    _ERROR_CODE = "S3FilesMountTimeoutException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
 class SerializedRequestEntityTooLargeException(LambdaError):
     """The request payload exceeded the maximum allowed size for serialized request
     entities.
@@ -563,6 +602,9 @@ EXCEPTIONS: dict[str, type[LambdaError]] = {
     "ResourceInUseException": ResourceInUseException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ResourceNotReadyException": ResourceNotReadyException,
+    "S3FilesMountConnectivityException": S3FilesMountConnectivityException,
+    "S3FilesMountFailureException": S3FilesMountFailureException,
+    "S3FilesMountTimeoutException": S3FilesMountTimeoutException,
     "SerializedRequestEntityTooLargeException": SerializedRequestEntityTooLargeException,
     "ServiceException": ServiceException,
     "SnapStartException": SnapStartException,
