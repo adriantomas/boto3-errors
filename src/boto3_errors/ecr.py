@@ -323,6 +323,15 @@ class UnableToGetUpstreamLayerException(ECRError):
     _ERROR_CODE = "UnableToGetUpstreamLayerException"
 
 
+class UnableToListUpstreamImageReferrersException(ECRError):
+    """The referrer or referrers were unable to be listed using the pull through cache
+    rule. This is usually caused because of an issue with the Secrets Manager secret
+    containing the credentials for the upstream registry.
+    """
+
+    _ERROR_CODE = "UnableToListUpstreamImageReferrersException"
+
+
 class UnsupportedImageTypeException(ECRError):
     """The image is of a type that cannot be scanned."""
     _ERROR_CODE = "UnsupportedImageTypeException"
@@ -389,6 +398,7 @@ EXCEPTIONS: dict[str, type[ECRError]] = {
     "UnableToDecryptSecretValueException": UnableToDecryptSecretValueException,
     "UnableToGetUpstreamImageException": UnableToGetUpstreamImageException,
     "UnableToGetUpstreamLayerException": UnableToGetUpstreamLayerException,
+    "UnableToListUpstreamImageReferrersException": UnableToListUpstreamImageReferrersException,
     "UnsupportedImageTypeException": UnsupportedImageTypeException,
     "UnsupportedUpstreamRegistryException": UnsupportedUpstreamRegistryException,
     "UploadNotFoundException": UploadNotFoundException,

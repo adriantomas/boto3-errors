@@ -16,6 +16,15 @@ class AccessDeniedException(BCMDashboardsError):
     _ERROR_CODE = "AccessDeniedException"
 
 
+class ConflictException(BCMDashboardsError):
+    """The request could not be completed due to a conflict with the current state of the
+    resource. For example, attempting to create a resource that already exists or is
+    being created.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+
 class InternalServerException(BCMDashboardsError):
     """An internal error occurred while processing the request. Retry your request. If the
     problem persists, contact Amazon Web Services Support.
@@ -33,8 +42,8 @@ class ResourceNotFoundException(BCMDashboardsError):
 
 
 class ServiceQuotaExceededException(BCMDashboardsError):
-    """The request would exceed service quotas. For example, attempting to create more than
-    20 widgets in a dashboard or exceeding the maximum number of dashboards per account.
+    """The request would exceed a service quota. Review the service quotas for Amazon Web
+    Services Billing and Cost Management Dashboards and retry your request.
     """
 
     _ERROR_CODE = "ServiceQuotaExceededException"
@@ -58,6 +67,7 @@ class ValidationException(BCMDashboardsError):
 
 EXCEPTIONS: dict[str, type[BCMDashboardsError]] = {
     "AccessDeniedException": AccessDeniedException,
+    "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
