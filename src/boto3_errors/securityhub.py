@@ -78,6 +78,30 @@ class LimitExceededException(SecurityHubError):
         return self.response.get("Code")
 
 
+class OrganizationNotFoundException(SecurityHubError):
+    """The request failed because one or more organizations specified in the request don't
+    exist or don't belong to the caller's organization.
+    """
+
+    _ERROR_CODE = "OrganizationNotFoundException"
+
+    @property
+    def code(self) -> str | None:
+        return self.response.get("Code")
+
+
+class OrganizationalUnitNotFoundException(SecurityHubError):
+    """The request failed because one or more organizational units specified in the request
+    don't exist within the caller's organization.
+    """
+
+    _ERROR_CODE = "OrganizationalUnitNotFoundException"
+
+    @property
+    def code(self) -> str | None:
+        return self.response.get("Code")
+
+
 class ResourceConflictException(SecurityHubError):
     """The resource specified in the request conflicts with an existing resource."""
     _ERROR_CODE = "ResourceConflictException"
@@ -147,6 +171,8 @@ EXCEPTIONS: dict[str, type[SecurityHubError]] = {
     "InvalidAccessException": InvalidAccessException,
     "InvalidInputException": InvalidInputException,
     "LimitExceededException": LimitExceededException,
+    "OrganizationNotFoundException": OrganizationNotFoundException,
+    "OrganizationalUnitNotFoundException": OrganizationalUnitNotFoundException,
     "ResourceConflictException": ResourceConflictException,
     "ResourceInUseException": ResourceInUseException,
     "ResourceNotFoundException": ResourceNotFoundException,
