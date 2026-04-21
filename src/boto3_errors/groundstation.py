@@ -14,6 +14,7 @@ class DependencyException(GroundStationError):
 
     @property
     def parameter_name(self) -> str | None:
+        """Name of the parameter that caused the exception."""
         return self.response.get("parameterName")
 
 
@@ -23,6 +24,7 @@ class InvalidParameterException(GroundStationError):
 
     @property
     def parameter_name(self) -> str | None:
+        """Name of the invalid parameter."""
         return self.response.get("parameterName")
 
 
@@ -40,6 +42,7 @@ class ResourceLimitExceededException(GroundStationError):
 
     @property
     def parameter_name(self) -> str | None:
+        """Name of the parameter that exceeded the resource limit."""
         return self.response.get("parameterName")
 
 
