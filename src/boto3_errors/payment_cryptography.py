@@ -42,6 +42,16 @@ class InternalServerException(PaymentCryptographyError):
     _ERROR_CODE = "InternalServerException"
 
 
+class PublicPolicyException(PaymentCryptographyError):
+    """The resource-based policy would grant public access to the key.
+
+    Modify the policy to restrict access to specific principals and resubmit the
+    request.
+    """
+
+    _ERROR_CODE = "PublicPolicyException"
+
+
 class ResourceNotFoundException(PaymentCryptographyError):
     """The request was denied due to resource not found.
 
@@ -108,6 +118,7 @@ EXCEPTIONS: dict[str, type[PaymentCryptographyError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
+    "PublicPolicyException": PublicPolicyException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ServiceUnavailableException": ServiceUnavailableException,
