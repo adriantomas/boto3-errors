@@ -9,53 +9,53 @@ class SecurityAgentError(Boto3Error):
 
 
 class AccessDeniedException(SecurityAgentError):
-    """Request denied due to insufficient permissions"""
+    """You do not have sufficient access to perform this action."""
     _ERROR_CODE = "AccessDeniedException"
 
 
 class ConflictException(SecurityAgentError):
-    """Request conflicts with current resource state"""
+    """The request could not be completed due to a conflict with the current state of the
+    resource.
+    """
+
     _ERROR_CODE = "ConflictException"
 
 
 class InternalServerException(SecurityAgentError):
-    """Unexpected server error occurred"""
+    """An unexpected error occurred during the processing of your request."""
     _ERROR_CODE = "InternalServerException"
 
 
 class ResourceNotFoundException(SecurityAgentError):
-    """Specified resource was not found"""
+    """The specified resource was not found. Verify that the resource identifier is correct
+    and that the resource exists in the specified agent space or account.
+    """
+
     _ERROR_CODE = "ResourceNotFoundException"
 
 
 class ThrottlingException(SecurityAgentError):
-    """Request denied due to throttling"""
+    """The request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
 
     @property
     def quota_code(self) -> str | None:
-        """Quota code for throttling limit"""
+        """Quota code for throttling limit."""
         return self.response.get("quotaCode")
 
     @property
     def service_code(self) -> str | None:
-        """Service code for throttling limit"""
+        """Service code for throttling limit."""
         return self.response.get("serviceCode")
 
 
 class ValidationException(SecurityAgentError):
-    """A standard error for input validation failures. This should be thrown by services
-    when a member of the input structure falls outside of the modeled or documented
-    constraints.
-    """
-
+    """The input fails to satisfy the constraints specified by the service."""
     _ERROR_CODE = "ValidationException"
 
     @property
     def field_list(self) -> list[Any] | None:
-        """A list of specific failures encountered while validating the input. A member can
-        appear in this list more than once if it failed to satisfy multiple constraints.
-        """
+        """A list of specific failures encountered during validation."""
         return self.response.get("fieldList")
 
 
