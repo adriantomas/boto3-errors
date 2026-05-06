@@ -50,7 +50,7 @@ wheels = [
 
 [[package]]
 name = "boto3-errors"
-version = "0.14.0"
+version = "0.15.0"
 source = { editable = "." }
 dependencies = [
     { name = "botocore" },
@@ -71,7 +71,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "botocore", specifier = ">=1.43.2" }]
+requires-dist = [{ name = "botocore", specifier = ">=1.43.4" }]
 
 [package.metadata.requires-dev]
 dev = [
