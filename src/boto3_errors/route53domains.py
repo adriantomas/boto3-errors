@@ -50,6 +50,19 @@ class OperationLimitExceeded(Route53DomainsError):
     _ERROR_CODE = "OperationLimitExceeded"
 
 
+class TLDInMaintenance(Route53DomainsError):
+    """The top-level domain is currently undergoing maintenance and the request cannot be
+    processed. Try again later.
+    """
+
+    _ERROR_CODE = "TLDInMaintenance"
+
+    @property
+    def tld(self) -> str | None:
+        """The top-level domain that is currently undergoing maintenance."""
+        return self.response.get("tld")
+
+
 class TLDRulesViolation(Route53DomainsError):
     """The top-level domain does not support this operation."""
     _ERROR_CODE = "TLDRulesViolation"
@@ -66,6 +79,7 @@ EXCEPTIONS: dict[str, type[Route53DomainsError]] = {
     "DuplicateRequest": DuplicateRequest,
     "InvalidInput": InvalidInput,
     "OperationLimitExceeded": OperationLimitExceeded,
+    "TLDInMaintenance": TLDInMaintenance,
     "TLDRulesViolation": TLDRulesViolation,
     "UnsupportedTLD": UnsupportedTLD,
 }
