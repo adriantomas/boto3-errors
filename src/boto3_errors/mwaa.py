@@ -66,6 +66,11 @@ class RestApiServerException(MWAAError):
         return self.response.get("RestApiStatusCode")
 
 
+class ServiceUnavailableException(MWAAError):
+    """ServiceUnavailableException: The service is currently unavailable."""
+    _ERROR_CODE = "ServiceUnavailableException"
+
+
 class ValidationException(MWAAError):
     """ValidationException: The provided input is not valid."""
     _ERROR_CODE = "ValidationException"
@@ -77,5 +82,6 @@ EXCEPTIONS: dict[str, type[MWAAError]] = {
     "ResourceNotFoundException": ResourceNotFoundException,
     "RestApiClientException": RestApiClientException,
     "RestApiServerException": RestApiServerException,
+    "ServiceUnavailableException": ServiceUnavailableException,
     "ValidationException": ValidationException,
 }
