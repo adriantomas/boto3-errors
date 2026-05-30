@@ -18,6 +18,14 @@ class ForbiddenException(IoTDataPlaneError):
     _ERROR_CODE = "ForbiddenException"
 
 
+class GatewayTimeoutException(IoTDataPlaneError):
+    """The delivery confirmation was not received from the client within the specified
+    timeout period.
+    """
+
+    _ERROR_CODE = "GatewayTimeoutException"
+
+
 class InternalFailureException(IoTDataPlaneError):
     """An unexpected error has occurred."""
     _ERROR_CODE = "InternalFailureException"
@@ -66,6 +74,7 @@ class UnsupportedDocumentEncodingException(IoTDataPlaneError):
 EXCEPTIONS: dict[str, type[IoTDataPlaneError]] = {
     "ConflictException": ConflictException,
     "ForbiddenException": ForbiddenException,
+    "GatewayTimeoutException": GatewayTimeoutException,
     "InternalFailureException": InternalFailureException,
     "InvalidRequestException": InvalidRequestException,
     "MethodNotAllowedException": MethodNotAllowedException,
