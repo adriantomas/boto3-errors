@@ -62,11 +62,7 @@ class ThrottlingException(DevOpsAgentError):
 
 
 class ValidationException(DevOpsAgentError):
-    """A standard error for input validation failures. This should be thrown by services
-    when a member of the input structure falls outside of the modeled or documented
-    constraints.
-    """
-
+    """The input fails to satisfy the constraints specified by the service."""
     _ERROR_CODE = "ValidationException"
 
     @property
