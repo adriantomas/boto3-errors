@@ -193,6 +193,15 @@ class NotAuthorizedException(CognitoIdentityProviderError):
     _ERROR_CODE = "NotAuthorizedException"
 
 
+class OperationNotEnabledException(CognitoIdentityProviderError):
+    """This exception is thrown when an operation is not available in the current region or
+    for the current user pool configuration. This can occur when attempting to perform
+    operations that are not supported in secondary replica regions.
+    """
+
+    _ERROR_CODE = "OperationNotEnabledException"
+
+
 class PasswordHistoryPolicyViolationException(CognitoIdentityProviderError):
     """The message returned when a user's new password matches a previous password and
     doesn't comply with the password-history policy.
@@ -435,6 +444,7 @@ EXCEPTIONS: dict[str, type[CognitoIdentityProviderError]] = {
     "MFAMethodNotFoundException": MFAMethodNotFoundException,
     "ManagedLoginBrandingExistsException": ManagedLoginBrandingExistsException,
     "NotAuthorizedException": NotAuthorizedException,
+    "OperationNotEnabledException": OperationNotEnabledException,
     "PasswordHistoryPolicyViolationException": PasswordHistoryPolicyViolationException,
     "PasswordResetRequiredException": PasswordResetRequiredException,
     "PreconditionNotMetException": PreconditionNotMetException,
