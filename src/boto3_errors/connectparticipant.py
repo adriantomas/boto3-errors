@@ -40,7 +40,7 @@ class ResourceNotFoundException(ConnectParticipantError):
 
     @property
     def resource_type(self) -> str | None:
-        """The type of Amazon Connect resource."""
+        """The type of Connect Customer resource."""
         return self.response.get("ResourceType")
 
 
