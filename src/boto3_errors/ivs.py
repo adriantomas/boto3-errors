@@ -316,6 +316,7 @@ class ServiceUnavailable(ivsError):
 
     @property
     def exception_message(self) -> str | None:
+        """The service is temporarily unavailable."""
         return self.response.get("exceptionMessage")
 
     @property

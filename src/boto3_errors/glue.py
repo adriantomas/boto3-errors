@@ -251,6 +251,14 @@ class SchedulerTransitioningException(GlueError):
     _ERROR_CODE = "SchedulerTransitioningException"
 
 
+class SessionBusyException(GlueError):
+    """The session is currently busy processing another request and cannot accept new
+    operations.
+    """
+
+    _ERROR_CODE = "SessionBusyException"
+
+
 class TargetResourceNotFound(GlueError):
     """The target resource could not be found."""
     _ERROR_CODE = "TargetResourceNotFound"
@@ -316,6 +324,7 @@ EXCEPTIONS: dict[str, type[GlueError]] = {
     "SchedulerNotRunningException": SchedulerNotRunningException,
     "SchedulerRunningException": SchedulerRunningException,
     "SchedulerTransitioningException": SchedulerTransitioningException,
+    "SessionBusyException": SessionBusyException,
     "TargetResourceNotFound": TargetResourceNotFound,
     "ThrottlingException": ThrottlingException,
     "ValidationException": ValidationException,
