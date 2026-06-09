@@ -9,17 +9,20 @@ class TaxSettingsError(Boto3Error):
 
 
 class AccessDeniedException(TaxSettingsError):
-    """The access is denied for the Amazon Web ServicesSupport API."""
+    """The access is denied for the Amazon Web Services Support API."""
     _ERROR_CODE = "AccessDeniedException"
 
 
 class AttachmentUploadException(TaxSettingsError):
-    """Failed to upload the tax exemption document to Amazon Web ServicesSupport case."""
+    """Failed to upload the tax exemption document to Amazon Web Services Support case."""
     _ERROR_CODE = "AttachmentUploadException"
 
 
 class CaseCreationLimitExceededException(TaxSettingsError):
-    """You've exceeded the Amazon Web ServicesSupport case creation limit for your account."""
+    """You've exceeded the Amazon Web Services Support case creation limit for your
+    account.
+    """
+
     _ERROR_CODE = "CaseCreationLimitExceededException"
 
 
