@@ -57,6 +57,38 @@ class InvalidParameterValueException(CloudWatchError):
     _ERROR_CODE = "InvalidParameterValue"
 
 
+class KmsAccessDeniedException(CloudWatchError):
+    """The operation was denied because either the calling principal lacks the required
+    Amazon Web Services Key Management Service (Amazon Web Services KMS) permission on
+    the key, or the key policy does not grant Amazon CloudWatch the permissions it needs
+    to use the key. Verify that the caller has `kms:Decrypt` permission on the key, and
+    that the key policy grants the CloudWatch service principal the `kms:DescribeKey`,
+    `kms:GenerateDataKey`, `kms:Encrypt`, `kms:Decrypt`, and `kms:ReEncrypt*`
+    permissions described in AssociateDatasetKmsKey.
+    """
+
+    _ERROR_CODE = "KmsAccessDeniedException"
+
+
+class KmsKeyDisabledException(CloudWatchError):
+    """The specified Amazon Web Services Key Management Service (Amazon Web Services KMS)
+    key is disabled or pending deletion. Re-enable the key (or restore it, if it is
+    pending deletion) and retry the operation.
+    """
+
+    _ERROR_CODE = "KmsKeyDisabledException"
+
+
+class KmsKeyNotFoundException(CloudWatchError):
+    """The specified Amazon Web Services Key Management Service (Amazon Web Services KMS)
+    key could not be found. Verify that the key Amazon Resource Name (ARN) is correct,
+    that the key exists, and that it is in the same Amazon Web Services Region as the
+    resource.
+    """
+
+    _ERROR_CODE = "KmsKeyNotFoundException"
+
+
 class LimitExceededException(CloudWatchError):
     """The operation exceeded one or more limits."""
     _ERROR_CODE = "LimitExceededException"
@@ -100,6 +132,9 @@ EXCEPTIONS: dict[str, type[CloudWatchError]] = {
     "InvalidNextToken": InvalidNextToken,
     "InvalidParameterCombination": InvalidParameterCombinationException,
     "InvalidParameterValue": InvalidParameterValueException,
+    "KmsAccessDeniedException": KmsAccessDeniedException,
+    "KmsKeyDisabledException": KmsKeyDisabledException,
+    "KmsKeyNotFoundException": KmsKeyNotFoundException,
     "LimitExceededException": LimitExceededException,
     "LimitExceeded": LimitExceededFault,
     "MissingParameter": MissingRequiredParameterException,
