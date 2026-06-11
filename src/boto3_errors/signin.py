@@ -32,6 +32,22 @@ class AccessDeniedException(SigninError):
         return self.response.get("error")
 
 
+class ConflictException(SigninError):
+    """Error thrown when request conflicts with current state
+
+    HTTP Status Code: 409 Conflict
+
+    Used when the request conflicts with the current state of the resource
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+    @property
+    def error(self) -> str | None:
+        """OAuth 2.0 error code indicating conflict Will be CONFLICT"""
+        return self.response.get("error")
+
+
 class InternalServerException(SigninError):
     """Error thrown when an internal server error occurs
 
@@ -46,6 +62,40 @@ class InternalServerException(SigninError):
     def error(self) -> str | None:
         """OAuth 2.0 error code indicating server error Will be SERVER_ERROR for internal
         server errors
+        """
+        return self.response.get("error")
+
+
+class ResourceNotFoundException(SigninError):
+    """Error thrown when requested resource is not found
+
+    HTTP Status Code: 404 Not Found
+
+    Used when the specified resource does not exist
+    """
+
+    _ERROR_CODE = "ResourceNotFoundException"
+
+    @property
+    def error(self) -> str | None:
+        """OAuth 2.0 error code indicating resource not found Will be RESOURCE_NOT_FOUND"""
+        return self.response.get("error")
+
+
+class ServiceQuotaExceededException(SigninError):
+    """Error thrown when service quota is exceeded
+
+    HTTP Status Code: 402 Payment Required (used as quota exceeded indicator)
+
+    Used when the request would cause a service quota to be exceeded
+    """
+
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+    @property
+    def error(self) -> str | None:
+        """OAuth 2.0 error code indicating service quota exceeded Will be
+        SERVICE_QUOTA_EXCEEDED
         """
         return self.response.get("error")
 
@@ -98,7 +148,10 @@ class ValidationException(SigninError):
 
 EXCEPTIONS: dict[str, type[SigninError]] = {
     "AccessDeniedException": AccessDeniedException,
+    "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
+    "ResourceNotFoundException": ResourceNotFoundException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "TooManyRequestsError": TooManyRequestsError,
     "ValidationException": ValidationException,
 }
