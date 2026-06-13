@@ -318,6 +318,14 @@ class KMSKeyNotAccessibleFault(NeptuneError):
     _ERROR_CODE = "KMSKeyNotAccessibleFault"
 
 
+class NetworkTypeNotSupportedFault(NeptuneError):
+    """The specified NetworkType is not supported for the DB cluster, DB subnet group, or
+    orderable DB instance option.
+    """
+
+    _ERROR_CODE = "NetworkTypeNotSupported"
+
+
 class OptionGroupNotFoundFault(NeptuneError):
     """The designated option group could not be found."""
     _ERROR_CODE = "OptionGroupNotFoundFault"
@@ -452,6 +460,7 @@ EXCEPTIONS: dict[str, type[NeptuneError]] = {
     "InvalidSubnet": InvalidSubnet,
     "InvalidVPCNetworkStateFault": InvalidVPCNetworkStateFault,
     "KMSKeyNotAccessibleFault": KMSKeyNotAccessibleFault,
+    "NetworkTypeNotSupported": NetworkTypeNotSupportedFault,
     "OptionGroupNotFoundFault": OptionGroupNotFoundFault,
     "ProvisionedIopsNotAvailableInAZFault": ProvisionedIopsNotAvailableInAZFault,
     "ResourceNotFoundFault": ResourceNotFoundFault,
