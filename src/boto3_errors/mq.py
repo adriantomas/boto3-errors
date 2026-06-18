@@ -17,6 +17,11 @@ class BadRequestException(mqError):
         """The attribute which caused the error."""
         return self.response.get("ErrorAttribute")
 
+    @property
+    def resource_share_errors(self) -> list[Any] | None:
+        """The list of resource share errors."""
+        return self.response.get("ResourceShareErrors")
+
 
 class ConflictException(mqError):
     """Returns information about an error."""
@@ -26,6 +31,11 @@ class ConflictException(mqError):
     def error_attribute(self) -> str | None:
         """The attribute which caused the error."""
         return self.response.get("ErrorAttribute")
+
+    @property
+    def resource_share_errors(self) -> list[Any] | None:
+        """The list of resource share errors."""
+        return self.response.get("ResourceShareErrors")
 
 
 class ForbiddenException(mqError):
@@ -37,6 +47,11 @@ class ForbiddenException(mqError):
         """The attribute which caused the error."""
         return self.response.get("ErrorAttribute")
 
+    @property
+    def resource_share_errors(self) -> list[Any] | None:
+        """The list of resource share errors."""
+        return self.response.get("ResourceShareErrors")
+
 
 class InternalServerErrorException(mqError):
     """Returns information about an error."""
@@ -46,6 +61,11 @@ class InternalServerErrorException(mqError):
     def error_attribute(self) -> str | None:
         """The attribute which caused the error."""
         return self.response.get("ErrorAttribute")
+
+    @property
+    def resource_share_errors(self) -> list[Any] | None:
+        """The list of resource share errors."""
+        return self.response.get("ResourceShareErrors")
 
 
 class NotFoundException(mqError):
@@ -57,6 +77,11 @@ class NotFoundException(mqError):
         """The attribute which caused the error."""
         return self.response.get("ErrorAttribute")
 
+    @property
+    def resource_share_errors(self) -> list[Any] | None:
+        """The list of resource share errors."""
+        return self.response.get("ResourceShareErrors")
+
 
 class UnauthorizedException(mqError):
     """Returns information about an error."""
@@ -66,6 +91,11 @@ class UnauthorizedException(mqError):
     def error_attribute(self) -> str | None:
         """The attribute which caused the error."""
         return self.response.get("ErrorAttribute")
+
+    @property
+    def resource_share_errors(self) -> list[Any] | None:
+        """The list of resource share errors."""
+        return self.response.get("ResourceShareErrors")
 
 
 EXCEPTIONS: dict[str, type[mqError]] = {

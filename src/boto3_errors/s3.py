@@ -16,6 +16,16 @@ class AccessDenied(S3Error):
     _ERROR_CODE = "AccessDenied"
 
 
+class AnnotationLimitExceeded(S3Error):
+    """The request would exceed the maximum number of annotations allowed per object."""
+    _ERROR_CODE = "AnnotationLimitExceeded"
+
+
+class AnnotationNameTooLong(S3Error):
+    """The annotation name exceeds 512 bytes."""
+    _ERROR_CODE = "AnnotationNameTooLong"
+
+
 class BucketAlreadyExists(S3Error):
     """The requested bucket name is not available. The bucket namespace is shared by all
     users of the system. Select a different name and try again.
@@ -60,6 +70,11 @@ class IdempotencyParameterMismatch(S3Error):
     _ERROR_CODE = "IdempotencyParameterMismatch"
 
 
+class InvalidAnnotationName(S3Error):
+    """The annotation name you provided is invalid."""
+    _ERROR_CODE = "InvalidAnnotationName"
+
+
 class InvalidObjectState(S3Error):
     """Object is archived and inaccessible until restored.
 
@@ -83,6 +98,11 @@ class InvalidObjectState(S3Error):
         return self.response.get("StorageClass")
 
 
+class InvalidPrefix(S3Error):
+    """The annotation prefix you provided is invalid."""
+    _ERROR_CODE = "InvalidPrefix"
+
+
 class InvalidRequest(S3Error):
     """A parameter or header in your request isn't valid. For details, see the description
     of this API operation.
@@ -94,6 +114,11 @@ class InvalidRequest(S3Error):
 class InvalidWriteOffset(S3Error):
     """The write offset value that you specified does not match the current object size."""
     _ERROR_CODE = "InvalidWriteOffset"
+
+
+class NoSuchAnnotation(S3Error):
+    """The specified annotation does not exist on this object."""
+    _ERROR_CODE = "NoSuchAnnotation"
 
 
 class NoSuchBucket(S3Error):
@@ -133,19 +158,30 @@ class TooManyParts(S3Error):
     _ERROR_CODE = "TooManyParts"
 
 
+class UnsupportedMediaType(S3Error):
+    """The annotation payload is not valid UTF-8 encoded text."""
+    _ERROR_CODE = "UnsupportedMediaType"
+
+
 EXCEPTIONS: dict[str, type[S3Error]] = {
     "AccessDenied": AccessDenied,
+    "AnnotationLimitExceeded": AnnotationLimitExceeded,
+    "AnnotationNameTooLong": AnnotationNameTooLong,
     "BucketAlreadyExists": BucketAlreadyExists,
     "BucketAlreadyOwnedByYou": BucketAlreadyOwnedByYou,
     "EncryptionTypeMismatch": EncryptionTypeMismatch,
     "IdempotencyParameterMismatch": IdempotencyParameterMismatch,
+    "InvalidAnnotationName": InvalidAnnotationName,
     "InvalidObjectState": InvalidObjectState,
+    "InvalidPrefix": InvalidPrefix,
     "InvalidRequest": InvalidRequest,
     "InvalidWriteOffset": InvalidWriteOffset,
+    "NoSuchAnnotation": NoSuchAnnotation,
     "NoSuchBucket": NoSuchBucket,
     "NoSuchKey": NoSuchKey,
     "NoSuchUpload": NoSuchUpload,
     "ObjectAlreadyInActiveTierError": ObjectAlreadyInActiveTierError,
     "ObjectNotInActiveTierError": ObjectNotInActiveTierError,
     "TooManyParts": TooManyParts,
+    "UnsupportedMediaType": UnsupportedMediaType,
 }
