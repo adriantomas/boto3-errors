@@ -34,6 +34,14 @@ class ResourceNotFoundException(SecurityAgentError):
     _ERROR_CODE = "ResourceNotFoundException"
 
 
+class ServiceQuotaExceededException(SecurityAgentError):
+    """The request exceeds a service quota. Review your current usage and request a quota
+    increase if needed.
+    """
+
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+
 class ThrottlingException(SecurityAgentError):
     """The request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
@@ -64,6 +72,7 @@ EXCEPTIONS: dict[str, type[SecurityAgentError]] = {
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,
     "ValidationException": ValidationException,
 }
