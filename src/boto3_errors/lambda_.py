@@ -8,6 +8,20 @@ class LambdaError(Boto3Error):
     _SERVICE = "lambda"
 
 
+class AliasLimitExceededException(LambdaError):
+    """Lambda couldn't create the alias because your Amazon Web Services account has
+    exceeded the maximum number of aliases allowed per Lambda function. For more
+    information, see Lambda quotas.
+    """
+
+    _ERROR_CODE = "AliasLimitExceededException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
 class CallbackTimeoutException(LambdaError):
     """The callback ID token has either expired or the callback associated with the token
     has already been closed.
@@ -27,6 +41,48 @@ class CapacityProviderLimitExceededException(LambdaError):
     """
 
     _ERROR_CODE = "CapacityProviderLimitExceededException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
+class CodeArtifactUserDeletedException(LambdaError):
+    """The Lambda function couldn't be invoked because its code artifact user has been
+    deleted. Wait for Lambda to provision a new code artifact user, or update the
+    function's code package to recreate it.
+    """
+
+    _ERROR_CODE = "CodeArtifactUserDeletedException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
+class CodeArtifactUserFailedException(LambdaError):
+    """The Lambda function couldn't be invoked because provisioning of its code artifact
+    user failed. Update the function's code package or check the Lambda function's
+    `State` and `StateReasonCode` for additional context.
+    """
+
+    _ERROR_CODE = "CodeArtifactUserFailedException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
+class CodeArtifactUserPendingException(LambdaError):
+    """The Lambda function couldn't be invoked because its code artifact user is still
+    being provisioned. Wait for the function's `State` to become `Active` and try the
+    request again.
+    """
+
+    _ERROR_CODE = "CodeArtifactUserPendingException"
 
     @property
     def type(self) -> str | None:
@@ -178,6 +234,21 @@ class ENILimitReachedException(LambdaError):
         return self.response.get("Type")
 
 
+class ENINotReadyException(LambdaError):
+    """Lambda couldn't invoke the Lambda function because the elastic network interface
+    (ENI) configured for its VPC connection isn't ready yet. Wait a few moments and try
+    the request again. For more information about VPC configuration, see Configuring a
+    Lambda function to access resources in a VPC.
+    """
+
+    _ERROR_CODE = "ENINotReadyException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
 class FunctionVersionsPerCapacityProviderLimitExceededException(LambdaError):
     """The maximum number of function versions that can be associated with a single
     capacity provider has been exceeded. For more information, see Lambda quotas.
@@ -313,6 +384,21 @@ class KMSNotFoundException(LambdaError):
         return self.response.get("Type")
 
 
+class ModeNotSupportedException(LambdaError):
+    """The Lambda function doesn't support the invocation mode requested. For example,
+    calling `Invoke` with `InvocationType=RequestResponse` on a function configured for
+    asynchronous-only invocation, or vice versa. For more information about invocation
+    types, see Invoking Lambda functions.
+    """
+
+    _ERROR_CODE = "ModeNotSupportedException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
 class NoPublishedVersionException(LambdaError):
     """The function has no published versions available."""
     _ERROR_CODE = "NoPublishedVersionException"
@@ -359,6 +445,21 @@ class ProvisionedConcurrencyConfigNotFoundException(LambdaError):
 
     @property
     def type(self) -> str | None:
+        return self.response.get("Type")
+
+
+class PublicPolicyException(LambdaError):
+    """The resource-based policy you tried to add to the Lambda function would grant public
+    access to it, and your account's `BlockPublicAccess` setting prevents public access.
+    For more information about blocking public access to Lambda functions, see Block
+    public access to Lambda resources.
+    """
+
+    _ERROR_CODE = "PublicPolicyException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
         return self.response.get("Type")
 
 
@@ -493,6 +594,20 @@ class ServiceException(LambdaError):
         return self.response.get("Type")
 
 
+class ServiceQuotaExceededException(LambdaError):
+    """The request would exceed a service quota. For more information about Lambda service
+    quotas, see Lambda quotas. To request a quota increase, see Requesting a quota
+    increase in the Service Quotas User Guide.
+    """
+
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
 class SnapStartException(LambdaError):
     """The `afterRestore()` runtime hook encountered an error. For more information, check
     the Amazon CloudWatch logs.
@@ -514,6 +629,22 @@ class SnapStartNotReadyException(LambdaError):
 
     @property
     def type(self) -> str | None:
+        return self.response.get("Type")
+
+
+class SnapStartRegenerationFailureException(LambdaError):
+    """Lambda couldn't regenerate the SnapStart snapshot for the function. SnapStart-
+    enabled functions periodically regenerate snapshots when their underlying runtime or
+    dependencies change; this regeneration failed. Wait for Lambda to retry, or update
+    the function's configuration to trigger a new snapshot. For more information, see
+    Lambda SnapStart.
+    """
+
+    _ERROR_CODE = "SnapStartRegenerationFailureException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
         return self.response.get("Type")
 
 
@@ -566,8 +697,12 @@ class UnsupportedMediaTypeException(LambdaError):
 
 
 EXCEPTIONS: dict[str, type[LambdaError]] = {
+    "AliasLimitExceededException": AliasLimitExceededException,
     "CallbackTimeoutException": CallbackTimeoutException,
     "CapacityProviderLimitExceededException": CapacityProviderLimitExceededException,
+    "CodeArtifactUserDeletedException": CodeArtifactUserDeletedException,
+    "CodeArtifactUserFailedException": CodeArtifactUserFailedException,
+    "CodeArtifactUserPendingException": CodeArtifactUserPendingException,
     "CodeSigningConfigNotFoundException": CodeSigningConfigNotFoundException,
     "CodeStorageExceededException": CodeStorageExceededException,
     "CodeVerificationFailedException": CodeVerificationFailedException,
@@ -580,6 +715,7 @@ EXCEPTIONS: dict[str, type[LambdaError]] = {
     "EFSMountFailureException": EFSMountFailureException,
     "EFSMountTimeoutException": EFSMountTimeoutException,
     "ENILimitReachedException": ENILimitReachedException,
+    "ENINotReadyException": ENINotReadyException,
     "FunctionVersionsPerCapacityProviderLimitExceededException": FunctionVersionsPerCapacityProviderLimitExceededException,
     "InvalidCodeSignatureException": InvalidCodeSignatureException,
     "InvalidParameterValueException": InvalidParameterValueException,
@@ -592,10 +728,12 @@ EXCEPTIONS: dict[str, type[LambdaError]] = {
     "KMSDisabledException": KMSDisabledException,
     "KMSInvalidStateException": KMSInvalidStateException,
     "KMSNotFoundException": KMSNotFoundException,
+    "ModeNotSupportedException": ModeNotSupportedException,
     "NoPublishedVersionException": NoPublishedVersionException,
     "PolicyLengthExceededException": PolicyLengthExceededException,
     "PreconditionFailedException": PreconditionFailedException,
     "ProvisionedConcurrencyConfigNotFoundException": ProvisionedConcurrencyConfigNotFoundException,
+    "PublicPolicyException": PublicPolicyException,
     "RecursiveInvocationException": RecursiveInvocationException,
     "RequestTooLargeException": RequestTooLargeException,
     "ResourceConflictException": ResourceConflictException,
@@ -607,8 +745,10 @@ EXCEPTIONS: dict[str, type[LambdaError]] = {
     "S3FilesMountTimeoutException": S3FilesMountTimeoutException,
     "SerializedRequestEntityTooLargeException": SerializedRequestEntityTooLargeException,
     "ServiceException": ServiceException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "SnapStartException": SnapStartException,
     "SnapStartNotReadyException": SnapStartNotReadyException,
+    "SnapStartRegenerationFailureException": SnapStartRegenerationFailureException,
     "SnapStartTimeoutException": SnapStartTimeoutException,
     "SubnetIPAddressLimitReachedException": SubnetIPAddressLimitReachedException,
     "TooManyRequestsException": TooManyRequestsException,

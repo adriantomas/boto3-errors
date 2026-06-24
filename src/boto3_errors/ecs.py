@@ -179,7 +179,7 @@ class ServerException(ECSError):
 
 
 class ServiceDeploymentNotFoundException(ECSError):
-    """The service deploy ARN that you specified in the `StopServiceDeployment` doesn't
+    """The service deploy ARN that you specified in the `ContinueServiceDeployment` doesn't
     exist. You can use `ListServiceDeployments` to retrieve the service deployment ARNs.
     """
 
