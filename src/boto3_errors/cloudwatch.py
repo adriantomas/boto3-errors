@@ -104,6 +104,14 @@ class MissingRequiredParameterException(CloudWatchError):
     _ERROR_CODE = "MissingParameter"
 
 
+class ResourceConflict(CloudWatchError):
+    """The operation could not be completed because the request conflicts with the current
+    state of the alarm or its underlying scheduled query resource.
+    """
+
+    _ERROR_CODE = "ResourceConflict"
+
+
 class ResourceNotFound(CloudWatchError):
     """The named resource does not exist."""
     _ERROR_CODE = "ResourceNotFound"
@@ -138,6 +146,7 @@ EXCEPTIONS: dict[str, type[CloudWatchError]] = {
     "LimitExceededException": LimitExceededException,
     "LimitExceeded": LimitExceededFault,
     "MissingParameter": MissingRequiredParameterException,
+    "ResourceConflict": ResourceConflict,
     "ResourceNotFound": ResourceNotFound,
     "ResourceNotFoundException": ResourceNotFoundException,
 }
