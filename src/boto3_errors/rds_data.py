@@ -14,10 +14,7 @@ class AccessDeniedException(RDSDataError):
 
 
 class BadRequestException(RDSDataError):
-    """There is an error in the call or in a SQL statement. (This error only appears in
-    calls from Aurora Serverless v1 databases.)
-    """
-
+    """There is an error in the call or in a SQL statement. This exception is deprecated."""
     _ERROR_CODE = "BadRequestException"
 
 
@@ -32,7 +29,7 @@ class DatabaseNotFoundException(RDSDataError):
 
 
 class DatabaseResumingException(RDSDataError):
-    """A request was cancelled because the Aurora Serverless v2 DB instance was paused. The
+    """A request was cancelled because the Aurora Serverless DB instance was paused. The
     Data API request automatically resumes the DB instance. Wait a few seconds and try
     again.
     """
