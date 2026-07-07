@@ -241,6 +241,14 @@ class ScopeDoesNotExistException(CognitoIdentityProviderError):
     _ERROR_CODE = "ScopeDoesNotExistException"
 
 
+class ServiceQuotaExceededException(CognitoIdentityProviderError):
+    """The request exceeded your account's service quota. To increase your limit, use or
+    submit a Service Quotas increase request.
+    """
+
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+
 class SoftwareTokenMFANotFoundException(CognitoIdentityProviderError):
     """This exception is thrown when the software token time-based one-time password (TOTP)
     multi-factor authentication (MFA) isn't activated for the user pool.
@@ -451,6 +459,7 @@ EXCEPTIONS: dict[str, type[CognitoIdentityProviderError]] = {
     "RefreshTokenReuseException": RefreshTokenReuseException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ScopeDoesNotExistException": ScopeDoesNotExistException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "SoftwareTokenMFANotFoundException": SoftwareTokenMFANotFoundException,
     "TermsExistsException": TermsExistsException,
     "TierChangeNotAllowedException": TierChangeNotAllowedException,

@@ -69,12 +69,6 @@ class ServiceQuotaExceededException(AppConfigError):
 
     Applications: 100 max
 
-    Deployment strategies: 20 max
-
-    Configuration profiles: 100 max per application
-
-    Environments: 20 max per application
-
     To resolve this issue, you can delete one or more resources and try again. Or, you
     can request a quota increase. For more information about quotas and to request an
     increase, see Service quotas for AppConfig in the Amazon Web Services General

@@ -46,6 +46,14 @@ class ServiceQuotaExceededException(GameLiftStreamsError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 
+class StreamSessionAccessNotReadyException(GameLiftStreamsError):
+    """The terminal connection to the stream session is not yet available. Wait before
+    retrying the request.
+    """
+
+    _ERROR_CODE = "StreamSessionAccessNotReadyException"
+
+
 class ThrottlingException(GameLiftStreamsError):
     """The request was denied due to request throttling. Retry the request after the
     suggested wait time.
@@ -68,6 +76,7 @@ EXCEPTIONS: dict[str, type[GameLiftStreamsError]] = {
     "InternalServerException": InternalServerException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
+    "StreamSessionAccessNotReadyException": StreamSessionAccessNotReadyException,
     "ThrottlingException": ThrottlingException,
     "ValidationException": ValidationException,
 }

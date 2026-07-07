@@ -21,6 +21,14 @@ class ConflictException(ACMError):
     _ERROR_CODE = "ConflictException"
 
 
+class InternalServerException(ACMError):
+    """The request processing has failed because of an unknown error, exception, or
+    failure.
+    """
+
+    _ERROR_CODE = "InternalServerException"
+
+
 class InvalidArgsException(ACMError):
     """One or more of request parameters specified is not valid."""
     _ERROR_CODE = "InvalidArgsException"
@@ -83,6 +91,11 @@ class ResourceNotFoundException(ACMError):
     _ERROR_CODE = "ResourceNotFoundException"
 
 
+class ServiceQuotaExceededException(ACMError):
+    """A service quota has been exceeded."""
+    _ERROR_CODE = "ServiceQuotaExceededException"
+
+
 class TagPolicyException(ACMError):
     """A specified tag did not comply with an existing tag policy and was rejected."""
     _ERROR_CODE = "TagPolicyException"
@@ -111,6 +124,7 @@ class ValidationException(ACMError):
 EXCEPTIONS: dict[str, type[ACMError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
+    "InternalServerException": InternalServerException,
     "InvalidArgsException": InvalidArgsException,
     "InvalidArnException": InvalidArnException,
     "InvalidDomainValidationOptionsException": InvalidDomainValidationOptionsException,
@@ -121,6 +135,7 @@ EXCEPTIONS: dict[str, type[ACMError]] = {
     "RequestInProgressException": RequestInProgressException,
     "ResourceInUseException": ResourceInUseException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "TagPolicyException": TagPolicyException,
     "ThrottlingException": ThrottlingException,
     "TooManyTagsException": TooManyTagsException,
