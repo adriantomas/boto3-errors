@@ -104,6 +104,14 @@ class ComplianceTypeCountLimitExceededException(SSMError):
     _ERROR_CODE = "ComplianceTypeCountLimitExceededException"
 
 
+class ConflictException(SSMError):
+    """An error occurred because of a conflict with a concurrent request or the current
+    state of the resource. Retry your request.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+
 class CustomSchemaCountLimitExceededException(SSMError):
     """You have exceeded the limit for custom schemas. Delete one or more custom schemas
     and try again.
@@ -1087,6 +1095,7 @@ EXCEPTIONS: dict[str, type[SSMError]] = {
     "AutomationExecutionNotFoundException": AutomationExecutionNotFoundException,
     "AutomationStepNotFoundException": AutomationStepNotFoundException,
     "ComplianceTypeCountLimitExceededException": ComplianceTypeCountLimitExceededException,
+    "ConflictException": ConflictException,
     "CustomSchemaCountLimitExceededException": CustomSchemaCountLimitExceededException,
     "DocumentAlreadyExists": DocumentAlreadyExists,
     "DocumentLimitExceeded": DocumentLimitExceeded,

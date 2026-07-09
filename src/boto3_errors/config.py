@@ -12,8 +12,25 @@ class ConflictException(ConfigServiceError):
     """For PutServiceLinkedConfigurationRecorder, you cannot create a service-linked
     recorder because a service-linked recorder already exists for the specified service.
 
+    For PutThirdPartyServiceLinkedConfigurationRecorder, you cannot create a service-
+    linked recorder because the specified service principal does not support multiple
+    configuration recorders and one already exists.
+
+    For PutThirdPartyServiceLinkedConfigurationRecorder, another in-progress operation
+    is currently referencing the same connector or service principal. Please try again
+    later.
+
+    For PutConnector, you cannot create a connector because a connector already exists
+    for the specified connector configuration.
+
     For DeleteServiceLinkedConfigurationRecorder, you cannot delete the service-linked
     recorder because it is currently in use by the linked Amazon Web Services service.
+
+    For DeleteServiceLinkedConfigurationRecorder, another in-progress operation is
+    currently referencing the same connector. Please try again later.
+
+    For DeleteConnector, another in-progress operation is currently referencing the
+    connector. Please try again later.
 
     For DeleteDeliveryChannel, you cannot delete the specified delivery channel because
     the customer managed configuration recorder is running. Use the
@@ -70,6 +87,8 @@ class InsufficientPermissionsException(ConfigServiceError):
     - For PutServiceLinkedConfigurationRecorder, a service-linked configuration recorder
       cannot be created because you do not have the following permissions: IAM
       `CreateServiceLinkedRole`.
+    - For PutConnector, a connector cannot be created because you do not have the
+      following permissions: IAM `CreateServiceLinkedRole`.
     """
 
     _ERROR_CODE = "InsufficientPermissionsException"
@@ -222,6 +241,11 @@ class MaxNumberOfConformancePacksExceededException(ConfigServiceError):
     """
 
     _ERROR_CODE = "MaxNumberOfConformancePacksExceededException"
+
+
+class MaxNumberOfConnectorsExceededException(ConfigServiceError):
+    """You have reached the limit of the number of connectors in your account."""
+    _ERROR_CODE = "MaxNumberOfConnectorsExceededException"
 
 
 class MaxNumberOfDeliveryChannelsExceededException(ConfigServiceError):
@@ -501,6 +525,13 @@ class ValidationException(ConfigServiceError):
       disassociated with the configuration recorder.
     - For service-linked configuration recorders, the configuration recorder does not
       record one or more of the specified resource types.
+
+    For DeleteServiceLinkedConfigurationRecorder, one of the following errors:
+
+    - You have provided both `Arn` and `ServicePrincipal`. Only one of `Arn` or
+      `ServicePrincipal` can be specified.
+    - You have provided a service principal for service-linked configuration recorder
+      that is not valid.
     """
 
     _ERROR_CODE = "ValidationException"
@@ -531,6 +562,7 @@ EXCEPTIONS: dict[str, type[ConfigServiceError]] = {
     "MaxNumberOfConfigRulesExceededException": MaxNumberOfConfigRulesExceededException,
     "MaxNumberOfConfigurationRecordersExceededException": MaxNumberOfConfigurationRecordersExceededException,
     "MaxNumberOfConformancePacksExceededException": MaxNumberOfConformancePacksExceededException,
+    "MaxNumberOfConnectorsExceededException": MaxNumberOfConnectorsExceededException,
     "MaxNumberOfDeliveryChannelsExceededException": MaxNumberOfDeliveryChannelsExceededException,
     "MaxNumberOfOrganizationConfigRulesExceededException": MaxNumberOfOrganizationConfigRulesExceededException,
     "MaxNumberOfOrganizationConformancePacksExceededException": MaxNumberOfOrganizationConformancePacksExceededException,
