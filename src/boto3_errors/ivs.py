@@ -9,6 +9,7 @@ class ivsError(Boto3Error):
 
 
 class AccessDeniedException(ivsError):
+    """User does not have sufficient access to perform this action."""
     _ERROR_CODE = "AccessDeniedException"
 
     @property
@@ -50,6 +51,7 @@ class AccessDeniedException(ivsError):
 
 
 class ChannelNotBroadcasting(ivsError):
+    """The stream is offline for the given channel ARN."""
     _ERROR_CODE = "ChannelNotBroadcasting"
 
     @property
@@ -91,6 +93,7 @@ class ChannelNotBroadcasting(ivsError):
 
 
 class ConflictException(ivsError):
+    """Updating or deleting a resource can cause an inconsistent state."""
     _ERROR_CODE = "ConflictException"
 
     @property
@@ -132,6 +135,7 @@ class ConflictException(ivsError):
 
 
 class InternalServerException(ivsError):
+    """Unexpected error during processing of request."""
     _ERROR_CODE = "InternalServerException"
 
     @property
@@ -173,6 +177,7 @@ class InternalServerException(ivsError):
 
 
 class PendingVerification(ivsError):
+    """Your account is pending verification."""
     _ERROR_CODE = "PendingVerification"
 
     @property
@@ -214,6 +219,7 @@ class PendingVerification(ivsError):
 
 
 class ResourceNotFoundException(ivsError):
+    """Request references a resource which does not exist."""
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
@@ -255,6 +261,7 @@ class ResourceNotFoundException(ivsError):
 
 
 class ServiceQuotaExceededException(ivsError):
+    """Request would cause a service quota to be exceeded."""
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
@@ -296,6 +303,7 @@ class ServiceQuotaExceededException(ivsError):
 
 
 class ServiceUnavailable(ivsError):
+    """The service is temporarily unavailable."""
     _ERROR_CODE = "ServiceUnavailable"
 
     @property
@@ -337,6 +345,7 @@ class ServiceUnavailable(ivsError):
 
 
 class StreamUnavailable(ivsError):
+    """The stream is temporarily unavailable."""
     _ERROR_CODE = "StreamUnavailable"
 
     @property
@@ -378,6 +387,7 @@ class StreamUnavailable(ivsError):
 
 
 class ThrottlingException(ivsError):
+    """Request was denied due to request throttling."""
     _ERROR_CODE = "ThrottlingException"
 
     @property
@@ -419,6 +429,10 @@ class ThrottlingException(ivsError):
 
 
 class ValidationException(ivsError):
+    """The input fails to satisfy the constraints specified by an Amazon Web Services
+    service.
+    """
+
     _ERROR_CODE = "ValidationException"
 
     @property
