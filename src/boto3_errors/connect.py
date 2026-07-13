@@ -36,6 +36,15 @@ class ContactNotFoundException(ConnectError):
     _ERROR_CODE = "ContactNotFoundException"
 
 
+class ContactNotTerminatedException(ConnectError):
+    """The contact has not been disconnected and is not in a terminated state. PII can be
+    deleted only from a contact that has been disconnected. This error is returned with
+    an HTTP 409 status code.
+    """
+
+    _ERROR_CODE = "ContactNotTerminatedException"
+
+
 class DestinationNotAllowedException(ConnectError):
     """Outbound calls to the destination number are not allowed."""
     _ERROR_CODE = "DestinationNotAllowedException"
@@ -210,6 +219,7 @@ EXCEPTIONS: dict[str, type[ConnectError]] = {
     "ConflictException": ConflictException,
     "ContactFlowNotPublishedException": ContactFlowNotPublishedException,
     "ContactNotFoundException": ContactNotFoundException,
+    "ContactNotTerminatedException": ContactNotTerminatedException,
     "DestinationNotAllowedException": DestinationNotAllowedException,
     "DuplicateResourceException": DuplicateResourceException,
     "IdempotencyException": IdempotencyException,

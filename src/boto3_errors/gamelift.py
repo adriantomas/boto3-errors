@@ -83,7 +83,7 @@ class LimitExceededException(GameLiftError):
 
 
 class NotFoundException(GameLiftError):
-    """The requested resources was not found. The resource was either not created yet or
+    """The requested resource was not found. The resource was either not created yet or
     deleted.
     """
 
