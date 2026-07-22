@@ -618,6 +618,24 @@ class PartnerNotFoundFault(RedshiftError):
     _ERROR_CODE = "PartnerNotFound"
 
 
+class Qev2IdcApplicationAlreadyExistsFault(RedshiftError):
+    """The Amazon Redshift Query Editor (QEV2) IAM Identity Center application already
+    exists. Use a different application name or describe existing applications to find
+    the ARN.
+    """
+
+    _ERROR_CODE = "Qev2IdcApplicationAlreadyExists"
+
+
+class Qev2IdcApplicationNotExistsFault(RedshiftError):
+    """The specified Amazon Redshift Query Editor (QEV2) IAM Identity Center application
+    doesn't exist. Verify that the application ARN is correct and that the application
+    exists in this Region.
+    """
+
+    _ERROR_CODE = "Qev2IdcApplicationNotExists"
+
+
 class RedshiftIdcApplicationAlreadyExistsFault(RedshiftError):
     """The application you attempted to add already exists."""
     _ERROR_CODE = "RedshiftIdcApplicationAlreadyExists"
@@ -987,6 +1005,8 @@ EXCEPTIONS: dict[str, type[RedshiftError]] = {
     "NumberOfNodesPerClusterLimitExceeded": NumberOfNodesPerClusterLimitExceededFault,
     "NumberOfNodesQuotaExceeded": NumberOfNodesQuotaExceededFault,
     "PartnerNotFound": PartnerNotFoundFault,
+    "Qev2IdcApplicationAlreadyExists": Qev2IdcApplicationAlreadyExistsFault,
+    "Qev2IdcApplicationNotExists": Qev2IdcApplicationNotExistsFault,
     "RedshiftIdcApplicationAlreadyExists": RedshiftIdcApplicationAlreadyExistsFault,
     "RedshiftIdcApplicationNotExists": RedshiftIdcApplicationNotExistsFault,
     "RedshiftIdcApplicationQuotaExceeded": RedshiftIdcApplicationQuotaExceededFault,
