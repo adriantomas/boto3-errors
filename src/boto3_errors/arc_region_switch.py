@@ -17,6 +17,25 @@ class AccessDeniedException(ARCRegionswitchError):
     _ERROR_CODE = "AccessDeniedException"
 
 
+class ConflictException(ARCRegionswitchError):
+    """The client token was already used with different request parameters. A client token
+    must map to the same parameters for every request. To retry this operation, provide
+    a new client token.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+    @property
+    def resource_id(self) -> str | None:
+        """The identifier of the resource involved in the client token conflict."""
+        return self.response.get("resourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The type of the resource involved in the client token conflict."""
+        return self.response.get("resourceType")
+
+
 class IllegalArgumentException(ARCRegionswitchError):
     """The request processing has an invalid argument."""
     _ERROR_CODE = "IllegalArgumentException"
@@ -53,6 +72,7 @@ class ResourceNotFoundException(ARCRegionswitchError):
 
 EXCEPTIONS: dict[str, type[ARCRegionswitchError]] = {
     "AccessDeniedException": AccessDeniedException,
+    "ConflictException": ConflictException,
     "IllegalArgumentException": IllegalArgumentException,
     "IllegalStateException": IllegalStateException,
     "InternalServerException": InternalServerException,
