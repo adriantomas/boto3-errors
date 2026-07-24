@@ -21,6 +21,14 @@ class ActiveStatementsExceededException(RedshiftDataError):
     _ERROR_CODE = "ActiveStatementsExceededException"
 
 
+class ActiveWaitingRequestsExceededException(RedshiftDataError):
+    """The number of active requests with `WaitTimeSeconds` for the same SQL statement
+    exceeds the limit.
+    """
+
+    _ERROR_CODE = "ActiveWaitingRequestsExceededException"
+
+
 class BatchExecuteStatementException(RedshiftDataError):
     """An SQL statement encountered an environmental error while running."""
     _ERROR_CODE = "BatchExecuteStatementException"
@@ -74,6 +82,7 @@ class ValidationException(RedshiftDataError):
 EXCEPTIONS: dict[str, type[RedshiftDataError]] = {
     "ActiveSessionsExceededException": ActiveSessionsExceededException,
     "ActiveStatementsExceededException": ActiveStatementsExceededException,
+    "ActiveWaitingRequestsExceededException": ActiveWaitingRequestsExceededException,
     "BatchExecuteStatementException": BatchExecuteStatementException,
     "DatabaseConnectionException": DatabaseConnectionException,
     "ExecuteStatementException": ExecuteStatementException,
