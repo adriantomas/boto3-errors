@@ -76,6 +76,7 @@ exclude = ["src/boto3_errors/[!_]*.py"]
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
+    "CPY001", # missing-copyright-notice: newly stabilized in ruff 0.16.0, no copyright-header policy
     "TC002", # typing-only-third-party-import
     "TC003", # typing-only-standard-library-import
     "D203", # incorrect-blank-line-before-class (D203)
