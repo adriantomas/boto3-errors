@@ -51,6 +51,11 @@ class ResourceNotFoundException(BedrockAgentCoreControlError):
     _ERROR_CODE = "ResourceNotFoundException"
 
 
+class RetryableConflictException(BedrockAgentCoreControlError):
+    """The operation failed because of a conflicting request. Retry the request."""
+    _ERROR_CODE = "RetryableConflictException"
+
+
 class ServiceException(BedrockAgentCoreControlError):
     """An internal error occurred."""
     _ERROR_CODE = "ServiceException"
@@ -101,6 +106,7 @@ EXCEPTIONS: dict[str, type[BedrockAgentCoreControlError]] = {
     "InternalServerException": InternalServerException,
     "ResourceLimitExceededException": ResourceLimitExceededException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "RetryableConflictException": RetryableConflictException,
     "ServiceException": ServiceException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottledException": ThrottledException,
