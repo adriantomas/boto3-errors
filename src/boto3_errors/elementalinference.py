@@ -18,6 +18,14 @@ class ConflictException(ElementalInferenceError):
     _ERROR_CODE = "ConflictException"
 
 
+class GatewayTimedOutException(ElementalInferenceError):
+    """The request timed out before the service returned a response. This is a temporary
+    condition. Retry the request. If the problem persists, contact AWS Support.
+    """
+
+    _ERROR_CODE = "GatewayTimedOutException"
+
+
 class InternalServerErrorException(ElementalInferenceError):
     """An internal server error occurred. This is a temporary condition and the request can
     be retried. If the problem persists, contact AWS Support.
@@ -38,6 +46,14 @@ class ServiceQuotaExceededException(ElementalInferenceError):
     """
 
     _ERROR_CODE = "ServiceQuotaExceededException"
+
+
+class ServiceUnavailableException(ElementalInferenceError):
+    """The service is temporarily unable to handle the request. Retry the request. If the
+    problem persists, contact AWS Support.
+    """
+
+    _ERROR_CODE = "ServiceUnavailableException"
 
 
 class TooManyRequestException(ElementalInferenceError):
@@ -61,9 +77,11 @@ class ValidationException(ElementalInferenceError):
 EXCEPTIONS: dict[str, type[ElementalInferenceError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
+    "GatewayTimedOutException": GatewayTimedOutException,
     "InternalServerErrorException": InternalServerErrorException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
+    "ServiceUnavailableException": ServiceUnavailableException,
     "TooManyRequestException": TooManyRequestException,
     "ValidationException": ValidationException,
 }
