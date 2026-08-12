@@ -18,7 +18,7 @@ class AccessDeniedException(TextractError):
 
 class BadDocumentException(TextractError):
     """Amazon Textract isn't able to read the document. For more information on the
-    document limits in Amazon Textract, see limits.
+    document limits in Amazon Textract, see Hard limits.
     """
 
     _ERROR_CODE = "BadDocumentException"
