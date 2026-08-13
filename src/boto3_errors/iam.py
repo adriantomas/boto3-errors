@@ -178,6 +178,14 @@ class MalformedPolicyDocumentException(IAMError):
     _ERROR_CODE = "MalformedPolicyDocument"
 
 
+class NameConflictException(IAMError):
+    """The request was rejected because the resulting role name conflicts with an existing
+    role in the account.
+    """
+
+    _ERROR_CODE = "NameConflict"
+
+
 class NoSuchEntityException(IAMError):
     """The request was rejected because it referenced a resource entity that does not
     exist. The error message describes the resource.
@@ -238,6 +246,23 @@ class ReportGenerationLimitExceededException(IAMError):
     """
 
     _ERROR_CODE = "ReportGenerationLimitExceeded"
+
+
+class RoleModifiedException(IAMError):
+    """The request was rejected because someone modified the role template while the
+    service was creating the role. Wait a few minutes and try the request again.
+    """
+
+    _ERROR_CODE = "RoleModified"
+
+
+class RoleTemplateDisabledException(IAMError):
+    """The request was rejected because the specified role template is disabled. A disabled
+    role template cannot be used to create new roles. Contact your administrator to
+    enable the role template, or use a different role template.
+    """
+
+    _ERROR_CODE = "RoleTemplateDisabled"
 
 
 class ServiceAccessNotEnabledException(IAMError):
@@ -301,6 +326,7 @@ EXCEPTIONS: dict[str, type[IAMError]] = {
     "LimitExceeded": LimitExceededException,
     "MalformedCertificate": MalformedCertificateException,
     "MalformedPolicyDocument": MalformedPolicyDocumentException,
+    "NameConflict": NameConflictException,
     "NoSuchEntity": NoSuchEntityException,
     "OpenIdIdpCommunicationError": OpenIdIdpCommunicationErrorException,
     "OrganizationNotFoundException": OrganizationNotFoundException,
@@ -309,6 +335,8 @@ EXCEPTIONS: dict[str, type[IAMError]] = {
     "PolicyEvaluation": PolicyEvaluationException,
     "PolicyNotAttachable": PolicyNotAttachableException,
     "ReportGenerationLimitExceeded": ReportGenerationLimitExceededException,
+    "RoleModified": RoleModifiedException,
+    "RoleTemplateDisabled": RoleTemplateDisabledException,
     "ServiceAccessNotEnabledException": ServiceAccessNotEnabledException,
     "ServiceFailure": ServiceFailureException,
     "NotSupportedService": ServiceNotSupportedException,
