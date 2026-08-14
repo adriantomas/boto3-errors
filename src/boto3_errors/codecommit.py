@@ -1291,6 +1291,11 @@ class TooManyTagsException(CodeCommitError):
     _ERROR_CODE = "TooManyTagsException"
 
 
+class ValidationException(CodeCommitError):
+    """The specified input is either not valid, or it could not be validated."""
+    _ERROR_CODE = "ValidationException"
+
+
 EXCEPTIONS: dict[str, type[CodeCommitError]] = {
     "ActorDoesNotExistException": ActorDoesNotExistException,
     "ApprovalRuleContentRequiredException": ApprovalRuleContentRequiredException,
@@ -1481,4 +1486,5 @@ EXCEPTIONS: dict[str, type[CodeCommitError]] = {
     "TipsDivergenceExceededException": TipsDivergenceExceededException,
     "TitleRequiredException": TitleRequiredException,
     "TooManyTagsException": TooManyTagsException,
+    "ValidationException": ValidationException,
 }
