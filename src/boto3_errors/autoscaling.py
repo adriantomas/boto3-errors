@@ -21,6 +21,15 @@ class AlreadyExistsFault(AutoScalingError):
     _ERROR_CODE = "AlreadyExists"
 
 
+class IdempotentCallInProgressFault(AutoScalingError):
+    """The service is currently processing another request with the same client token.
+    Retry the request with the same client token—the in-flight operation will complete
+    and return its result.
+    """
+
+    _ERROR_CODE = "IdempotentCallInProgress"
+
+
 class IdempotentParameterMismatchError(AutoScalingError):
     """Indicates that the parameters in the current request do not match the parameters
     from a previous request with the same client token within the idempotency window.
@@ -86,6 +95,7 @@ class ServiceLinkedRoleFailure(AutoScalingError):
 EXCEPTIONS: dict[str, type[AutoScalingError]] = {
     "ActiveInstanceRefreshNotFound": ActiveInstanceRefreshNotFoundFault,
     "AlreadyExists": AlreadyExistsFault,
+    "IdempotentCallInProgress": IdempotentCallInProgressFault,
     "IdempotentParameterMismatch": IdempotentParameterMismatchError,
     "InstanceRefreshInProgress": InstanceRefreshInProgressFault,
     "InvalidNextToken": InvalidNextToken,
