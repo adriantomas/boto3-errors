@@ -66,6 +66,25 @@ class ServiceQuotaExceededException(BedrockAgentCoreControlError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 
+class SubscriptionRequiredException(BedrockAgentCoreControlError):
+    """The request failed because it requires an active Amazon Web Services Marketplace
+    subscription that is not present. Subscribe to the required product in Amazon Web
+    Services Marketplace and try again.
+    """
+
+    _ERROR_CODE = "SubscriptionRequiredException"
+
+    @property
+    def product_name(self) -> str | None:
+        """The product requiring subscription"""
+        return self.response.get("productName")
+
+    @property
+    def subscription_url(self) -> str | None:
+        """URL to the Marketplace listing for subscription"""
+        return self.response.get("subscriptionUrl")
+
+
 class ThrottledException(BedrockAgentCoreControlError):
     """API rate limit has been exceeded."""
     _ERROR_CODE = "ThrottledException"
@@ -109,6 +128,7 @@ EXCEPTIONS: dict[str, type[BedrockAgentCoreControlError]] = {
     "RetryableConflictException": RetryableConflictException,
     "ServiceException": ServiceException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
+    "SubscriptionRequiredException": SubscriptionRequiredException,
     "ThrottledException": ThrottledException,
     "ThrottlingException": ThrottlingException,
     "UnauthorizedException": UnauthorizedException,
