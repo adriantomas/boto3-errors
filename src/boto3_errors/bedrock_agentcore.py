@@ -93,6 +93,26 @@ class ServiceQuotaExceededException(BedrockAgentCoreError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 
+class SubscriptionRequiredException(BedrockAgentCoreError):
+    """Returned when you attempt a wallet operation against a Coinbase Marketplace
+    connector whose account does not hold an active Marketplace subscription and is not
+    within the legacy exception period. Subscribe to the Marketplace listing before you
+    retry the operation.
+    """
+
+    _ERROR_CODE = "SubscriptionRequiredException"
+
+    @property
+    def product_name(self) -> str | None:
+        """The name of the product that requires a Marketplace subscription."""
+        return self.response.get("productName")
+
+    @property
+    def subscription_url(self) -> str | None:
+        """The URL to the Marketplace listing where you can subscribe."""
+        return self.response.get("subscriptionUrl")
+
+
 class ThrottledException(BedrockAgentCoreError):
     """The request was denied due to request throttling. Reduce the frequency of requests
     and try again.
@@ -147,6 +167,7 @@ EXCEPTIONS: dict[str, type[BedrockAgentCoreError]] = {
     "RuntimeClientError": RuntimeClientError,
     "ServiceException": ServiceException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
+    "SubscriptionRequiredException": SubscriptionRequiredException,
     "ThrottledException": ThrottledException,
     "ThrottlingException": ThrottlingException,
     "UnauthorizedException": UnauthorizedException,
