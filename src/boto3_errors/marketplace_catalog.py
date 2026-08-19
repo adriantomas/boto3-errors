@@ -67,6 +67,13 @@ class ValidationException(MarketplaceCatalogError):
 
     _ERROR_CODE = "ValidationException"
 
+    @property
+    def validation_exception_field_list(self) -> list[Any] | None:
+        """A list of detailed entries describing the request fields that failed validation.
+        Present when the failure can be attributed to one or more specific fields.
+        """
+        return self.response.get("ValidationExceptionFieldList")
+
 
 EXCEPTIONS: dict[str, type[MarketplaceCatalogError]] = {
     "AccessDeniedException": AccessDeniedException,
