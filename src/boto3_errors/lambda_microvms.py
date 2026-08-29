@@ -31,6 +31,11 @@ class ConflictException(LambdaMicrovmsError):
         return self.response.get("resourceType")
 
 
+class InsufficientCapacityException(LambdaMicrovmsError):
+    """There is insufficient capacity to fulfill the request. Retry the request later."""
+    _ERROR_CODE = "InsufficientCapacityException"
+
+
 class InternalServerException(LambdaMicrovmsError):
     """An internal server error occurred. Retry the request later."""
     _ERROR_CODE = "InternalServerException"
@@ -149,6 +154,7 @@ class ValidationException(LambdaMicrovmsError):
 EXCEPTIONS: dict[str, type[LambdaMicrovmsError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
+    "InsufficientCapacityException": InsufficientCapacityException,
     "InternalServerException": InternalServerException,
     "InvalidParameterValueException": InvalidParameterValueException,
     "ResourceConflictException": ResourceConflictException,
