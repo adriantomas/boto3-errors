@@ -72,8 +72,8 @@ class ThrottlingException(HealthLakeError):
 
 
 class UnauthorizedException(HealthLakeError):
-    """You are not authorized to make this request. Verify that your AWS credentials are
-    valid and that you have the required permissions.
+    """You are not authorized to make this request. Verify that your Amazon Web Services
+    credentials are valid and that you have the required permissions.
     """
 
     _ERROR_CODE = "UnauthorizedException"
