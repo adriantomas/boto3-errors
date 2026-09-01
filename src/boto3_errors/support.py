@@ -60,6 +60,14 @@ class DescribeAttachmentLimitExceeded(SupportError):
     _ERROR_CODE = "DescribeAttachmentLimitExceeded"
 
 
+class DryRunOperationException(SupportError):
+    """The request was valid, but the operation wasn't performed because `dryRun` was set
+    to `true`.
+    """
+
+    _ERROR_CODE = "DryRunOperationException"
+
+
 class InternalServerError(SupportError):
     """An internal server error occurred."""
     _ERROR_CODE = "InternalServerError"
@@ -72,6 +80,16 @@ class ThrottlingException(SupportError):
 
     _ERROR_CODE = "ThrottlingException"
 
+    @property
+    def throttling_reasons(self) -> list[Any] | None:
+        """A list of one or more reasons that the request was throttled."""
+        return self.response.get("throttlingReasons")
+
+
+class UploadIdNotFound(SupportError):
+    """The specified `uploadId` couldn't be located."""
+    _ERROR_CODE = "UploadIdNotFound"
+
 
 EXCEPTIONS: dict[str, type[SupportError]] = {
     "AttachmentIdNotFound": AttachmentIdNotFound,
@@ -82,6 +100,8 @@ EXCEPTIONS: dict[str, type[SupportError]] = {
     "CaseCreationLimitExceeded": CaseCreationLimitExceeded,
     "CaseIdNotFound": CaseIdNotFound,
     "DescribeAttachmentLimitExceeded": DescribeAttachmentLimitExceeded,
+    "DryRunOperationException": DryRunOperationException,
     "InternalServerError": InternalServerError,
     "ThrottlingException": ThrottlingException,
+    "UploadIdNotFound": UploadIdNotFound,
 }
