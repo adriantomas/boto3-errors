@@ -13,6 +13,11 @@ class AccessDeniedException(KinesisError):
     _ERROR_CODE = "AccessDeniedException"
 
 
+class DryRunOperationException(KinesisError):
+    """The request was rejected because the DryRun parameter was specified."""
+    _ERROR_CODE = "DryRunOperationException"
+
+
 class ExpiredIteratorException(KinesisError):
     """The provided iterator exceeds the maximum age allowed."""
     _ERROR_CODE = "ExpiredIteratorException"
@@ -126,6 +131,7 @@ class ValidationException(KinesisError):
 
 EXCEPTIONS: dict[str, type[KinesisError]] = {
     "AccessDeniedException": AccessDeniedException,
+    "DryRunOperationException": DryRunOperationException,
     "ExpiredIteratorException": ExpiredIteratorException,
     "ExpiredNextTokenException": ExpiredNextTokenException,
     "InternalFailureException": InternalFailureException,
