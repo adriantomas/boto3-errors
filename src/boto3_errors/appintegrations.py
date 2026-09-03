@@ -13,6 +13,14 @@ class AccessDeniedException(AppIntegrationsError):
     _ERROR_CODE = "AccessDeniedException"
 
 
+class ConflictException(AppIntegrationsError):
+    """The request conflicts with the current state of the resource. Verify the
+    application's current state and retry the request.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+
 class DuplicateResourceException(AppIntegrationsError):
     """A resource with the specified name already exists."""
     _ERROR_CODE = "DuplicateResourceException"
@@ -50,6 +58,7 @@ class UnsupportedOperationException(AppIntegrationsError):
 
 EXCEPTIONS: dict[str, type[AppIntegrationsError]] = {
     "AccessDeniedException": AccessDeniedException,
+    "ConflictException": ConflictException,
     "DuplicateResourceException": DuplicateResourceException,
     "InternalServiceError": InternalServiceError,
     "InvalidRequestException": InvalidRequestException,
