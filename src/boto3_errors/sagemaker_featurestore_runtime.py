@@ -13,6 +13,16 @@ class AccessForbidden(SageMakerFeatureStoreRuntimeError):
     _ERROR_CODE = "AccessForbidden"
 
 
+class ConflictException(SageMakerFeatureStoreRuntimeError):
+    """The service rejected the update because the provided `EventTime` is older than the
+    record's current `EventTime`. To persist the update, retrieve the record's latest
+    `EventTime` and resubmit the request with an `EventTime` that is equal to or newer
+    than the current value.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+
 class InternalFailure(SageMakerFeatureStoreRuntimeError):
     """An internal failure occurred. Try your request again. If the problem persists,
     contact Amazon Web Services customer support.
@@ -38,6 +48,7 @@ class ValidationError(SageMakerFeatureStoreRuntimeError):
 
 EXCEPTIONS: dict[str, type[SageMakerFeatureStoreRuntimeError]] = {
     "AccessForbidden": AccessForbidden,
+    "ConflictException": ConflictException,
     "InternalFailure": InternalFailure,
     "ResourceNotFound": ResourceNotFound,
     "ServiceUnavailable": ServiceUnavailable,

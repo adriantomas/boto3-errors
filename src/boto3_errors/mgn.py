@@ -9,7 +9,7 @@ class mgnError(Boto3Error):
 
 
 class AccessDeniedException(mgnError):
-    """Operating denied due to a file permission or access check error."""
+    """Operation denied due to a file permission or access check error."""
     _ERROR_CODE = "AccessDeniedException"
 
     @property
@@ -79,7 +79,7 @@ class ResourceNotFoundException(mgnError):
 
 
 class ServiceQuotaExceededException(mgnError):
-    """The request could not be completed because its exceeded the service quota."""
+    """The request could not be completed because it exceeded the service quota."""
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
