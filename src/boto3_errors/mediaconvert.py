@@ -55,6 +55,11 @@ class TooManyRequestsException(MediaConvertError):
     _ERROR_CODE = "TooManyRequestsException"
 
 
+class UnprocessableEntityException(MediaConvertError):
+    """The input file was recognized but appears to be malformed or corrupt."""
+    _ERROR_CODE = "UnprocessableEntityException"
+
+
 EXCEPTIONS: dict[str, type[MediaConvertError]] = {
     "BadRequestException": BadRequestException,
     "ConflictException": ConflictException,
@@ -63,4 +68,5 @@ EXCEPTIONS: dict[str, type[MediaConvertError]] = {
     "NotFoundException": NotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "TooManyRequestsException": TooManyRequestsException,
+    "UnprocessableEntityException": UnprocessableEntityException,
 }
