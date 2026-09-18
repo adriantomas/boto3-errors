@@ -9,7 +9,7 @@ class ElasticBeanstalkError(Boto3Error):
 
 
 class CodeBuildNotInServiceRegionException(ElasticBeanstalkError):
-    """AWS CodeBuild is not available in the specified region."""
+    """CodeBuild is not available in the specified region."""
     _ERROR_CODE = "CodeBuildNotInServiceRegionException"
 
 
@@ -19,8 +19,8 @@ class ElasticBeanstalkServiceException(ElasticBeanstalkError):
 
 
 class InsufficientPrivilegesException(ElasticBeanstalkError):
-    """The specified account does not have sufficient privileges for one or more AWS
-    services.
+    """The specified account does not have sufficient privileges for one or more Amazon Web
+    Services services.
     """
 
     _ERROR_CODE = "InsufficientPrivilegesException"
