@@ -18,6 +18,14 @@ class AccessDeniedException(SocialMessagingError):
     _ERROR_CODE = "AccessDeniedException"
 
 
+class ConflictException(SocialMessagingError):
+    """Your request has conflicting operations. This can occur if you're trying to perform
+    more than one operation on the same resource at the same time.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+
 class DependencyException(SocialMessagingError):
     """Thrown when performing an action because a dependency would be broken."""
     _ERROR_CODE = "DependencyException"
@@ -59,6 +67,7 @@ class ValidationException(SocialMessagingError):
 EXCEPTIONS: dict[str, type[SocialMessagingError]] = {
     "AccessDeniedByMetaException": AccessDeniedByMetaException,
     "AccessDeniedException": AccessDeniedException,
+    "ConflictException": ConflictException,
     "DependencyException": DependencyException,
     "InternalServiceException": InternalServiceException,
     "InvalidParametersException": InvalidParametersException,
