@@ -9,6 +9,7 @@ class IVSRealTimeError(Boto3Error):
 
 
 class AccessDeniedException(IVSRealTimeError):
+    """User does not have sufficient access to perform this action."""
     _ERROR_CODE = "AccessDeniedException"
 
     @property
@@ -50,6 +51,7 @@ class AccessDeniedException(IVSRealTimeError):
 
 
 class ConflictException(IVSRealTimeError):
+    """Updating or deleting a resource can cause an inconsistent state."""
     _ERROR_CODE = "ConflictException"
 
     @property
@@ -91,6 +93,7 @@ class ConflictException(IVSRealTimeError):
 
 
 class InternalServerException(IVSRealTimeError):
+    """Unexpected error during processing of request."""
     _ERROR_CODE = "InternalServerException"
 
     @property
@@ -132,6 +135,7 @@ class InternalServerException(IVSRealTimeError):
 
 
 class PendingVerification(IVSRealTimeError):
+    """Your account is pending verification."""
     _ERROR_CODE = "PendingVerification"
 
     @property
@@ -173,6 +177,7 @@ class PendingVerification(IVSRealTimeError):
 
 
 class ResourceNotFoundException(IVSRealTimeError):
+    """Request references a resource which does not exist."""
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
@@ -214,6 +219,7 @@ class ResourceNotFoundException(IVSRealTimeError):
 
 
 class ServiceQuotaExceededException(IVSRealTimeError):
+    """Request would cause a service quota to be exceeded."""
     _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
@@ -255,6 +261,10 @@ class ServiceQuotaExceededException(IVSRealTimeError):
 
 
 class ValidationException(IVSRealTimeError):
+    """The input fails to satisfy the constraints specified by an Amazon Web Services
+    service.
+    """
+
     _ERROR_CODE = "ValidationException"
 
     @property
