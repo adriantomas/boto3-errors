@@ -130,6 +130,14 @@ class ResourceNotFoundException(CloudWatchError):
         return self.response.get("ResourceType")
 
 
+class ValidationException(CloudWatchError):
+    """The request failed validation. One or more input parameters do not satisfy the
+    constraints that the operation requires.
+    """
+
+    _ERROR_CODE = "ValidationError"
+
+
 EXCEPTIONS: dict[str, type[CloudWatchError]] = {
     "ConcurrentModificationException": ConcurrentModificationException,
     "ConflictException": ConflictException,
@@ -149,4 +157,5 @@ EXCEPTIONS: dict[str, type[CloudWatchError]] = {
     "ResourceConflict": ResourceConflict,
     "ResourceNotFound": ResourceNotFound,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "ValidationError": ValidationException,
 }

@@ -14,14 +14,17 @@ class AccessDeniedException(imagebuilderError):
 
 
 class CallRateLimitExceededException(imagebuilderError):
-    """You have exceeded the permitted request rate for the specific operation."""
+    """You have exceeded the permitted request rate for the Amazon EC2 APIs that Image
+    Builder calls on your behalf. Retry with an increasing or variable delay between
+    requests.
+    """
+
     _ERROR_CODE = "CallRateLimitExceededException"
 
 
 class ClientException(imagebuilderError):
-    """These errors are usually caused by a client action, such as using an action or
-    resource on behalf of a user that doesn't have permissions to use the action or
-    resource, or specifying an invalid resource identifier.
+    """A generic client error. This error usually indicates that the request failed a
+    validation check, such as when a downstream service rejects a configured value.
     """
 
     _ERROR_CODE = "ClientException"
@@ -54,8 +57,9 @@ class InvalidPaginationTokenException(imagebuilderError):
 
 
 class InvalidParameterCombinationException(imagebuilderError):
-    """You have specified two or more mutually exclusive parameters. Review the error
-    message for details.
+    """You have specified a combination of parameters that isn't valid. For example, two
+    mutually exclusive parameters, or a parameter without its required companion
+    parameter. Review the error message for details.
     """
 
     _ERROR_CODE = "InvalidParameterCombinationException"
@@ -75,7 +79,7 @@ class InvalidParameterValueException(imagebuilderError):
 
 
 class InvalidRequestException(imagebuilderError):
-    """You have requested an action that that the service doesn't support."""
+    """The request is malformed or otherwise invalid. Verify the request and try again."""
     _ERROR_CODE = "InvalidRequestException"
 
 
@@ -111,7 +115,10 @@ class ResourceNotFoundException(imagebuilderError):
 
 
 class ServiceException(imagebuilderError):
-    """This exception is thrown when the service encounters an unrecoverable exception."""
+    """An internal server error occurred while Image Builder processed the request.
+    Retrying the request may succeed.
+    """
+
     _ERROR_CODE = "ServiceException"
 
 
