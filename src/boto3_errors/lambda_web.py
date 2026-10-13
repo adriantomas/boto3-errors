@@ -9,13 +9,18 @@ class LambdaWebError(Boto3Error):
 
 
 class AccessDeniedException(LambdaWebError):
-    """You do not have sufficient permissions to perform this operation."""
+    """You don't have permission to perform this operation. Check the IAM policies for your
+    identity and any resource-based policy on the web function.
+    """
+
     _ERROR_CODE = "AccessDeniedException"
 
 
 class ConflictException(LambdaWebError):
-    """The request conflicts with the current state of the resource. Resolve the conflict
-    and try again.
+    """The request conflicts with the current state of the resource. For example, the
+    resource is being modified by another request, you tried to delete a revision that
+    is serving traffic on an endpoint, or the policy revision ID that you specified
+    doesn't match the current policy. Resolve the conflict and try again.
     """
 
     _ERROR_CODE = "ConflictException"
@@ -32,12 +37,18 @@ class ConflictException(LambdaWebError):
 
 
 class InternalServerException(LambdaWebError):
-    """An internal server error occurred. Try again later."""
+    """The request failed because of an internal error in the service. Retry the request.
+    If the error persists, open a support case.
+    """
+
     _ERROR_CODE = "InternalServerException"
 
 
 class ResourceNotFoundException(LambdaWebError):
-    """The specified resource was not found. Verify the resource identifier and try again."""
+    """The specified web function, revision, endpoint, or resource-based policy doesn't
+    exist. Verify the resource identifier and try again.
+    """
+
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
@@ -52,8 +63,9 @@ class ResourceNotFoundException(LambdaWebError):
 
 
 class ServiceQuotaExceededException(LambdaWebError):
-    """A service quota was exceeded. Request a quota increase or reduce usage and try
-    again.
+    """The request would exceed a service quota, such as the maximum number of web
+    functions in your account or the maximum number of revisions or endpoints per web
+    function. Request a quota increase or reduce usage and try again.
     """
 
     _ERROR_CODE = "ServiceQuotaExceededException"
@@ -80,7 +92,10 @@ class ServiceQuotaExceededException(LambdaWebError):
 
 
 class ThrottlingException(LambdaWebError):
-    """The request was throttled. Reduce the frequency of requests and try again."""
+    """The request was denied because it exceeded the request rate that Lambda allows for
+    your account. Reduce the frequency of requests and retry with exponential backoff.
+    """
+
     _ERROR_CODE = "ThrottlingException"
 
     @property
@@ -100,7 +115,10 @@ class ThrottlingException(LambdaWebError):
 
 
 class ValidationException(LambdaWebError):
-    """The request failed validation. Check the request parameters and try again."""
+    """The request failed validation because a parameter was missing, malformed, or outside
+    the allowed range. Check the request parameters and try again.
+    """
+
     _ERROR_CODE = "ValidationException"
 
 
