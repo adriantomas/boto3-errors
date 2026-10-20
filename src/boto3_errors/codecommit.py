@@ -120,7 +120,7 @@ class BranchDoesNotExistException(CodeCommitError):
 
 class BranchNameExistsException(CodeCommitError):
     """Cannot create the branch with the specified name because the commit conflicts with
-    an existing branch with the same name. Branch names must be unique.
+    an existing branch with the same name. ` Branch names must be unique.</p> `
     """
 
     _ERROR_CODE = "BranchNameExistsException"

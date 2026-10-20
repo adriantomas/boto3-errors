@@ -113,6 +113,30 @@ class ValidationException(WorkspacesInstancesError):
         return self.response.get("Reason")
 
 
+class VolumeModificationRateExceededException(WorkspacesInstancesError):
+    """The volume has a previous modification that is still in progress, or has reached the
+    limit of four modifications in a rolling 24-hour period. Wait for the current
+    modification to finish, or wait until the time indicated in the error message, and
+    then retry the request.
+    """
+
+    _ERROR_CODE = "VolumeModificationRateExceededException"
+
+    @property
+    def resource_id(self) -> str | None:
+        """Specifies the identifier of the volume for which the modification request was
+        rejected.
+        """
+        return self.response.get("ResourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """Specifies the type of the resource for which the modification request was
+        rejected.
+        """
+        return self.response.get("ResourceType")
+
+
 EXCEPTIONS: dict[str, type[WorkspacesInstancesError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
@@ -121,4 +145,5 @@ EXCEPTIONS: dict[str, type[WorkspacesInstancesError]] = {
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,
     "ValidationException": ValidationException,
+    "VolumeModificationRateExceededException": VolumeModificationRateExceededException,
 }

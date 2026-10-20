@@ -281,6 +281,15 @@ class InvalidAutoScalingGroupException(CodeDeployError):
     _ERROR_CODE = "InvalidAutoScalingGroupException"
 
 
+class InvalidAutoScalingGroupProcessToSuspendException(CodeDeployError):
+    """The `autoScalingGroupProcessesToSuspend` list in `ec2DeploymentOptions` contains a
+    process that is not valid. Valid values are `Terminate`, `AZRebalance`,
+    `InstanceRefresh`, and `ScheduledActions`. Process names are case sensitive.
+    """
+
+    _ERROR_CODE = "InvalidAutoScalingGroupProcessToSuspendException"
+
+
 class InvalidBlueGreenDeploymentConfigurationException(CodeDeployError):
     """The configuration for the blue/green deployment group was provided in an invalid
     format. For information about deployment configuration format, see
@@ -726,6 +735,7 @@ EXCEPTIONS: dict[str, type[CodeDeployError]] = {
     "InvalidArnException": InvalidArnException,
     "InvalidAutoRollbackConfigException": InvalidAutoRollbackConfigException,
     "InvalidAutoScalingGroupException": InvalidAutoScalingGroupException,
+    "InvalidAutoScalingGroupProcessToSuspendException": InvalidAutoScalingGroupProcessToSuspendException,
     "InvalidBlueGreenDeploymentConfigurationException": InvalidBlueGreenDeploymentConfigurationException,
     "InvalidBucketNameFilterException": InvalidBucketNameFilterException,
     "InvalidComputePlatformException": InvalidComputePlatformException,
