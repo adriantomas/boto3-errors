@@ -79,6 +79,27 @@ class CustomDBEngineVersionQuotaExceededFault(RDSError):
     _ERROR_CODE = "CustomDBEngineVersionQuotaExceededFault"
 
 
+class DBCapacityReservationAlreadyExistsFault(RDSError):
+    """You already have a DB capacity reservation with the given name. Choose a different
+    name for the new reservation, or use the existing reservation.
+    """
+
+    _ERROR_CODE = "DBCapacityReservationAlreadyExists"
+
+
+class DBCapacityReservationNotFoundFault(RDSError):
+    """`DBCapacityReservationIdentifier` doesn't refer to an existing DB capacity
+    reservation.
+    """
+
+    _ERROR_CODE = "DBCapacityReservationNotFound"
+
+
+class DBCapacityReservationUnsupportedFault(RDSError):
+    """The specified configuration isn't supported for DB capacity reservations."""
+    _ERROR_CODE = "DBCapacityReservationUnsupported"
+
+
 class DBClusterAlreadyExistsFault(RDSError):
     """The user already has a DB cluster with the given identifier."""
     _ERROR_CODE = "DBClusterAlreadyExistsFault"
@@ -543,6 +564,11 @@ class InvalidCustomDBEngineVersionStateFault(RDSError):
     _ERROR_CODE = "InvalidCustomDBEngineVersionStateFault"
 
 
+class InvalidDBCapacityReservationStateFault(RDSError):
+    """The DB capacity reservation isn't in a valid state."""
+    _ERROR_CODE = "InvalidDBCapacityReservationState"
+
+
 class InvalidDBClusterAutomatedBackupStateFault(RDSError):
     """The automated backup is in an invalid state. For example, this automated backup is
     associated with an active cluster.
@@ -924,6 +950,9 @@ EXCEPTIONS: dict[str, type[RDSError]] = {
     "CustomDBEngineVersionAlreadyExistsFault": CustomDBEngineVersionAlreadyExistsFault,
     "CustomDBEngineVersionNotFoundFault": CustomDBEngineVersionNotFoundFault,
     "CustomDBEngineVersionQuotaExceededFault": CustomDBEngineVersionQuotaExceededFault,
+    "DBCapacityReservationAlreadyExists": DBCapacityReservationAlreadyExistsFault,
+    "DBCapacityReservationNotFound": DBCapacityReservationNotFoundFault,
+    "DBCapacityReservationUnsupported": DBCapacityReservationUnsupportedFault,
     "DBClusterAlreadyExistsFault": DBClusterAlreadyExistsFault,
     "DBClusterAutomatedBackupNotFoundFault": DBClusterAutomatedBackupNotFoundFault,
     "DBClusterAutomatedBackupQuotaExceededFault": DBClusterAutomatedBackupQuotaExceededFault,
@@ -997,6 +1026,7 @@ EXCEPTIONS: dict[str, type[RDSError]] = {
     "IntegrationQuotaExceededFault": IntegrationQuotaExceededFault,
     "InvalidBlueGreenDeploymentStateFault": InvalidBlueGreenDeploymentStateFault,
     "InvalidCustomDBEngineVersionStateFault": InvalidCustomDBEngineVersionStateFault,
+    "InvalidDBCapacityReservationState": InvalidDBCapacityReservationStateFault,
     "InvalidDBClusterAutomatedBackupStateFault": InvalidDBClusterAutomatedBackupStateFault,
     "InvalidDBClusterCapacityFault": InvalidDBClusterCapacityFault,
     "InvalidDBClusterEndpointStateFault": InvalidDBClusterEndpointStateFault,
