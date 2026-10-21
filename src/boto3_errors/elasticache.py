@@ -251,6 +251,14 @@ class InvalidVPCNetworkStateFault(ElastiCacheError):
     _ERROR_CODE = "InvalidVPCNetworkStateFault"
 
 
+class MigrationHealthFault(ElastiCacheError):
+    """The migration is not healthy. Check the events for this serverless cache for more
+    details. For `CompleteMigration`, set `Force` to true to bypass this check.
+    """
+
+    _ERROR_CODE = "MigrationHealthFault"
+
+
 class NoOperationFault(ElastiCacheError):
     """The operation was not performed because no changes were required."""
     _ERROR_CODE = "NoOperationFault"
@@ -334,9 +342,22 @@ class ServerlessCacheAlreadyExistsFault(ElastiCacheError):
     _ERROR_CODE = "ServerlessCacheAlreadyExistsFault"
 
 
+class ServerlessCacheAlreadyUnderMigrationFault(ElastiCacheError):
+    """A migration is already in progress for this serverless cache. You cannot start
+    another migration until the current one completes.
+    """
+
+    _ERROR_CODE = "ServerlessCacheAlreadyUnderMigrationFault"
+
+
 class ServerlessCacheNotFoundFault(ElastiCacheError):
     """The serverless cache was not found or does not exist."""
     _ERROR_CODE = "ServerlessCacheNotFoundFault"
+
+
+class ServerlessCacheNotUnderMigrationFault(ElastiCacheError):
+    """The serverless cache is not currently under migration."""
+    _ERROR_CODE = "ServerlessCacheNotUnderMigrationFault"
 
 
 class ServerlessCacheQuotaForCustomerExceededFault(ElastiCacheError):
@@ -515,6 +536,7 @@ EXCEPTIONS: dict[str, type[ElastiCacheError]] = {
     "InvalidUserGroupState": InvalidUserGroupStateFault,
     "InvalidUserState": InvalidUserStateFault,
     "InvalidVPCNetworkStateFault": InvalidVPCNetworkStateFault,
+    "MigrationHealthFault": MigrationHealthFault,
     "NoOperationFault": NoOperationFault,
     "NodeGroupNotFoundFault": NodeGroupNotFoundFault,
     "NodeGroupsPerReplicationGroupQuotaExceeded": NodeGroupsPerReplicationGroupQuotaExceededFault,
@@ -529,7 +551,9 @@ EXCEPTIONS: dict[str, type[ElastiCacheError]] = {
     "ReservedCacheNodeQuotaExceeded": ReservedCacheNodeQuotaExceededFault,
     "ReservedCacheNodesOfferingNotFound": ReservedCacheNodesOfferingNotFoundFault,
     "ServerlessCacheAlreadyExistsFault": ServerlessCacheAlreadyExistsFault,
+    "ServerlessCacheAlreadyUnderMigrationFault": ServerlessCacheAlreadyUnderMigrationFault,
     "ServerlessCacheNotFoundFault": ServerlessCacheNotFoundFault,
+    "ServerlessCacheNotUnderMigrationFault": ServerlessCacheNotUnderMigrationFault,
     "ServerlessCacheQuotaForCustomerExceededFault": ServerlessCacheQuotaForCustomerExceededFault,
     "ServerlessCacheSnapshotAlreadyExistsFault": ServerlessCacheSnapshotAlreadyExistsFault,
     "ServerlessCacheSnapshotNotFoundFault": ServerlessCacheSnapshotNotFoundFault,

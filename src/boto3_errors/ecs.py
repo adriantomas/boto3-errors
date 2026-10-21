@@ -110,6 +110,14 @@ class DaemonNotFoundException(ECSError):
     _ERROR_CODE = "DaemonNotFoundException"
 
 
+class GatewayNotFoundException(ECSError):
+    """The specified gateway wasn't found. Check that the gateway name or ARN is correct
+    and that the gateway exists in your account and Region.
+    """
+
+    _ERROR_CODE = "GatewayNotFoundException"
+
+
 class InvalidParameterException(ECSError):
     """The specified parameter isn't valid. Review the available parameters for the API
     request.
@@ -264,6 +272,7 @@ EXCEPTIONS: dict[str, type[ECSError]] = {
     "ConflictException": ConflictException,
     "DaemonNotActiveException": DaemonNotActiveException,
     "DaemonNotFoundException": DaemonNotFoundException,
+    "GatewayNotFoundException": GatewayNotFoundException,
     "InvalidParameterException": InvalidParameterException,
     "LimitExceededException": LimitExceededException,
     "MissingVersionException": MissingVersionException,
