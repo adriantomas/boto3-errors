@@ -211,6 +211,36 @@ class RegistryPolicyNotFoundException(ECRError):
     _ERROR_CODE = "RegistryPolicyNotFoundException"
 
 
+class ReplicationBackfillInProgressException(ECRError):
+    """A replication backfill is already in progress for the specified destination Region.
+    This occurs because only one replication backfill can be in progress for a given
+    destination Region at a time. Wait for the in progress backfill to reach a terminal
+    status, or stop it with the StopReplicationBackfill operation, before starting
+    another one.
+    """
+
+    _ERROR_CODE = "ReplicationBackfillInProgressException"
+
+
+class ReplicationBackfillInvalidStatusException(ECRError):
+    """The requested operation can't be performed on the replication backfill because it is
+    not in a valid status for that operation. For example, you can't stop a replication
+    backfill that has already reached a terminal status. Use the
+    DescribeReplicationBackfillResults operation to check the current status before
+    retrying.
+    """
+
+    _ERROR_CODE = "ReplicationBackfillInvalidStatusException"
+
+
+class ReplicationBackfillNotFoundException(ECRError):
+    """The specified replication backfill could not be found. Check the specified
+    replication backfill ID and ensure that you are operating on the correct registry.
+    """
+
+    _ERROR_CODE = "ReplicationBackfillNotFoundException"
+
+
 class RepositoryAlreadyExistsException(ECRError):
     """The specified repository already exists in the specified registry."""
     _ERROR_CODE = "RepositoryAlreadyExistsException"
@@ -383,6 +413,9 @@ EXCEPTIONS: dict[str, type[ECRError]] = {
     "PullThroughCacheRuleNotFoundException": PullThroughCacheRuleNotFoundException,
     "ReferencedImagesNotFoundException": ReferencedImagesNotFoundException,
     "RegistryPolicyNotFoundException": RegistryPolicyNotFoundException,
+    "ReplicationBackfillInProgressException": ReplicationBackfillInProgressException,
+    "ReplicationBackfillInvalidStatusException": ReplicationBackfillInvalidStatusException,
+    "ReplicationBackfillNotFoundException": ReplicationBackfillNotFoundException,
     "RepositoryAlreadyExistsException": RepositoryAlreadyExistsException,
     "RepositoryNotEmptyException": RepositoryNotEmptyException,
     "RepositoryNotFoundException": RepositoryNotFoundException,

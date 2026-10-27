@@ -57,6 +57,15 @@ class CreateGateway420Exception(MediaConnectError):
     _ERROR_CODE = "CreateGateway420Exception"
 
 
+class DestinationEndpointServiceQuotaExceededException(MediaConnectError):
+    """The request would cause you to exceed a service quota for destination endpoints.
+    Delete unused destination endpoints or request a quota increase, then try your
+    request again.
+    """
+
+    _ERROR_CODE = "DestinationEndpointServiceQuotaExceededException"
+
+
 class ForbiddenException(MediaConnectError):
     """You do not have sufficient access to perform this action."""
     _ERROR_CODE = "ForbiddenException"
@@ -109,6 +118,14 @@ class ServiceUnavailableException(MediaConnectError):
     _ERROR_CODE = "ServiceUnavailableException"
 
 
+class SourceEndpointServiceQuotaExceededException(MediaConnectError):
+    """The request would cause you to exceed a service quota for source endpoints. Delete
+    unused source endpoints or request a quota increase, then try your request again.
+    """
+
+    _ERROR_CODE = "SourceEndpointServiceQuotaExceededException"
+
+
 class TooManyRequestsException(MediaConnectError):
     """The request was denied due to request throttling."""
     _ERROR_CODE = "TooManyRequestsException"
@@ -121,6 +138,7 @@ EXCEPTIONS: dict[str, type[MediaConnectError]] = {
     "CreateBridge420Exception": CreateBridge420Exception,
     "CreateFlow420Exception": CreateFlow420Exception,
     "CreateGateway420Exception": CreateGateway420Exception,
+    "DestinationEndpointServiceQuotaExceededException": DestinationEndpointServiceQuotaExceededException,
     "ForbiddenException": ForbiddenException,
     "GrantFlowEntitlements420Exception": GrantFlowEntitlements420Exception,
     "InternalServerErrorException": InternalServerErrorException,
@@ -129,5 +147,6 @@ EXCEPTIONS: dict[str, type[MediaConnectError]] = {
     "RouterNetworkInterfaceServiceQuotaExceededException": RouterNetworkInterfaceServiceQuotaExceededException,
     "RouterOutputServiceQuotaExceededException": RouterOutputServiceQuotaExceededException,
     "ServiceUnavailableException": ServiceUnavailableException,
+    "SourceEndpointServiceQuotaExceededException": SourceEndpointServiceQuotaExceededException,
     "TooManyRequestsException": TooManyRequestsException,
 }

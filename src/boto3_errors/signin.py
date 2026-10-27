@@ -9,25 +9,13 @@ class SigninError(Boto3Error):
 
 
 class AccessDeniedException(SigninError):
-    """Error thrown for access denied scenarios with flexible HTTP status mapping
-
-    Runtime HTTP Status Code Mapping:
-
-    - HTTP 401 (Unauthorized): TOKEN_EXPIRED, AUTHCODE_EXPIRED
-    - HTTP 403 (Forbidden): USER_CREDENTIALS_CHANGED, INSUFFICIENT_PERMISSIONS
-
-    The specific HTTP status code is determined at runtime based on the error enum
-    value. Consumers should use the error field to determine the specific access denial
-    reason.
-    """
-
+    """You do not have sufficient access to perform this action."""
     _ERROR_CODE = "AccessDeniedException"
 
     @property
     def error(self) -> str | None:
-        """OAuth 2.0 error code indicating the specific type of access denial Can be
-        TOKEN_EXPIRED, AUTHCODE_EXPIRED, USER_CREDENTIALS_CHANGED, or
-        INSUFFICIENT_PERMISSIONS
+        """One of TOKEN_EXPIRED, AUTHCODE_EXPIRED, USER_CREDENTIALS_CHANGED, or
+        INSUFFICIENT_PERMISSIONS.
         """
         return self.response.get("error")
 
@@ -49,20 +37,35 @@ class ConflictException(SigninError):
 
 
 class InternalServerException(SigninError):
-    """Error thrown when an internal server error occurs
-
-    HTTP Status Code: 500 Internal Server Error
-
-    Used for unexpected server-side errors that prevent request processing.
-    """
-
+    """The request failed because of an internal server error."""
     _ERROR_CODE = "InternalServerException"
 
     @property
     def error(self) -> str | None:
-        """OAuth 2.0 error code indicating server error Will be SERVER_ERROR for internal
-        server errors
-        """
+        """Will be server_error."""
+        return self.response.get("error")
+
+
+class InvalidGrantException(SigninError):
+    """The request failed because the provided grant is invalid or expired."""
+    _ERROR_CODE = "InvalidGrantException"
+
+    @property
+    def error(self) -> str | None:
+        """Will be invalid_grant."""
+        return self.response.get("error")
+
+
+class InvalidScopeException(SigninError):
+    """The request failed because the requested scope is invalid or exceeds the scope that
+    can be granted.
+    """
+
+    _ERROR_CODE = "InvalidScopeException"
+
+    @property
+    def error(self) -> str | None:
+        """Will be invalid_scope."""
         return self.response.get("error")
 
 
@@ -100,49 +103,36 @@ class ServiceQuotaExceededException(SigninError):
         return self.response.get("error")
 
 
-class TooManyRequestsError(SigninError):
-    """Error thrown when rate limit is exceeded
-
-    HTTP Status Code: 429 Too Many Requests
-
-    Possible OAuth2ErrorCode values:
-
-    - INVALID_REQUEST: Rate limiting, too many requests, abuse prevention
-
-    Possible causes:
-
-    - Too many token requests from the same client
-    - Rate limiting based on client_id or IP address
-    - Abuse prevention mechanisms triggered
-    - Service protection against excessive token generation
+class ServiceUnavailableException(SigninError):
+    """The request failed because a dependency is temporarily unavailable. You can retry
+    the request.
     """
 
+    _ERROR_CODE = "ServiceUnavailableException"
+
+    @property
+    def error(self) -> str | None:
+        """Will be service_unavailable."""
+        return self.response.get("error")
+
+
+class TooManyRequestsError(SigninError):
+    """The request failed because you exceeded the request rate limit for this operation."""
     _ERROR_CODE = "TooManyRequestsError"
 
     @property
     def error(self) -> str | None:
-        """OAuth 2.0 error code indicating the specific type of error Will be
-        INVALID_REQUEST for rate limiting scenarios
-        """
+        """Will be rate_exceeded."""
         return self.response.get("error")
 
 
 class ValidationException(SigninError):
-    """Error thrown when request validation fails
-
-    HTTP Status Code: 400 Bad Request
-
-    Used for request validation errors such as malformed parameters, missing required
-    fields, or invalid parameter values.
-    """
-
+    """The request failed because it contains a malformed, missing, or invalid parameter."""
     _ERROR_CODE = "ValidationException"
 
     @property
     def error(self) -> str | None:
-        """OAuth 2.0 error code indicating validation failure Will be INVALID_REQUEST for
-        validation errors
-        """
+        """The specific code depends on which validation failed."""
         return self.response.get("error")
 
 
@@ -150,8 +140,11 @@ EXCEPTIONS: dict[str, type[SigninError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
+    "InvalidGrantException": InvalidGrantException,
+    "InvalidScopeException": InvalidScopeException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
+    "ServiceUnavailableException": ServiceUnavailableException,
     "TooManyRequestsError": TooManyRequestsError,
     "ValidationException": ValidationException,
 }
