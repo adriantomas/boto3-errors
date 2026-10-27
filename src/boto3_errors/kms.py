@@ -236,6 +236,9 @@ class InvalidCiphertextException(KMSError):
 
     From the ImportKeyMaterial operation, the request was rejected because KMS could not
     decrypt the encrypted (wrapped) key material.
+
+    From the Decapsulate operation, the request was rejected because the length of the
+    `SharedSecretCiphertextBlob` is inconsistent with the specified ML-KEM key spec.
     """
 
     _ERROR_CODE = "InvalidCiphertextException"
@@ -270,8 +273,9 @@ class InvalidKeyUsageException(KMSError):
     must be `ENCRYPT_DECRYPT`. For signing and verifying messages, the `KeyUsage` must
     be `SIGN_VERIFY`. For generating and verifying message authentication codes (MACs),
     the `KeyUsage` must be `GENERATE_VERIFY_MAC`. For deriving key agreement secrets,
-    the `KeyUsage` must be `KEY_AGREEMENT`. To find the `KeyUsage` of a KMS key, use the
-    DescribeKey operation.
+    the `KeyUsage` must be `KEY_AGREEMENT`. For encapsulating and decapsulating shared
+    secrets, the `KeyUsage` must be `ENCAPSULATE_DECAPSULATE`. To find the `KeyUsage` of
+    a KMS key, use the DescribeKey operation.
 
     To find the encryption or signing algorithms supported for a particular KMS key, use
     the DescribeKey operation.
