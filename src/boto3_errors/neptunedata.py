@@ -68,6 +68,30 @@ class BulkLoadIdNotFoundException(neptunedataError):
         return self.response.get("requestId")
 
 
+class CancelledByMaintenanceException(neptunedataError):
+    """Raised when a request is cancelled because the storage layer entered maintenance
+    mode. This typically happens during a customer-initiated operation such as an index
+    rebuild. It should be treated like `ConcurrentModificationException`.
+    """
+
+    _ERROR_CODE = "CancelledByMaintenanceException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
+    def detailed_message(self) -> str | None:
+        """A detailed message describing the problem."""
+        return self.response.get("detailedMessage")
+
+    @property
+    def request_id(self) -> str | None:
+        """The ID of the request in question."""
+        return self.response.get("requestId")
+
+
 class CancelledByUserException(neptunedataError):
     """Raised when a user cancelled a request."""
     _ERROR_CODE = "CancelledByUserException"
@@ -543,6 +567,29 @@ class ReadOnlyViolationException(neptunedataError):
         return self.response.get("requestId")
 
 
+class ResourceNotFoundException(neptunedataError):
+    """Raised when the specified resource could not be found. The resource might have been
+    deleted or the identifier might be incorrect.
+    """
+
+    _ERROR_CODE = "ResourceNotFoundException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
+    def detailed_message(self) -> str | None:
+        """A detailed message describing the problem."""
+        return self.response.get("detailedMessage")
+
+    @property
+    def request_id(self) -> str | None:
+        """The ID of the request in question."""
+        return self.response.get("requestId")
+
+
 class S3Exception(neptunedataError):
     """Raised when there is a problem accessing Amazon S3."""
     _ERROR_CODE = "S3Exception"
@@ -706,10 +753,31 @@ class UnsupportedOperationException(neptunedataError):
         return self.response.get("requestId")
 
 
+class ValidationException(neptunedataError):
+    """Raised when a parameter value is not valid or is malformed."""
+    _ERROR_CODE = "ValidationException"
+
+    @property
+    def code(self) -> str | None:
+        """The HTTP status code returned with the exception."""
+        return self.response.get("code")
+
+    @property
+    def detailed_message(self) -> str | None:
+        """A detailed message describing the problem."""
+        return self.response.get("detailedMessage")
+
+    @property
+    def request_id(self) -> str | None:
+        """The ID of the request in question."""
+        return self.response.get("requestId")
+
+
 EXCEPTIONS: dict[str, type[neptunedataError]] = {
     "AccessDeniedException": AccessDeniedException,
     "BadRequestException": BadRequestException,
     "BulkLoadIdNotFoundException": BulkLoadIdNotFoundException,
+    "CancelledByMaintenanceException": CancelledByMaintenanceException,
     "CancelledByUserException": CancelledByUserException,
     "ClientTimeoutException": ClientTimeoutException,
     "ConcurrentModificationException": ConcurrentModificationException,
@@ -733,6 +801,7 @@ EXCEPTIONS: dict[str, type[neptunedataError]] = {
     "QueryLimitException": QueryLimitException,
     "QueryTooLargeException": QueryTooLargeException,
     "ReadOnlyViolationException": ReadOnlyViolationException,
+    "ResourceNotFoundException": ResourceNotFoundException,
     "S3Exception": S3Exception,
     "ServerShutdownException": ServerShutdownException,
     "StatisticsNotAvailableException": StatisticsNotAvailableException,
@@ -741,4 +810,5 @@ EXCEPTIONS: dict[str, type[neptunedataError]] = {
     "TimeLimitExceededException": TimeLimitExceededException,
     "TooManyRequestsException": TooManyRequestsException,
     "UnsupportedOperationException": UnsupportedOperationException,
+    "ValidationException": ValidationException,
 }
