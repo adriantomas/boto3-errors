@@ -67,6 +67,16 @@ class InvalidSsmlException(PollyError):
     _ERROR_CODE = "InvalidSsmlException"
 
 
+class InvalidTagParameterException(PollyError):
+    """The resource ARN or a tag in the request isn't valid. Specify the ARN of a supported
+    resource in the Amazon Web Services account and Region of the request. Tag keys can
+    have a maximum length of 128 characters, and tag values can have a maximum length of
+    256 characters. Correct the ARN or the tags, and then try again.
+    """
+
+    _ERROR_CODE = "InvalidTagParameterException"
+
+
 class InvalidTaskIdException(PollyError):
     """The provided Task ID is not valid. Please provide a valid Task ID and try again."""
     _ERROR_CODE = "InvalidTaskIdException"
@@ -110,6 +120,25 @@ class MaxLexemeLengthExceededException(PollyError):
 class MaxLexiconsNumberExceededException(PollyError):
     """The maximum number of lexicons would be exceeded by this operation."""
     _ERROR_CODE = "MaxLexiconsNumberExceededException"
+
+
+class ResourceNotFoundException(PollyError):
+    """Amazon Polly can't find the specified resource. Verify that the resource exists in
+    the Amazon Web Services account and Region of the request and that its ARN is
+    spelled correctly, and then try again.
+    """
+
+    _ERROR_CODE = "ResourceNotFoundException"
+
+    @property
+    def resource_id(self) -> str | None:
+        """The identifier of the resource that wasn't found."""
+        return self.response.get("resourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The type of the resource that wasn't found."""
+        return self.response.get("resourceType")
 
 
 class ServiceFailureException(PollyError):
@@ -164,6 +193,15 @@ class ThrottlingException(PollyError):
         return self.response.get("throttlingReasons")
 
 
+class TooManyTagsException(PollyError):
+    """The list of tags on the resource is over the limit. The maximum number of tags that
+    can be applied to a resource is 50. Remove unused tags or reduce the number of tags
+    in the request, and then try again.
+    """
+
+    _ERROR_CODE = "TooManyTagsException"
+
+
 class UnsupportedPlsAlphabetException(PollyError):
     """The alphabet specified by the lexicon is not a supported alphabet. Valid values are
     `ipa`, `x-sampa`, `x-amazon-pinyin`, `x-amazon-jyutping`, `x-amazon-pron-kana`, and
@@ -206,6 +244,7 @@ EXCEPTIONS: dict[str, type[PollyError]] = {
     "InvalidSampleRateException": InvalidSampleRateException,
     "InvalidSnsTopicArnException": InvalidSnsTopicArnException,
     "InvalidSsmlException": InvalidSsmlException,
+    "InvalidTagParameterException": InvalidTagParameterException,
     "InvalidTaskIdException": InvalidTaskIdException,
     "LanguageNotSupportedException": LanguageNotSupportedException,
     "LexiconNotFoundException": LexiconNotFoundException,
@@ -213,12 +252,14 @@ EXCEPTIONS: dict[str, type[PollyError]] = {
     "MarksNotSupportedForFormatException": MarksNotSupportedForFormatException,
     "MaxLexemeLengthExceededException": MaxLexemeLengthExceededException,
     "MaxLexiconsNumberExceededException": MaxLexiconsNumberExceededException,
+    "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceFailureException": ServiceFailureException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "SsmlMarksNotSupportedForTextTypeException": SsmlMarksNotSupportedForTextTypeException,
     "SynthesisTaskNotFoundException": SynthesisTaskNotFoundException,
     "TextLengthExceededException": TextLengthExceededException,
     "ThrottlingException": ThrottlingException,
+    "TooManyTagsException": TooManyTagsException,
     "UnsupportedPlsAlphabetException": UnsupportedPlsAlphabetException,
     "UnsupportedPlsLanguageException": UnsupportedPlsLanguageException,
     "ValidationException": ValidationException,

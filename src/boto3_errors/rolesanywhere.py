@@ -18,6 +18,18 @@ class ResourceNotFoundException(RolesAnywhereError):
     _ERROR_CODE = "ResourceNotFoundException"
 
 
+class ServiceUnavailableException(RolesAnywhereError):
+    """The request has failed due to a temporary failure of the service."""
+    _ERROR_CODE = "ServiceUnavailableException"
+
+    @property
+    def retry_after_seconds(self) -> int | None:
+        """The recommended number of seconds after which the client should retry the
+        request.
+        """
+        return self.response.get("retryAfterSeconds")
+
+
 class TooManyTagsException(RolesAnywhereError):
     """Too many tags."""
     _ERROR_CODE = "TooManyTagsException"
@@ -31,6 +43,7 @@ class ValidationException(RolesAnywhereError):
 EXCEPTIONS: dict[str, type[RolesAnywhereError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "ServiceUnavailableException": ServiceUnavailableException,
     "TooManyTagsException": TooManyTagsException,
     "ValidationException": ValidationException,
 }
