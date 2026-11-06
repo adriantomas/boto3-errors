@@ -88,6 +88,11 @@ class UnprocessableContentException(QConnectError):
     """The server has a failure of processing the message"""
     _ERROR_CODE = "UnprocessableContentException"
 
+    @property
+    def reason(self) -> str | None:
+        """The reason the content could not be processed."""
+        return self.response.get("reason")
+
 
 class ValidationException(QConnectError):
     """The input fails to satisfy the constraints specified by a service."""
