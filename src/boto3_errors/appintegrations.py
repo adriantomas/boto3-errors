@@ -14,8 +14,8 @@ class AccessDeniedException(AppIntegrationsError):
 
 
 class ConflictException(AppIntegrationsError):
-    """The request conflicts with the current state of the resource. Verify the
-    application's current state and retry the request.
+    """The request conflicts with the current state of the resource. Verify the resource's
+    current state and retry the request.
     """
 
     _ERROR_CODE = "ConflictException"
