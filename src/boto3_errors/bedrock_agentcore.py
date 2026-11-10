@@ -93,6 +93,19 @@ class ServiceQuotaExceededException(BedrockAgentCoreError):
     _ERROR_CODE = "ServiceQuotaExceededException"
 
 
+class ServiceUnavailableException(BedrockAgentCoreError):
+    """The service can't handle the request right now. Retry the request. If the response
+    includes `retryAfterSeconds`, wait that many seconds before you retry.
+    """
+
+    _ERROR_CODE = "ServiceUnavailableException"
+
+    @property
+    def retry_after_seconds(self) -> int | None:
+        """The number of seconds to wait before you retry the request."""
+        return self.response.get("retryAfterSeconds")
+
+
 class SubscriptionRequiredException(BedrockAgentCoreError):
     """Returned when you attempt a wallet operation against a Coinbase Marketplace
     connector whose account does not hold an active Marketplace subscription and is not
@@ -167,6 +180,7 @@ EXCEPTIONS: dict[str, type[BedrockAgentCoreError]] = {
     "RuntimeClientError": RuntimeClientError,
     "ServiceException": ServiceException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
+    "ServiceUnavailableException": ServiceUnavailableException,
     "SubscriptionRequiredException": SubscriptionRequiredException,
     "ThrottledException": ThrottledException,
     "ThrottlingException": ThrottlingException,

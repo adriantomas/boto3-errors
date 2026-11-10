@@ -55,8 +55,8 @@ class ResourceNotFoundException(ConnectCasesError):
 
 
 class ServiceQuotaExceededException(ConnectCasesError):
-    """The service quota has been exceeded. For a list of service quotas, see Amazon
-    Connect Service Quotas in the Amazon Connect Administrator Guide.
+    """The service quota has been exceeded. For a list of service quotas, see Connect
+    Customer Service Quotas in the Connect Customer Administrator Guide.
     """
 
     _ERROR_CODE = "ServiceQuotaExceededException"
