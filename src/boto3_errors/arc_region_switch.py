@@ -70,6 +70,24 @@ class ResourceNotFoundException(ARCRegionswitchError):
     _ERROR_CODE = "ResourceNotFoundException"
 
 
+class RetryableConflictException(ARCRegionswitchError):
+    """The request conflicted with a concurrent modification of the same resource and did
+    not take effect.
+    """
+
+    _ERROR_CODE = "RetryableConflictException"
+
+    @property
+    def resource_id(self) -> str | None:
+        """The identifier of the resource involved in the concurrent modification."""
+        return self.response.get("resourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The type of the resource involved in the concurrent modification."""
+        return self.response.get("resourceType")
+
+
 EXCEPTIONS: dict[str, type[ARCRegionswitchError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
@@ -77,4 +95,5 @@ EXCEPTIONS: dict[str, type[ARCRegionswitchError]] = {
     "IllegalStateException": IllegalStateException,
     "InternalServerException": InternalServerException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "RetryableConflictException": RetryableConflictException,
 }

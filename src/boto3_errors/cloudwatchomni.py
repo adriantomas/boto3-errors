@@ -51,6 +51,14 @@ class InternalServerException(CloudWatchOmniError):
         return self.response.get("errorCode")
 
 
+class PolicyTooLargeException(CloudWatchOmniError):
+    """The requested actions produce a credential that exceeds the maximum size. Request
+    fewer actions.
+    """
+
+    _ERROR_CODE = "PolicyTooLargeException"
+
+
 class ResourceNotFoundException(CloudWatchOmniError):
     """The specified resource does not exist."""
     _ERROR_CODE = "ResourceNotFoundException"
@@ -100,6 +108,7 @@ EXCEPTIONS: dict[str, type[CloudWatchOmniError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
     "InternalServerException": InternalServerException,
+    "PolicyTooLargeException": PolicyTooLargeException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "ThrottlingException": ThrottlingException,
