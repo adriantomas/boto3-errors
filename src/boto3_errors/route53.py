@@ -207,6 +207,11 @@ class InvalidArgument(Route53Error):
 class InvalidChangeBatch(Route53Error):
     """This exception contains a list of messages that might contain one or more error
     messages. Each error message indicates one error in the change batch.
+
+    Route 53 also returns this error when the change batch creates, updates, or deletes
+    a resource record set whose name and type have a resource record set protection. To
+    make the change, first delete the protection by using
+    `DeleteResourceRecordSetProtections`.
     """
 
     _ERROR_CODE = "InvalidChangeBatch"
@@ -253,6 +258,20 @@ class InvalidPaginationToken(Route53Error):
     """
 
     _ERROR_CODE = "InvalidPaginationToken"
+
+
+class InvalidResourceRecordSetProtectionBatch(Route53Error):
+    """One or more entries in the request couldn't be processed, so Route 53 didn't create
+    or delete any of the protections in the request. The `Errors` element lists the
+    failing entries and the reason that each one failed.
+    """
+
+    _ERROR_CODE = "InvalidResourceRecordSetProtectionBatch"
+
+    @property
+    def errors(self) -> list[Any] | None:
+        """The entries that failed, with the reason that each one failed."""
+        return self.response.get("Errors")
 
 
 class InvalidSigningStatus(Route53Error):
@@ -404,6 +423,19 @@ class PriorRequestNotComplete(Route53Error):
     """
 
     _ERROR_CODE = "PriorRequestNotComplete"
+
+
+class ProtectionAlreadyExists(Route53Error):
+    """A protection already exists for every name and type in the request, so Route 53
+    didn't create any protections. The `Errors` element lists each entry.
+    """
+
+    _ERROR_CODE = "ProtectionAlreadyExists"
+
+    @property
+    def errors(self) -> list[Any] | None:
+        """The entries that already have a protection."""
+        return self.response.get("Errors")
 
 
 class PublicZoneVPCAssociation(Route53Error):
@@ -592,6 +624,7 @@ EXCEPTIONS: dict[str, type[Route53Error]] = {
     "InvalidKeySigningKeyName": InvalidKeySigningKeyName,
     "InvalidKeySigningKeyStatus": InvalidKeySigningKeyStatus,
     "InvalidPaginationToken": InvalidPaginationToken,
+    "InvalidResourceRecordSetProtectionBatch": InvalidResourceRecordSetProtectionBatch,
     "InvalidSigningStatus": InvalidSigningStatus,
     "InvalidTrafficPolicyDocument": InvalidTrafficPolicyDocument,
     "InvalidVPCId": InvalidVPCId,
@@ -615,6 +648,7 @@ EXCEPTIONS: dict[str, type[Route53Error]] = {
     "NoSuchTrafficPolicyInstance": NoSuchTrafficPolicyInstance,
     "NotAuthorizedException": NotAuthorizedException,
     "PriorRequestNotComplete": PriorRequestNotComplete,
+    "ProtectionAlreadyExists": ProtectionAlreadyExists,
     "PublicZoneVPCAssociation": PublicZoneVPCAssociation,
     "QueryLoggingConfigAlreadyExists": QueryLoggingConfigAlreadyExists,
     "ThrottlingException": ThrottlingException,

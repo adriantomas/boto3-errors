@@ -17,9 +17,9 @@ class CodeValidationException(KinesisAnalyticsV2Error):
 
 
 class ConcurrentModificationException(KinesisAnalyticsV2Error):
-    """Exception thrown as a result of concurrent modifications to an application. This
-    error can be the result of attempting to modify an application without using the
-    current application ID.
+    """Exception thrown as a result of concurrent modifications to an application or
+    snapshot. This error can be the result of attempting to modify an application
+    without using the current application ID.
     """
 
     _ERROR_CODE = "ConcurrentModificationException"
@@ -46,12 +46,12 @@ class LimitExceededException(KinesisAnalyticsV2Error):
 
 
 class ResourceInUseException(KinesisAnalyticsV2Error):
-    """The application is not available for this operation."""
+    """The application or snapshot is not available for this operation."""
     _ERROR_CODE = "ResourceInUseException"
 
 
 class ResourceNotFoundException(KinesisAnalyticsV2Error):
-    """Specified application can't be found."""
+    """The specified application, snapshot, or snapshot operation can't be found."""
     _ERROR_CODE = "ResourceNotFoundException"
 
 
