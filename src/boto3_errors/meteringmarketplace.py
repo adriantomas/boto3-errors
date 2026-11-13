@@ -24,7 +24,8 @@ class DisabledApiException(MarketplaceMeteringError):
 class DuplicateRequestException(MarketplaceMeteringError):
     """A metering record has already been emitted by the same EC2 instance, ECS task, or
     EKS pod for the given {`usageDimension`, `timestamp`} with a different
-    `usageQuantity`.
+    `usageQuantity`. Quantities are compared by value, so a whole-number and a decimal
+    quantity with the same value (for example, `17` and `17.00`) are not different.
     """
 
     _ERROR_CODE = "DuplicateRequestException"
@@ -109,7 +110,11 @@ class InvalidTokenException(MarketplaceMeteringError):
 
 
 class InvalidUsageAllocationsException(MarketplaceMeteringError):
-    """Sum of allocated usage quantities is not equal to the usage quantity."""
+    """Sum of allocated usage quantities is not equal to the usage quantity, or the
+    allocations don't use the same type of quantity (whole number or decimal) as the
+    usage quantity.
+    """
+
     _ERROR_CODE = "InvalidUsageAllocationsException"
 
 
