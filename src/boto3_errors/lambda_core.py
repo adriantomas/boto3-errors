@@ -38,8 +38,8 @@ class NetworkConnectorLimitExceededException(LambdaCoreError):
 
 class ResourceConflictException(LambdaCoreError):
     """The request could not be completed due to a conflict with the current state of the
-    resource. For example, attempting to update a connector that is not in `ACTIVE`
-    state.
+    resource. For example, attempting to modify a resource that is not in a state that
+    permits the operation.
     """
 
     _ERROR_CODE = "ResourceConflictException"
@@ -51,10 +51,7 @@ class ResourceConflictException(LambdaCoreError):
 
 
 class ResourceNotFoundException(LambdaCoreError):
-    """The specified network connector does not exist. Verify the identifier (ID, name, or
-    ARN) and Region.
-    """
-
+    """The specified resource does not exist. Verify the identifier and Region."""
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
@@ -66,6 +63,19 @@ class ResourceNotFoundException(LambdaCoreError):
 class ServiceException(LambdaCoreError):
     """An internal service error occurred. Retry the request with exponential backoff."""
     _ERROR_CODE = "ServiceException"
+
+    @property
+    def type(self) -> str | None:
+        """The exception type."""
+        return self.response.get("Type")
+
+
+class ServiceQuotaExceededException(LambdaCoreError):
+    """The request would exceed a service quota for your account. Request a quota increase
+    or reduce the number of resources in use, then retry the request.
+    """
+
+    _ERROR_CODE = "ServiceQuotaExceededException"
 
     @property
     def type(self) -> str | None:
@@ -102,5 +112,6 @@ EXCEPTIONS: dict[str, type[LambdaCoreError]] = {
     "ResourceConflictException": ResourceConflictException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceException": ServiceException,
+    "ServiceQuotaExceededException": ServiceQuotaExceededException,
     "TooManyRequestsException": TooManyRequestsException,
 }
