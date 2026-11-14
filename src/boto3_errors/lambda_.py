@@ -531,6 +531,32 @@ class ResourceNotReadyException(LambdaError):
         return self.response.get("Type")
 
 
+class RuntimeAliasDeletedException(LambdaError):
+    """The runtime alias for your function is no longer available. Update your function to
+    use an available runtime alias.
+    """
+
+    _ERROR_CODE = "RuntimeAliasDeletedException"
+
+    @property
+    def type(self) -> str | None:
+        """Indicates the exception type for a deleted runtime alias."""
+        return self.response.get("Type")
+
+
+class RuntimeVersionDeletedException(LambdaError):
+    """The runtime version used by your function is no longer available. Update your
+    function to use an available runtime version or runtime alias.
+    """
+
+    _ERROR_CODE = "RuntimeVersionDeletedException"
+
+    @property
+    def type(self) -> str | None:
+        """Indicates the exception type for a deleted runtime version."""
+        return self.response.get("Type")
+
+
 class S3FilesMountConnectivityException(LambdaError):
     """The Lambda function couldn't make a network connection to the configured S3 Files
     access point.
@@ -738,6 +764,8 @@ EXCEPTIONS: dict[str, type[LambdaError]] = {
     "ResourceInUseException": ResourceInUseException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ResourceNotReadyException": ResourceNotReadyException,
+    "RuntimeAliasDeletedException": RuntimeAliasDeletedException,
+    "RuntimeVersionDeletedException": RuntimeVersionDeletedException,
     "S3FilesMountConnectivityException": S3FilesMountConnectivityException,
     "S3FilesMountFailureException": S3FilesMountFailureException,
     "S3FilesMountTimeoutException": S3FilesMountTimeoutException,
