@@ -16,6 +16,14 @@ class ConflictException(SageMakerError):
     _ERROR_CODE = "ConflictException"
 
 
+class ResourceAlreadyExists(SageMakerError):
+    """The resource that you are trying to create already exists. Use a different resource
+    name, or delete the existing resource before retrying.
+    """
+
+    _ERROR_CODE = "ResourceAlreadyExists"
+
+
 class ResourceInUse(SageMakerError):
     """Resource being accessed is in use."""
     _ERROR_CODE = "ResourceInUse"
@@ -36,6 +44,7 @@ class ResourceNotFound(SageMakerError):
 
 EXCEPTIONS: dict[str, type[SageMakerError]] = {
     "ConflictException": ConflictException,
+    "ResourceAlreadyExists": ResourceAlreadyExists,
     "ResourceInUse": ResourceInUse,
     "ResourceLimitExceeded": ResourceLimitExceeded,
     "ResourceNotFound": ResourceNotFound,

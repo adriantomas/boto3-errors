@@ -19,11 +19,12 @@ class InternalServerException(IAMToolboxError):
 
 
 class ResourceNotFoundException(IAMToolboxError):
-    """The requested authorization details do not exist in this region or have expired.
-    Verify that the authorization ID from the access denied error message is correct and
-    the call is made in the region where the denial occurred. Ensure that the calling
-    principal belongs to the same account or organization as the original denied
-    request.
+    """The requested policy or authorization details do not exist in this region or have
+    expired. Verify that the authorization ID from the access denied error message is
+    correct and the call is made in the region where the denial occurred. Ensure that
+    the calling principal belongs to the same account or organization as the original
+    denied request. If you specified a policy URI, verify that it is from the `policies`
+    list that `GetRequestAuthorizationDetails` returns for the same authorization ID.
     """
 
     _ERROR_CODE = "ResourceNotFoundException"
