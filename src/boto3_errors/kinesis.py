@@ -50,10 +50,7 @@ class KMSAccessDeniedException(KinesisError):
 
 
 class KMSDisabledException(KinesisError):
-    """The request was rejected because the specified customer master key (CMK) isn't
-    enabled.
-    """
-
+    """The request was rejected because the specified KMS key isn't enabled."""
     _ERROR_CODE = "KMSDisabledException"
 
 
@@ -120,10 +117,18 @@ class ResourceNotFoundException(KinesisError):
     _ERROR_CODE = "ResourceNotFoundException"
 
 
+class ThrottlingException(KinesisError):
+    """The request was denied because the request rate is too high. Reduce the frequency of
+    your requests, and retry them with exponential backoff.
+    """
+
+    _ERROR_CODE = "ThrottlingException"
+
+
 class ValidationException(KinesisError):
-    """Specifies that you tried to invoke this API for a data stream with the on-demand
-    capacity mode. This API is only supported for data streams with the provisioned
-    capacity mode.
+    """The request failed validation. For example, a parameter value is not valid, a
+    combination of parameters is not supported, or the operation is not supported for
+    the stream's capacity mode. The error message describes the specific reason.
     """
 
     _ERROR_CODE = "ValidationException"
@@ -146,5 +151,6 @@ EXCEPTIONS: dict[str, type[KinesisError]] = {
     "ProvisionedThroughputExceededException": ProvisionedThroughputExceededException,
     "ResourceInUseException": ResourceInUseException,
     "ResourceNotFoundException": ResourceNotFoundException,
+    "ThrottlingException": ThrottlingException,
     "ValidationException": ValidationException,
 }
