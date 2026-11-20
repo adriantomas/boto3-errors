@@ -27,6 +27,14 @@ class AliasExistsException(CognitoIdentityProviderError):
     _ERROR_CODE = "AliasExistsException"
 
 
+class CachedCIMDURLDoesNotExistException(CognitoIdentityProviderError):
+    """This exception is thrown when Amazon Cognito doesn't have a cached client metadata
+    document for the URL in the request.
+    """
+
+    _ERROR_CODE = "CachedCIMDURLDoesNotExistException"
+
+
 class CodeDeliveryFailureException(CognitoIdentityProviderError):
     """This exception is thrown when a verification code fails to deliver successfully."""
     _ERROR_CODE = "CodeDeliveryFailureException"
@@ -434,6 +442,7 @@ class WebAuthnRelyingPartyMismatchException(CognitoIdentityProviderError):
 EXCEPTIONS: dict[str, type[CognitoIdentityProviderError]] = {
     "AccessDeniedException": AccessDeniedException,
     "AliasExistsException": AliasExistsException,
+    "CachedCIMDURLDoesNotExistException": CachedCIMDURLDoesNotExistException,
     "CodeDeliveryFailureException": CodeDeliveryFailureException,
     "CodeMismatchException": CodeMismatchException,
     "ConcurrentModificationException": ConcurrentModificationException,
