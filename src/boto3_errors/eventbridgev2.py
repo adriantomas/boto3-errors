@@ -70,10 +70,7 @@ class LimitExceededException(EventBridgeV2Error):
 
 
 class PolicyLengthExceededException(EventBridgeV2Error):
-    """The policy document is larger than the account's resource policy size quota, or
-    larger than the service maximum.
-    """
-
+    """The policy document exceeds the maximum allowed size."""
     _ERROR_CODE = "PolicyLengthExceededException"
 
 

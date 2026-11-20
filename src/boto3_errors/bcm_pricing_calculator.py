@@ -9,25 +9,28 @@ class BCMPricingCalculatorError(Boto3Error):
 
 
 class AccessDeniedException(BCMPricingCalculatorError):
-    """You do not have sufficient access to perform this action."""
+    """The request is denied because you don't have sufficient permissions to perform this
+    operation. Verify that you have the required permissions and try again.
+    """
+
     _ERROR_CODE = "AccessDeniedException"
 
 
 class ConflictException(BCMPricingCalculatorError):
-    """The request could not be processed because of conflict in the current state of the
-    resource.
+    """The request couldn't be processed because the resource is in a conflicting state.
+    Verify the resource's current state and retry the request.
     """
 
     _ERROR_CODE = "ConflictException"
 
     @property
     def resource_id(self) -> str | None:
-        """The identifier of the resource that was not found."""
+        """The identifier of the resource that is in a conflicting state."""
         return self.response.get("resourceId")
 
     @property
     def resource_type(self) -> str | None:
-        """The type of the resource that was not found."""
+        """The type of the resource that is in a conflicting state."""
         return self.response.get("resourceType")
 
 
@@ -52,17 +55,17 @@ class InternalServerException(BCMPricingCalculatorError):
 
 
 class ResourceNotFoundException(BCMPricingCalculatorError):
-    """The specified resource was not found."""
+    """The specified resource wasn't found."""
     _ERROR_CODE = "ResourceNotFoundException"
 
     @property
     def resource_id(self) -> str | None:
-        """The identifier of the resource that was not found."""
+        """The identifier of the resource that wasn't found."""
         return self.response.get("resourceId")
 
     @property
     def resource_type(self) -> str | None:
-        """The type of the resource that was not found."""
+        """The type of the resource that wasn't found."""
         return self.response.get("resourceType")
 
 

@@ -131,6 +131,18 @@ class HealthCheckInUse(Route53Error):
     _ERROR_CODE = "HealthCheckInUse"
 
 
+class HealthCheckSourceAlreadyExists(Route53Error):
+    """The health check source that you're attempting to create already exists. Route 53
+    returns this error when you submit a request that has the same value for
+    `CallerReference` as an existing health check source and one or more values that
+    differ from the existing health check source. To create another health check source,
+    specify a new value for `CallerReference`. To find the existing health check source,
+    call `ListHealthCheckSources`.
+    """
+
+    _ERROR_CODE = "HealthCheckSourceAlreadyExists"
+
+
 class HealthCheckVersionMismatch(Route53Error):
     """The value of `HealthCheckVersion` in the request doesn't match the value of
     `HealthCheckVersion` in the health check.
@@ -381,6 +393,14 @@ class NoSuchHealthCheck(Route53Error):
     _ERROR_CODE = "NoSuchHealthCheck"
 
 
+class NoSuchHealthCheckSource(Route53Error):
+    """No health check source exists with the specified ID. Verify that the ID is correct
+    and that the health check source hasn't been deleted.
+    """
+
+    _ERROR_CODE = "NoSuchHealthCheckSource"
+
+
 class NoSuchHostedZone(Route53Error):
     """No hosted zone exists with the ID that you specified."""
     _ERROR_CODE = "NoSuchHostedZone"
@@ -459,9 +479,28 @@ class ThrottlingException(Route53Error):
     _ERROR_CODE = "ThrottlingException"
 
 
+class TooManyHealthCheckSources(Route53Error):
+    """You can't create this health check source because the current account has reached
+    its maximum number of health check sources. The maximum includes every health check
+    source that hasn't reached `DELETE_COMPLETED` status, including a health check
+    source with a status of `CREATE_FAILED`.
+
+    For information about default limits, see Limits in the Amazon Route 53 Developer
+    Guide.
+
+    For information about how to get the current limit for an account, see
+    GetAccountLimit. To request a higher limit, create a case with the Amazon Web
+    Services Support Center.
+    """
+
+    _ERROR_CODE = "TooManyHealthCheckSources"
+
+
 class TooManyHealthChecks(Route53Error):
     """This health check can't be created because the current account has reached the limit
-    on the number of active health checks.
+    on the number of active health checks, or because the health check source for a
+    private health check has reached its limit on active health checks. In the second
+    case, specify a different health check source.
 
     For information about default limits, see Limits in the Amazon Route 53 Developer
     Guide.
@@ -608,6 +647,7 @@ EXCEPTIONS: dict[str, type[Route53Error]] = {
     "DelegationSetNotReusable": DelegationSetNotReusable,
     "HealthCheckAlreadyExists": HealthCheckAlreadyExists,
     "HealthCheckInUse": HealthCheckInUse,
+    "HealthCheckSourceAlreadyExists": HealthCheckSourceAlreadyExists,
     "HealthCheckVersionMismatch": HealthCheckVersionMismatch,
     "HostedZoneAlreadyExists": HostedZoneAlreadyExists,
     "HostedZoneNotEmpty": HostedZoneNotEmpty,
@@ -641,6 +681,7 @@ EXCEPTIONS: dict[str, type[Route53Error]] = {
     "NoSuchDelegationSet": NoSuchDelegationSet,
     "NoSuchGeoLocation": NoSuchGeoLocation,
     "NoSuchHealthCheck": NoSuchHealthCheck,
+    "NoSuchHealthCheckSource": NoSuchHealthCheckSource,
     "NoSuchHostedZone": NoSuchHostedZone,
     "NoSuchKeySigningKey": NoSuchKeySigningKey,
     "NoSuchQueryLoggingConfig": NoSuchQueryLoggingConfig,
@@ -652,6 +693,7 @@ EXCEPTIONS: dict[str, type[Route53Error]] = {
     "PublicZoneVPCAssociation": PublicZoneVPCAssociation,
     "QueryLoggingConfigAlreadyExists": QueryLoggingConfigAlreadyExists,
     "ThrottlingException": ThrottlingException,
+    "TooManyHealthCheckSources": TooManyHealthCheckSources,
     "TooManyHealthChecks": TooManyHealthChecks,
     "TooManyHostedZones": TooManyHostedZones,
     "TooManyKeySigningKeys": TooManyKeySigningKeys,

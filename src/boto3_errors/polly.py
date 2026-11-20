@@ -8,6 +8,34 @@ class PollyError(Boto3Error):
     _SERVICE = "polly"
 
 
+class AccessDeniedException(PollyError):
+    """You don't have sufficient permissions to perform this action. For a custom voice
+    that uses a customer managed key, Amazon Polly also returns this exception if you
+    don't have the required Amazon Web Services KMS permissions on the key.
+    """
+
+    _ERROR_CODE = "AccessDeniedException"
+
+
+class ConflictException(PollyError):
+    """The request conflicts with the current state of the resource. For a custom voice,
+    the voice isn't in the status that the operation requires. Check the status with
+    `GetVoice`, and then try again.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+    @property
+    def resource_id(self) -> str | None:
+        """The ID of the resource that the request conflicts with."""
+        return self.response.get("resourceId")
+
+    @property
+    def resource_type(self) -> str | None:
+        """The type of the resource that the request conflicts with."""
+        return self.response.get("resourceType")
+
+
 class EngineNotSupportedException(PollyError):
     """This engine is not compatible with the voice that you have designated. Choose a new
     voice that is compatible with the engine or change the engine and restart the
@@ -124,7 +152,7 @@ class MaxLexiconsNumberExceededException(PollyError):
 
 class ResourceNotFoundException(PollyError):
     """Amazon Polly can't find the specified resource. Verify that the resource exists in
-    the Amazon Web Services account and Region of the request and that its ARN is
+    the Amazon Web Services account and Region of the request and that its ARN or ID is
     spelled correctly, and then try again.
     """
 
@@ -231,11 +259,22 @@ class ValidationException(PollyError):
 
     @property
     def reason(self) -> str | None:
-        """The reason the request failed validation."""
+        """The reason the request failed validation. If Amazon Polly can't use the Amazon
+        Web Services KMS key that you specified in `CreateVoice`, `fields` names
+        `CustomerManagedEncryption.KmsKeyArn` and the reason is one of the following:
+        kmsKeyNotFound
+
+        No key with the specified ARN exists. kmsKeyUnusable
+
+        The key is disabled, scheduled for deletion, or missing its key material, or it
+        isn't a symmetric encryption key.
+        """
         return self.response.get("reason")
 
 
 EXCEPTIONS: dict[str, type[PollyError]] = {
+    "AccessDeniedException": AccessDeniedException,
+    "ConflictException": ConflictException,
     "EngineNotSupportedException": EngineNotSupportedException,
     "InvalidLexiconException": InvalidLexiconException,
     "InvalidNextTokenException": InvalidNextTokenException,

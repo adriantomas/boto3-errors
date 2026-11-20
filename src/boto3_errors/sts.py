@@ -46,6 +46,17 @@ class IDPRejectedClaimException(STSError):
     _ERROR_CODE = "IDPRejectedClaim"
 
 
+class InsufficientSessionLifetimeException(STSError):
+    """The request was rejected because the requested `DurationSeconds` is greater than the
+    remaining lifetime of the calling session. `GetScopedCredentials` cannot extend a
+    session beyond its original expiration. Request a duration that is less than or
+    equal to the calling session's remaining lifetime, or omit `DurationSeconds` to
+    inherit it.
+    """
+
+    _ERROR_CODE = "InsufficientSessionLifetime"
+
+
 class InvalidAuthorizationMessageException(STSError):
     """The error returned if the message passed to `DecodeAuthorizationMessage` was
     invalid. This can happen if the token contains invalid characters, such as line
@@ -55,6 +66,15 @@ class InvalidAuthorizationMessageException(STSError):
     _ERROR_CODE = "InvalidAuthorizationMessageException"
 
 
+class InvalidContextAssertionException(STSError):
+    """The request was rejected because the context assertion that was provided is invalid.
+    This can happen if the context assertion supplied in the `ProvidedContexts`
+    parameter is malformed, has expired, or does not match a trusted context provider.
+    """
+
+    _ERROR_CODE = "InvalidContextAssertion"
+
+
 class InvalidIdentityTokenException(STSError):
     """The web identity token that was passed could not be validated by Amazon Web
     Services. Get a new identity token from the identity provider and then retry the
@@ -62,6 +82,15 @@ class InvalidIdentityTokenException(STSError):
     """
 
     _ERROR_CODE = "InvalidIdentityToken"
+
+
+class InvalidSubjectCredentialsException(STSError):
+    """The request was rejected because the session used to call `GetScopedCredentials` is
+    not a valid session. The calling session's credentials could not be validated or
+    resolved.
+    """
+
+    _ERROR_CODE = "InvalidSubjectCredentials"
 
 
 class JWTPayloadSizeExceededException(STSError):
@@ -91,16 +120,15 @@ class OutboundWebIdentityFederationDisabledException(STSError):
 
 
 class PackedPolicyTooLargeException(STSError):
-    """The request was rejected because the total packed size of the session policies and
-    session tags combined was too large. An Amazon Web Services conversion compresses
-    the session policy document, session policy ARNs, and session tags into a packed
-    binary format that has a separate limit. The error message indicates by percentage
-    how close the policies and tags are to the upper size limit. For more information,
-    see Passing Session Tags in STS in the IAM User Guide.
+    """The request was rejected because the session token exceeded the maximum allowed
+    size. The error message reports the session token size and the maximum allowed size,
+    both in bytes. Session policies and session tags add to the session token size. For
+    more information, see Passing Session Tags in STS in the IAM User Guide.
 
-    You could receive this error even though you meet other defined session policy and
-    session tag limits. For more information, see IAM and STS Entity Character Limits in
-    the IAM User Guide.
+    You might receive this error even though you meet the individual session policy and
+    session tag limits. Monitor `SessionTokenUtilization` to track how close the session
+    token is to the maximum allowed size. For more information, see IAM and STS Entity
+    Character Limits in the IAM User Guide.
     """
 
     _ERROR_CODE = "PackedPolicyTooLarge"
@@ -130,8 +158,11 @@ EXCEPTIONS: dict[str, type[STSError]] = {
     "ExpiredTradeInTokenException": ExpiredTradeInTokenException,
     "IDPCommunicationError": IDPCommunicationErrorException,
     "IDPRejectedClaim": IDPRejectedClaimException,
+    "InsufficientSessionLifetime": InsufficientSessionLifetimeException,
     "InvalidAuthorizationMessageException": InvalidAuthorizationMessageException,
+    "InvalidContextAssertion": InvalidContextAssertionException,
     "InvalidIdentityToken": InvalidIdentityTokenException,
+    "InvalidSubjectCredentials": InvalidSubjectCredentialsException,
     "JWTPayloadSizeExceededException": JWTPayloadSizeExceededException,
     "MalformedPolicyDocument": MalformedPolicyDocumentException,
     "OutboundWebIdentityFederationDisabledException": OutboundWebIdentityFederationDisabledException,
