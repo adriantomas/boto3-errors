@@ -18,6 +18,16 @@ class ConflictException(AgentRegistryControlError):
     _ERROR_CODE = "ConflictException"
 
 
+class DependencyException(AgentRegistryControlError):
+    """This exception is thrown on a database (or other dependency) error. Modeled as a
+    server error so SDKs retry it (5xx) and it feeds server-error alarming. Marked
+    @retryable because it represents a transient downstream failure that is safe to
+    retry (matches the forwarder's own retry-on-DependencyException behavior).
+    """
+
+    _ERROR_CODE = "DependencyException"
+
+
 class InternalServerException(AgentRegistryControlError):
     """The request failed due to an unexpected internal error; the caller may retry."""
     _ERROR_CODE = "InternalServerException"
@@ -59,6 +69,7 @@ class ValidationException(AgentRegistryControlError):
 EXCEPTIONS: dict[str, type[AgentRegistryControlError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConflictException": ConflictException,
+    "DependencyException": DependencyException,
     "InternalServerException": InternalServerException,
     "ResourceNotFoundException": ResourceNotFoundException,
     "ServiceQuotaExceededException": ServiceQuotaExceededException,
