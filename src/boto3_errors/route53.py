@@ -112,6 +112,16 @@ class DelegationSetNotReusable(Route53Error):
     _ERROR_CODE = "DelegationSetNotReusable"
 
 
+class FeatureNotEnabled(Route53Error):
+    """This error occurs when a feature that the operation requires isn't turned on for the
+    hosted zone. For example, the tier of the hosted zone doesn't include Change
+    History. To resolve this error, turn on the feature, or move the hosted zone to a
+    tier that includes it.
+    """
+
+    _ERROR_CODE = "FeatureNotEnabled"
+
+
 class HealthCheckAlreadyExists(Route53Error):
     """The health check you're attempting to create already exists. Amazon Route 53 returns
     this error when you submit a request that has the following values:
@@ -508,10 +518,6 @@ class TooManyHealthChecks(Route53Error):
     For information about how to get the current limit for an account, see
     GetAccountLimit. To request a higher limit, create a case with the Amazon Web
     Services Support Center.
-
-    You have reached the maximum number of active health checks for an Amazon Web
-    Services account. To request a higher limit, create a case with the Amazon Web
-    Services Support Center.
     """
 
     _ERROR_CODE = "TooManyHealthChecks"
@@ -645,6 +651,7 @@ EXCEPTIONS: dict[str, type[Route53Error]] = {
     "DelegationSetInUse": DelegationSetInUse,
     "DelegationSetNotAvailable": DelegationSetNotAvailable,
     "DelegationSetNotReusable": DelegationSetNotReusable,
+    "FeatureNotEnabled": FeatureNotEnabled,
     "HealthCheckAlreadyExists": HealthCheckAlreadyExists,
     "HealthCheckInUse": HealthCheckInUse,
     "HealthCheckSourceAlreadyExists": HealthCheckSourceAlreadyExists,

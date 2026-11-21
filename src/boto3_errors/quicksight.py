@@ -295,6 +295,21 @@ class UnsupportedUserEditionException(QuickSightError):
         return self.response.get("RequestId")
 
 
+class ValidationException(QuickSightError):
+    """The input fails to satisfy the constraints specified by the service."""
+    _ERROR_CODE = "ValidationException"
+
+    @property
+    def field_list(self) -> list[Any] | None:
+        """A list of the request fields that failed validation."""
+        return self.response.get("FieldList")
+
+    @property
+    def request_id(self) -> str | None:
+        """The Amazon Web Services request ID for this request."""
+        return self.response.get("RequestId")
+
+
 EXCEPTIONS: dict[str, type[QuickSightError]] = {
     "AccessDeniedException": AccessDeniedException,
     "ConcurrentUpdatingException": ConcurrentUpdatingException,
@@ -319,4 +334,5 @@ EXCEPTIONS: dict[str, type[QuickSightError]] = {
     "ThrottlingException": ThrottlingException,
     "UnsupportedPricingPlanException": UnsupportedPricingPlanException,
     "UnsupportedUserEditionException": UnsupportedUserEditionException,
+    "ValidationException": ValidationException,
 }
