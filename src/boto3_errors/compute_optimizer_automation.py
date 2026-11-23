@@ -13,6 +13,14 @@ class AccessDeniedException(ComputeOptimizerAutomationError):
     _ERROR_CODE = "AccessDeniedException"
 
 
+class ConflictException(ComputeOptimizerAutomationError):
+    """The request conflicts with a concurrent change to the same resource. Retry the
+    request.
+    """
+
+    _ERROR_CODE = "ConflictException"
+
+
 class ForbiddenException(ComputeOptimizerAutomationError):
     """You are not authorized to perform this action."""
     _ERROR_CODE = "ForbiddenException"
@@ -42,7 +50,10 @@ class InvalidParameterValueException(ComputeOptimizerAutomationError):
 
 
 class NotManagementAccountException(ComputeOptimizerAutomationError):
-    """The operation can only be performed by a management account."""
+    """The operation can only be performed by an organization's management account or a
+    delegated administrator.
+    """
+
     _ERROR_CODE = "NotManagementAccountException"
 
 
@@ -76,6 +87,7 @@ class ThrottlingException(ComputeOptimizerAutomationError):
 
 EXCEPTIONS: dict[str, type[ComputeOptimizerAutomationError]] = {
     "AccessDeniedException": AccessDeniedException,
+    "ConflictException": ConflictException,
     "ForbiddenException": ForbiddenException,
     "IdempotencyTokenInUseException": IdempotencyTokenInUseException,
     "IdempotentParameterMismatchException": IdempotentParameterMismatchException,
