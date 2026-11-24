@@ -75,6 +75,11 @@ class BadRequest(FSxError):
     _ERROR_CODE = "BadRequest"
 
 
+class ClusterPeerNotFound(FSxError):
+    """No Amazon FSx cluster peers were found based on the supplied parameters."""
+    _ERROR_CODE = "ClusterPeerNotFound"
+
+
 class DataRepositoryAssociationNotFound(FSxError):
     """No data repository associations were found based upon the supplied parameters."""
     _ERROR_CODE = "DataRepositoryAssociationNotFound"
@@ -285,9 +290,24 @@ class ServiceLimitExceeded(FSxError):
         return self.response.get("Limit")
 
 
+class SnapmirrorPolicyNotFound(FSxError):
+    """No Amazon FSx SnapMirror policies were found based on the supplied parameters."""
+    _ERROR_CODE = "SnapmirrorPolicyNotFound"
+
+
+class SnapmirrorRelationshipNotFound(FSxError):
+    """No Amazon FSx SnapMirror relationships were found based on the supplied parameters."""
+    _ERROR_CODE = "SnapmirrorRelationshipNotFound"
+
+
 class SnapshotNotFound(FSxError):
     """No Amazon FSx snapshots were found based on the supplied parameters."""
     _ERROR_CODE = "SnapshotNotFound"
+
+
+class SnapshotPolicyNotFound(FSxError):
+    """No Amazon FSx snapshot policies were found based on the supplied parameters."""
+    _ERROR_CODE = "SnapshotPolicyNotFound"
 
 
 class SourceBackupUnavailable(FSxError):
@@ -305,6 +325,14 @@ class SourceBackupUnavailable(FSxError):
 class StorageVirtualMachineNotFound(FSxError):
     """No FSx for ONTAP SVMs were found based upon the supplied parameters."""
     _ERROR_CODE = "StorageVirtualMachineNotFound"
+
+
+class StorageVirtualMachinePeerNotFound(FSxError):
+    """No Amazon FSx storage virtual machine (SVM) peers were found based on the supplied
+    parameters.
+    """
+
+    _ERROR_CODE = "StorageVirtualMachinePeerNotFound"
 
 
 class TooManyAccessPoints(FSxError):
@@ -343,6 +371,7 @@ EXCEPTIONS: dict[str, type[FSxError]] = {
     "BackupNotFound": BackupNotFound,
     "BackupRestoring": BackupRestoring,
     "BadRequest": BadRequest,
+    "ClusterPeerNotFound": ClusterPeerNotFound,
     "DataRepositoryAssociationNotFound": DataRepositoryAssociationNotFound,
     "DataRepositoryTaskEnded": DataRepositoryTaskEnded,
     "DataRepositoryTaskExecuting": DataRepositoryTaskExecuting,
@@ -370,9 +399,13 @@ EXCEPTIONS: dict[str, type[FSxError]] = {
     "ResourceNotFound": ResourceNotFound,
     "S3AccessPointAttachmentNotFound": S3AccessPointAttachmentNotFound,
     "ServiceLimitExceeded": ServiceLimitExceeded,
+    "SnapmirrorPolicyNotFound": SnapmirrorPolicyNotFound,
+    "SnapmirrorRelationshipNotFound": SnapmirrorRelationshipNotFound,
     "SnapshotNotFound": SnapshotNotFound,
+    "SnapshotPolicyNotFound": SnapshotPolicyNotFound,
     "SourceBackupUnavailable": SourceBackupUnavailable,
     "StorageVirtualMachineNotFound": StorageVirtualMachineNotFound,
+    "StorageVirtualMachinePeerNotFound": StorageVirtualMachinePeerNotFound,
     "TooManyAccessPoints": TooManyAccessPoints,
     "UnsupportedOperation": UnsupportedOperation,
     "VolumeNotFound": VolumeNotFound,
