@@ -55,7 +55,7 @@ class ConflictException(GlobalAcceleratorError):
 
 
 class EndpointAlreadyExistsException(GlobalAcceleratorError):
-    """The endpoint that you specified doesn't exist."""
+    """The endpoint that you specified already exists."""
     _ERROR_CODE = "EndpointAlreadyExistsException"
 
 
